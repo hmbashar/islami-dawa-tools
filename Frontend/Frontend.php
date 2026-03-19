@@ -15,6 +15,7 @@ if (!defined('ABSPATH')) {
 }
 
 use IslamiDawaTools\Frontend\GravityForms\GravityForms;
+use IslamiDawaTools\Frontend\Elementor\Elementor;
 
 /**
  * Class Frontend
@@ -27,6 +28,7 @@ use IslamiDawaTools\Frontend\GravityForms\GravityForms;
 class Frontend
 {
     protected $gravity_forms;
+    protected $elementor;
 
     /**
      * Constructor for Frontend class.
@@ -48,6 +50,9 @@ class Frontend
     {
         // Initialize Gravity Forms module.
         $this->gravity_forms = new GravityForms();
+
+        // Initialize Elementor module.
+        $this->elementor = new Elementor();
     }
 
     /**

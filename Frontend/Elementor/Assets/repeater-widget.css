@@ -1,0 +1,203 @@
+/**
+ * ACF Repeater Widget Styles
+ * 
+ * @package IslamiDawaTools
+ */
+
+/* Container Styles */
+.repeater-container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Table Layout */
+.repeater-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+}
+
+.repeater-table thead {
+    background-color: #f5f5f5;
+    font-weight: bold;
+}
+
+.repeater-table th,
+.repeater-table td {
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+    text-align: left;
+}
+
+.repeater-table th {
+    font-weight: 600;
+    color: #333;
+}
+
+.repeater-table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+.repeater-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* List Layout */
+.repeater-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.repeater-list > li {
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.repeater-list > li:last-child {
+    border-bottom: none;
+}
+
+.repeater-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+}
+
+.repeater-list li {
+    padding: 5px 0;
+    font-size: 14px;
+}
+
+.repeater-list strong {
+    display: inline-block;
+    min-width: 120px;
+    color: #555;
+}
+
+/* Cards Layout */
+.repeater-cards-container {
+    display: grid;
+    gap: 20px;
+}
+
+.repeater-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #fff;
+    transition: all 0.3s ease;
+}
+
+.repeater-card:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.card-field {
+    margin-bottom: 12px;
+}
+
+.card-field:last-child {
+    margin-bottom: 0;
+}
+
+.card-field strong {
+    display: block;
+    color: #333;
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+/* Custom Layout */
+.repeater-custom-container {
+    width: 100%;
+}
+
+.repeater-row {
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background-color: #fafafa;
+}
+
+.repeater-row h4 {
+    margin: 0 0 15px 0;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+}
+
+.repeater-row dl {
+    margin: 0;
+}
+
+.repeater-row dt {
+    font-weight: 600;
+    color: #555;
+    margin-top: 10px;
+    font-size: 13px;
+    text-transform: capitalize;
+}
+
+.repeater-row dd {
+    margin: 5px 0 0 20px;
+    color: #666;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .repeater-table {
+        font-size: 13px;
+    }
+
+    .repeater-table th,
+    .repeater-table td {
+        padding: 8px 10px;
+    }
+
+    .repeater-cards-container {
+        grid-template-columns: 1fr;
+    }
+
+    .repeater-card {
+        padding: 15px;
+    }
+
+    .repeater-list strong {
+        min-width: 80px;
+    }
+}
+
+/* Empty State */
+.elementor-alert {
+    padding: 15px;
+    border-radius: 4px;
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+.elementor-alert-warning {
+    background-color: #fff3cd;
+    border: 1px solid #ffc107;
+    color: #856404;
+}
+
+.elementor-alert-info {
+    background-color: #d1ecf1;
+    border: 1px solid #b8daff;
+    color: #0c5460;
+}
+
+/* Utility Classes */
+.repeater-item {
+    transition: all 0.3s ease;
+}
+
+.repeater-item:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+}
