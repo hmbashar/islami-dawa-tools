@@ -474,8 +474,39 @@ class ACF_Repeater_Widget extends Widget_Base
             return;
         }
 
-        // Get the repeater field data
-        $repeater_data = get_field($field_key);
+        // Check if field key is provided
+        if (empty($field_key)) {
+            echo '<div class="elementor-alert elementor-alert-info">';
+            echo esc_html__('Please enter a repeater field key.', 'islami-dawa-tools');
+            echo '</div>';
+            return;
+        }
+
+        // Get post ID from Elementor context
+        $post_id = get_the_ID();
+        
+        // In editor mode, try to get the document post ID
+        if (defined('ELEMENTOR_VERSION')) {
+            try {
+                $document = \Elementor\Plugin::$instance->documents->get_current();
+                if ($document && $document->get_post()) {
+                    $post_id = $document->get_post()->ID;
+                }
+            } catch (\Exception $e) {
+                // Fail silently and use the default post_id
+            }
+        }
+
+        // Validate post ID
+        if (!$post_id || $post_id <= 0) {
+            echo '<div class="elementor-alert elementor-alert-info">';
+            echo esc_html__('No post context found. This widget only works on single posts or pages.', 'islami-dawa-tools');
+            echo '</div>';
+            return;
+        }
+
+        // Get the repeater field data with post ID
+        $repeater_data = get_field($field_key, $post_id);
 
         // Check if field exists and has data
         if (empty($repeater_data)) {

@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-03-19T08:14:41+00:00\n"
+"POT-Creation-Date: 2026-03-19T08:30:29+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: islami-dawa-tools\n"
@@ -81,112 +81,102 @@ msgid "Table"
 msgstr ""
 
 #: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:139
-msgid "List"
-msgstr ""
-
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:140
-msgid "Cards"
-msgstr ""
-
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:141
 msgid "Icon + Text"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:142
-msgid "Custom (Show All Fields)"
-msgstr ""
-
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:150
-msgid "Widget Heading"
-msgstr ""
-
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:152
-msgid "e.g., Our Services, Features, etc."
-msgstr ""
-
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:162
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:148
 msgid "List Item Icon"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:177
-msgid "Columns"
-msgstr ""
-
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:194
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:167
 msgid "Style"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:204
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:177
 msgid "Border"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:213
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:186
 msgid "Box Shadow"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:221
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:194
 msgid "Padding"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:233
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:206
 msgid "Background Color"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:245
-msgid "Item Background Color"
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:219
+msgid "Icon + Text Styling"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:257
-msgid "Item Border"
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:231
+msgid "Icon Size"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:265
-msgid "Item Padding"
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:263
+msgid "Icon Color"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:279
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:278
+msgid "Space Between Icon & Text"
+msgstr ""
+
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:310
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:388
 msgid "Text Typography"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:287
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:321
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:396
 msgid "Text Color"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:301
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:336
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:351
+msgid "Item Background Color"
+msgstr ""
+
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:366
+msgid "Item Border"
+msgstr ""
+
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:374
+msgid "Item Padding"
+msgstr ""
+
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:410
 msgid "Table Style"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:312
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:421
 msgid "Header Background"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:324
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:433
 msgid "Header Text Color"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:336
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:445
 msgid "Border Color"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:363
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:472
 msgid "ACF (Advanced Custom Fields) is not installed or activated."
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:375
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:484
 #, php-format
 msgid "No data found for repeater field: %s"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:585
-#, php-format
-msgid "Item %d"
-msgstr ""
-
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:674
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:659
 msgid "ACF Repeater Field Widget"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:676
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:661
 msgid "Enter a repeater field key and select a layout to display your ACF repeater data."
 msgstr ""
 
