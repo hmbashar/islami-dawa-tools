@@ -53,9 +53,19 @@ The widget is automatically registered when the plugin is activated and Elemento
    - **Table** - Best for tabular data (default)
    - **List** - Best for simple lists with multiple fields
    - **Cards** - Best for portfolio/showcase style layouts
+   - **Icon + Text** - Best for lists with icons and text (new!)
    - **Custom** - Shows each item separately with all fields displayed
 
-4. **Columns** (for Cards layout) - Set the number of columns (1-6)
+4. **Widget Heading** (only for Icon + Text layout) - Add a heading above the list
+   - Example: "Our Services", "Key Features", "Expenditure Areas"
+   - This is optional and controlled via Elementor text control
+
+5. **List Item Icon** (only for Icon + Text layout) - Choose an icon for each item
+   - Select from 1000+ Font Awesome icons
+   - Default: Checkmark icon (fas fa-check)
+   - The chosen icon will be displayed before each text item
+
+6. **Columns** (for Cards layout) - Set the number of columns (1-6)
 
 ### Step 3: Style the Widget
 
@@ -240,6 +250,29 @@ Features:
 - Complete field separation
 - Maximum readability
 
+### Icon + Text Layout
+
+Best for: Lists with visual indicators and descriptions
+
+```
+Our Services
+✓ Service 1 item text
+✓ Service 2 item text  
+✓ Service 3 item text
+```
+
+Features:
+- Configurable heading at the top
+- User-selectable icon (1000+ Font Awesome icons)
+- Clean, minimal design
+- Responsive list layout
+- Hover effects
+
+**Configuration Example:**
+- Widget Heading: "Our Services"
+- List Item Icon: Checkmark (fas fa-check) or your choice
+- Text pulled from ACF 'text' sub-field
+
 ## Sub-field Keys Guide
 
 The "Sub-field Keys" feature allows you to control exactly which fields from your repeater are displayed.
@@ -375,6 +408,36 @@ The widget automatically handles:
 - **Dates** - Display date values
 - **Arrays** - Join with commas
 - **Complex fields** - Intelligently formatted
+
+### Icon + Text Layout Example
+
+Perfect for displaying categorized lists with visual indicators.
+
+**Configuration:**
+- Repeater Field Key: `expenditure_sector`
+- Sub-field Keys: `text` (show only the text field)
+- Layout: `Icon + Text`
+- Widget Heading: "Expenditure Areas"
+- List Item Icon: Choose from Font Awesome (e.g., fas fa-chart-pie)
+
+**Visual Result:**
+```
+Expenditure Areas
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 Education & Scholarships
+📊 Healthcare & Wellness
+📊 Community Development Projects
+📊 Relief Programs
+📊 Research Initiatives
+```
+
+**Use Cases:**
+- Services or features lists with consistent icons
+- Category listings
+- Process steps
+- Product features
+- Benefits or advantages lists
+- Budget categories (with appropriate icons)
 
 ## Troubleshooting
 

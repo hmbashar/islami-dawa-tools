@@ -13,6 +13,8 @@
  * Namespace: IslamiDawaTools
  * Elementor tested up to: 3.32
  * Elementor Pro tested up to: 3.32
+ * Requires at least: 5.0
+ * Requires PHP: 7.4
  *
  * @package IslamiDawaTools
  * @since 1.0.0

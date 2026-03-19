@@ -135,10 +135,38 @@ class ACF_Repeater_Widget extends Widget_Base
                 'type'    => Controls_Manager::SELECT,
                 'default' => 'table',
                 'options' => [
-                    'table'  => __('Table', 'islami-dawa-tools'),
-                    'list'   => __('List', 'islami-dawa-tools'),
-                    'cards'  => __('Cards', 'islami-dawa-tools'),
-                    'custom' => __('Custom (Show All Fields)', 'islami-dawa-tools'),
+                    'table'      => __('Table', 'islami-dawa-tools'),
+                    'list'       => __('List', 'islami-dawa-tools'),
+                    'cards'      => __('Cards', 'islami-dawa-tools'),
+                    'icon_text'  => __('Icon + Text', 'islami-dawa-tools'),
+                    'custom'     => __('Custom (Show All Fields)', 'islami-dawa-tools'),
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'widget_heading',
+            [
+                'label'       => __('Widget Heading', 'islami-dawa-tools'),
+                'type'        => Controls_Manager::TEXT,
+                'placeholder' => __('e.g., Our Services, Features, etc.', 'islami-dawa-tools'),
+                'condition'   => [
+                    'display_layout' => 'icon_text',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'item_icon',
+            [
+                'label'            => __('List Item Icon', 'islami-dawa-tools'),
+                'type'             => Controls_Manager::ICONS,
+                'default'          => [
+                    'value'   => 'fas fa-check',
+                    'library' => 'fa-solid',
+                ],
+                'condition'        => [
+                    'display_layout' => 'icon_text',
                 ],
             ]
         );
@@ -370,6 +398,9 @@ class ACF_Repeater_Widget extends Widget_Base
             case 'custom':
                 $this->render_custom_layout($repeater_data);
                 break;
+            case 'icon_text':
+                $this->render_icon_text_layout($repeater_data, $settings);
+                break;
             default:
                 $this->render_table_layout($repeater_data);
         }
@@ -573,6 +604,61 @@ class ACF_Repeater_Widget extends Widget_Base
             echo '</div>';
         }
 
+        echo '</div>';
+    }
+
+    /**
+     * Render icon and text layout.
+     *
+     * @since 1.0.0
+     *
+     * @param array $data Repeater data.
+     * @param array $settings Widget settings.
+     */
+    private function render_icon_text_layout($data, $settings)
+    {
+        if (empty($data)) {
+            return;
+        }
+
+        echo '<div class="repeater-container repeater-icon-text-container">';
+
+        // Render heading if provided
+        if (!empty($settings['widget_heading'])) {
+            echo '<h3 class="repeater-heading">' . esc_html($settings['widget_heading']) . '</h3>';
+        }
+
+        echo '<ul class="repeater-icon-text-list">';
+
+        // Get the icon from settings
+        $icon = !empty($settings['item_icon']) ? $settings['item_icon'] : 'fas fa-check';
+
+        foreach ($data as $row) {
+            // Get text from the first/main item
+            $text = '';
+            if (is_array($row)) {
+                // If it's an array, try to get the text field or first value
+                $text = !empty($row['text']) ? $row['text'] : (reset($row) ?: '');
+            } else {
+                $text = $row;
+            }
+
+            echo '<li class="repeater-icon-text-item">';
+
+            // Render icon using Elementor's icon renderer
+            if (!empty($icon)) {
+                echo '<span class="repeater-item-icon">';
+                \Elementor\Icons_Manager::render_icon($icon, ['aria-hidden' => 'true']);
+                echo '</span>';
+            }
+
+            // Render text
+            echo '<span class="repeater-item-text">' . wp_kses_post($text) . '</span>';
+
+            echo '</li>';
+        }
+
+        echo '</ul>';
         echo '</div>';
     }
 
