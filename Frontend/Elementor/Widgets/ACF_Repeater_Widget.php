@@ -118,6 +118,17 @@ class ACF_Repeater_Widget extends Widget_Base
         );
 
         $this->add_control(
+            'sub_field_keys',
+            [
+                'label'       => __('Sub-field Keys (Optional)', 'islami-dawa-tools'),
+                'type'        => Controls_Manager::TEXT,
+                'placeholder' => __('e.g., text, amount, date', 'islami-dawa-tools'),
+                'description' => __('Comma-separated list of sub-field keys to display. Leave empty to show all fields. Example: text, amount, date', 'islami-dawa-tools'),
+                'dynamic'     => ['active' => false],
+            ]
+        );
+
+        $this->add_control(
             'display_layout',
             [
                 'label'   => __('Display Layout', 'islami-dawa-tools'),
@@ -316,6 +327,7 @@ class ACF_Repeater_Widget extends Widget_Base
         $settings = $this->get_settings_for_display();
         $field_key = sanitize_text_field($settings['repeater_field_key']);
         $layout = $settings['display_layout'];
+        $sub_field_keys = $settings['sub_field_keys'];
 
         // Check if ACF is active
         if (!function_exists('get_field')) {
@@ -339,6 +351,11 @@ class ACF_Repeater_Widget extends Widget_Base
             return;
         }
 
+        // Filter fields if sub-field keys are specified
+        if (!empty($sub_field_keys)) {
+            $repeater_data = $this->filter_repeater_fields($repeater_data, $sub_field_keys);
+        }
+
         // Render based on layout
         switch ($layout) {
             case 'table':
@@ -356,6 +373,47 @@ class ACF_Repeater_Widget extends Widget_Base
             default:
                 $this->render_table_layout($repeater_data);
         }
+    }
+
+    /**
+     * Filter repeater fields based on specified sub-field keys.
+     *
+     * @since 1.0.0
+     *
+     * @param array  $repeater_data The original repeater data.
+     * @param string $sub_field_keys Comma-separated sub-field keys.
+     *
+     * @return array Filtered repeater data.
+     */
+    private function filter_repeater_fields($repeater_data, $sub_field_keys)
+    {
+        // Parse the comma-separated keys
+        $keys = array_map('trim', explode(',', $sub_field_keys));
+        $keys = array_filter($keys); // Remove empty values
+
+        if (empty($keys)) {
+            return $repeater_data;
+        }
+
+        // Filter each row to only include specified fields
+        $filtered_data = [];
+        foreach ($repeater_data as $row) {
+            if (is_array($row)) {
+                $filtered_row = [];
+                foreach ($keys as $key) {
+                    if (isset($row[$key])) {
+                        $filtered_row[$key] = $row[$key];
+                    }
+                }
+                if (!empty($filtered_row)) {
+                    $filtered_data[] = $filtered_row;
+                }
+            } else {
+                $filtered_data[] = $row;
+            }
+        }
+
+        return $filtered_data;
     }
 
     /**

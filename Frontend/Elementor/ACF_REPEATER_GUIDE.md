@@ -42,13 +42,20 @@ The widget is automatically registered when the plugin is activated and Elemento
    - Example: `expenditure_sector`
    - This is the same as the field name you used in ACF settings
 
-2. **Display Layout** - Choose how to display your repeater data:
+2. **Sub-field Keys (Optional)** - Specify which sub-fields to display
+   - Example: `text` or `text, amount, date`
+   - Leave empty to display all sub-fields
+   - Use comma-separated values for multiple fields
+   - Order will be preserved as you enter them
+   - Great for displaying only specific content from each repeater item
+
+3. **Display Layout** - Choose how to display your repeater data:
    - **Table** - Best for tabular data (default)
    - **List** - Best for simple lists with multiple fields
    - **Cards** - Best for portfolio/showcase style layouts
    - **Custom** - Shows each item separately with all fields displayed
 
-3. **Columns** (for Cards layout) - Set the number of columns (1-6)
+4. **Columns** (for Cards layout) - Set the number of columns (1-6)
 
 ### Step 3: Style the Widget
 
@@ -71,34 +78,91 @@ The widget supports comprehensive styling options:
 
 ## Example: Using with expenditure_sector
 
-### ACF Setup
+### ACF Setup (Your Structure)
 
-Assuming you have set up an ACF repeater field on a post type with:
+Your ACF repeater field structure:
 
 ```
 Field Name: Expenditure Sector
 Field Key: expenditure_sector
 
 Sub-fields:
-- name (Text field)
-- amount (Number field)
-- description (Textarea)
-- date (Date field)
+- text (Text field)          ← Main content field
+- amount (Number field)      (optional)
+- description (Textarea)     (optional)
+- date (Date field)          (optional)
 ```
 
-### Widget Configuration
+### Widget Configuration - Option 1: Show Only Text
+
+To display only the 'text' sub-field:
 
 1. **Repeater Field Key**: `expenditure_sector`
-2. **Display Layout**: `Table` (for tabular display)
-3. **Columns**: N/A (not applicable for table)
+2. **Sub-field Keys**: `text` ← Single field
+3. **Display Layout**: `Table` or `List`
 
-### Styling
+**Result**: Only the text content will be displayed
+
+### Widget Configuration - Option 2: Show Multiple Fields
+
+To display text and amount:
+
+1. **Repeater Field Key**: `expenditure_sector`
+2. **Sub-field Keys**: `text, amount` ← Comma-separated
+3. **Display Layout**: `Table`
+
+**Result**: Shows both fields in columns
+
+### Widget Configuration - Option 3: Show All Fields
+
+To display all sub-fields:
+
+1. **Repeater Field Key**: `expenditure_sector`
+2. **Sub-field Keys**: (leave empty) ← Empty = show all
+3. **Display Layout**: `Custom`
+
+**Result**: Shows every field in the repeater row
+
+### Styling for Your Repeater
 
 - **Header Background**: Light gray (#f5f5f5)
 - **Header Text Color**: Dark (#333)
 - **Border Color**: Light gray (#ddd)
 - **Item Padding**: 12px 15px
 - **Text Color**: Dark (#333)
+
+### Display Examples
+
+**Table Layout - Text Only**:
+```
+| Text                    |
+|-------------------------|
+| My expenditure content  |
+| Another item content    |
+```
+
+**Table Layout - Text + Amount**:
+```
+| Text                    | Amount |
+|-------------------------|--------|
+| My expenditure content  | 5000   |
+| Another item content    | 8000   |
+```
+
+**List Layout - Text Only**:
+```
+- My expenditure content
+- Another item content
+- Third item content
+```
+
+**Cards Layout - Multiple Fields**:
+```
+┌──────────────────────┐  ┌──────────────────────┐
+│ Text: Core content   │  │ Text: Cost details   │
+│ Amount: 5000 |       │  │ Amount: 8000 |       │
+└──────────────────────┘  └──────────────────────┘
+```
 
 ## Layout Options Explained
 
@@ -107,13 +171,13 @@ Sub-fields:
 Best for: Data with multiple related fields
 
 ```
-| Name | Amount | Description | Date |
-|------|--------|-------------|------|
-| ...  | ...    | ...         | ...  |
+| Text | Amount | Description |
+|------|--------|-------------|
+| ...  | ...    | ...         |
 ```
 
 Features:
-- Automatic column generation from field names
+- Automatic column generation from specified fields
 - Hover effects
 - Alternating row colors
 - Fully responsive
@@ -124,8 +188,8 @@ Best for: Simple, readable lists
 
 ```
 - Item 1
-  - Field Name: Value
-  - Field Amount: Value
+  - Text: Value
+  - Amount: Value
   
 - Item 2
   - Field Name: Value
@@ -175,6 +239,85 @@ Features:
 - Numbered items
 - Complete field separation
 - Maximum readability
+
+## Sub-field Keys Guide
+
+The "Sub-field Keys" feature allows you to control exactly which fields from your repeater are displayed.
+
+### When to Use Sub-field Keys
+
+**Example Scenario: Your expenditure_sector Repeater**
+
+```
+expenditure_sector (Repeater)
+├── text (Text field) 
+├── amount (Number field)
+├── date (Date field)
+└── description (Textarea)
+```
+
+### Usage Examples
+
+#### Example 1: Show Only Text Content
+
+**Configuration:**
+- Repeater Field Key: `expenditure_sector`
+- Sub-field Keys: `text`
+- Layout: `Table`
+
+**Result:** Only the text content is displayed
+
+#### Example 2: Show Text and Amount
+
+**Configuration:**
+- Repeater Field Key: `expenditure_sector`
+- Sub-field Keys: `text, amount`
+- Layout: `Table`
+
+**Result:**
+```
+| Text             | Amount |
+|------------------|--------|
+| Content 1        | 5000   |
+| Content 2        | 8000   |
+```
+
+#### Example 3: Custom Order
+
+**Configuration:**
+- Repeater Field Key: `expenditure_sector`
+- Sub-field Keys: `amount, text, date`
+- Layout: `Table`
+
+**Result:** Fields appear in the order you specify (Amount first, then Text, then Date)
+
+#### Example 4: Show All Fields
+
+**Configuration:**
+- Repeater Field Key: `expenditure_sector`
+- Sub-field Keys: (empty/blank)
+- Layout: `Custom`
+
+**Result:** All sub-fields are displayed
+
+### How to Find Your Sub-field Keys
+
+1. Go to **WordPress Admin** → **Custom Fields** (ACF)
+2. Find your repeater field (`expenditure_sector`)
+3. Expand it to see sub-fields
+4. The sub-field **keys** are in brackets, e.g.:
+   - Text (key: `text`)
+   - Amount (key: `amount`)
+   - Date (key: `date`)
+
+### Common Sub-field Key Formats
+
+```
+Single field:      text
+Multiple fields:   text, amount
+With spaces:       text, amount, date
+Order matters:     date, text, amount (shows in this order)
+```
 
 ## Styling Tips
 
@@ -301,6 +444,15 @@ apply_filters('islami_dawa_repeater_field_label', $label, $field_key);
 
 **Q: Can I use multiple repeater widgets on one page?**  
 A: Yes, each widget can display different repeater fields.
+
+**Q: What are "Sub-field Keys"?**  
+A: These are the field names within your repeater. For example, if your repeater has fields named "text", "amount", and "date", you can specify which ones to display by entering them comma-separated: `text, amount`. Leave empty to show all.
+
+**Q: How do I find my sub-field keys?**  
+A: In ACF field settings, expand your repeater field. Each sub-field shows its key in brackets. For example: "Expenditure Text (text)" means the key is "text".
+
+**Q: Can I change the order of sub-fields?**  
+A: Yes! Enter them in your desired order in the Sub-field Keys setting. For example, `amount, text, date` will display Amount first, then Text, then Date.
 
 **Q: Can I filter or search repeater data?**  
 A: Currently no, but can be added via custom hooks.
