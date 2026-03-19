@@ -5,94 +5,110 @@
  */
 
 /* Container Styles */
-.repeater-container {
+.isdc-acf-repeater-table.repeater-container {
     width: 100%;
     margin: 0;
     padding: 0;
 }
 
 /* Table Layout */
-.repeater-table {
+.isdc-acf-repeater-table.repeater-table {
     width: 100%;
     border-collapse: collapse;
     margin: 0;
 }
 
-.repeater-table thead {
+.isdc-acf-repeater-table .repeater-table thead {
     background-color: #f5f5f5;
     font-weight: bold;
 }
 
-.repeater-table th,
-.repeater-table td {
+.isdc-acf-repeater-table .repeater-table th,
+.isdc-acf-repeater-table .repeater-table td {
     border: 1px solid #ddd;
     padding: 12px 15px;
     text-align: left;
 }
 
-.repeater-table th {
+.isdc-acf-repeater-table .repeater-table th {
     font-weight: 600;
     color: #333;
 }
 
-.repeater-table tbody tr:hover {
+.isdc-acf-repeater-table.repeater-table tbody tr:hover {
     background-color: #f9f9f9;
 }
 
-.repeater-table tbody tr:nth-child(even) {
+.isdc-acf-repeater-table .repeater-table tbody tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .repeater-table {
+    .isdc-acf-repeater-table .repeater-table {
         font-size: 13px;
     }
 
-    .repeater-table th,
-    .repeater-table td {
+    .isdc-acf-repeater-table .repeater-table th,
+    .isdc-acf-repeater-table .repeater-table td {
         padding: 8px 10px;
     }
 
-    .repeater-icon-text-item {
+    .isdc-acf-repeater-list .repeater-icon-text-item {
         padding: 10px 0;
         gap: 10px;
     }
 
-    .repeater-item-icon {
+    .isdc-acf-repeater-list .repeater-item-icon {
         font-size: 16px;
     }
 
-    .repeater-item-text {
+    .isdc-acf-repeater-list .repeater-item-text {
         font-size: 13px;
     }
 }
 
 /* Empty State */
-.elementor-alert {
+.isdc-acf-repeater-list .elementor-alert {
     padding: 15px;
     border-radius: 4px;
     margin: 10px 0;
     font-size: 14px;
 }
 
-.elementor-alert-warning {
+.isdc-acf-repeater-list .elementor-alert-warning {
     background-color: #fff3cd;
     border: 1px solid #ffc107;
     color: #856404;
 }
 
-.elementor-alert-info {
+.isdc-acf-repeater-list .elementor-alert-info {
     background-color: #d1ecf1;
     border: 1px solid #b8daff;
     color: #0c5460;
 }
 
 /* Utility Classes */
-.repeater-item {
+.isdc-acf-repeater-list .repeater-item {
     transition: all 0.3s ease;
 }
 
-.repeater-item:hover {
+.isdc-acf-repeater-list  .repeater-item:hover {
     background-color: rgba(0, 0, 0, 0.02);
+}
+.isdc-acf-repeater-list {
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.isdc-acf-repeater-list .repeater-icon-text-item {
+    display: flex;
+    align-items: center;
+}
+
+.isdc-acf-repeater-list .repeater-item-icon {
+    display: flex;
 }

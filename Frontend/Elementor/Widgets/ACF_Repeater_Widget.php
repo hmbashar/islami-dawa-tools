@@ -327,7 +327,7 @@ class ACF_Repeater_Widget extends Widget_Base
                     'size' => 12,
                 ],
                 'selectors'  => [
-                    '{{WRAPPER}} .repeater-icon-text-item' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .isdc-acf-repeater-list' => 'gap: {{SIZE}}{{UNIT}};',
                 ],
                 'condition'  => [
                     'display_layout' => 'icon_text',
@@ -633,7 +633,7 @@ class ACF_Repeater_Widget extends Widget_Base
             return;
         }
 
-        echo '<div class="repeater-container repeater-table-container">';
+        echo '<div class="repeater-container repeater-table-container isdc-acf-repeater-table">';
         echo '<table class="repeater-table">';
 
         // Table header
@@ -686,7 +686,7 @@ class ACF_Repeater_Widget extends Widget_Base
         }
 
         echo '<div class="repeater-container repeater-icon-text-container">';
-        echo '<ul class="repeater-icon-text-list">';
+        echo '<ul class="repeater-icon-text-list isdc-acf-repeater-list">';
 
         // Get the icon from settings
         $icon = !empty($settings['item_icon']) ? $settings['item_icon'] : 'fas fa-check';
