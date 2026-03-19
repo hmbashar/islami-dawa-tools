@@ -68,6 +68,7 @@ class GravityForms
 
         // Add BDT currency.
         $currencies['BDT'] = [
+            'code'               => 'BDT',
             'name'               => __('Bangladeshi Taka', 'islami-dawa-tools'),
             'symbol_left'        => '৳ ',
             'symbol_right'       => '',
