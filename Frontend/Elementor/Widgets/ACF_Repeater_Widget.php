@@ -207,9 +207,8 @@ class ACF_Repeater_Widget extends Widget_Base
                 'type'      => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .repeater-container' => 'background-color: {{VALUE}};',
-                ],                'condition' => [
-                    'display_layout' => 'table',
-                ],            ]
+                ],
+            ]
         );
 
         // Icon + Text styling section
@@ -264,7 +263,9 @@ class ACF_Repeater_Widget extends Widget_Base
                 'type'      => Controls_Manager::COLOR,
                 'default'   => '#27ae60',
                 'selectors' => [
-                    '{{WRAPPER}} .repeater-item-icon' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .repeater-item-icon' => 'color: {{VALUE}}; fill: {{VALUE}};',
+                    '{{WRAPPER}} .repeater-item-icon svg' => 'fill: {{VALUE}};',
+                    '{{WRAPPER}} .repeater-item-icon i' => 'color: {{VALUE}};',
                 ],
                 'condition' => [
                     'display_layout' => 'icon_text',
@@ -365,6 +366,9 @@ class ACF_Repeater_Widget extends Widget_Base
                 'name'     => 'item_border',
                 'label'    => __('Item Border', 'islami-dawa-tools'),
                 'selector' => '{{WRAPPER}} .repeater-item',
+                'condition' => [
+                    'display_layout' => 'table',
+                ],
             ]
         );
 
@@ -377,16 +381,22 @@ class ACF_Repeater_Widget extends Widget_Base
                 'selectors'  => [
                     '{{WRAPPER}} .repeater-item' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
+                'condition' => [
+                    'display_layout' => 'table',
+                ],
             ]
         );
 
-        // Text styling
+        // Text styling (Table layout only)
         $this->add_group_control(
             Group_Control_Typography::get_type(),
             [
                 'name'     => 'text_typography',
                 'label'    => __('Text Typography', 'islami-dawa-tools'),
                 'selector' => '{{WRAPPER}} .repeater-item',
+                'condition' => [
+                    'display_layout' => 'table',
+                ],
             ]
         );
 
@@ -397,6 +407,9 @@ class ACF_Repeater_Widget extends Widget_Base
                 'type'      => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .repeater-item' => 'color: {{VALUE}};',
+                ],
+                'condition' => [
+                    'display_layout' => 'table',
                 ],
             ]
         );
