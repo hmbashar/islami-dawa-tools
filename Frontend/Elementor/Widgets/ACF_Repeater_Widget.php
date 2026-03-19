@@ -136,25 +136,11 @@ class ACF_Repeater_Widget extends Widget_Base
                 'default' => 'table',
                 'options' => [
                     'table'      => __('Table', 'islami-dawa-tools'),
-                    'list'       => __('List', 'islami-dawa-tools'),
-                    'cards'      => __('Cards', 'islami-dawa-tools'),
                     'icon_text'  => __('Icon + Text', 'islami-dawa-tools'),
-                    'custom'     => __('Custom (Show All Fields)', 'islami-dawa-tools'),
                 ],
             ]
         );
 
-        $this->add_control(
-            'widget_heading',
-            [
-                'label'       => __('Widget Heading', 'islami-dawa-tools'),
-                'type'        => Controls_Manager::TEXT,
-                'placeholder' => __('e.g., Our Services, Features, etc.', 'islami-dawa-tools'),
-                'condition'   => [
-                    'display_layout' => 'icon_text',
-                ],
-            ]
-        );
 
         $this->add_control(
             'item_icon',
@@ -171,19 +157,6 @@ class ACF_Repeater_Widget extends Widget_Base
             ]
         );
 
-        $this->add_control(
-            'columns',
-            [
-                'label'     => __('Columns', 'islami-dawa-tools'),
-                'type'      => Controls_Manager::NUMBER,
-                'default'   => 2,
-                'min'       => 1,
-                'max'       => 6,
-                'condition' => [
-                    'display_layout' => 'cards',
-                ],
-            ]
-        );
 
         $this->end_controls_section();
 
@@ -234,6 +207,139 @@ class ACF_Repeater_Widget extends Widget_Base
                 'type'      => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .repeater-container' => 'background-color: {{VALUE}};',
+                ],                'condition' => [
+                    'display_layout' => 'table',
+                ],            ]
+        );
+
+        // Icon + Text styling section
+        $this->add_control(
+            'icon_text_heading',
+            [
+                'label'     => __('Icon + Text Styling', 'islami-dawa-tools'),
+                'type'      => Controls_Manager::HEADING,
+                'separator' => 'before',
+                'condition' => [
+                    'display_layout' => 'icon_text',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'icon_size',
+            [
+                'label'      => __('Icon Size', 'islami-dawa-tools'),
+                'type'       => Controls_Manager::SLIDER,
+                'size_units' => ['px', 'em'],
+                'range'      => [
+                    'px' => [
+                        'min'  => 10,
+                        'max'  => 100,
+                        'step' => 1,
+                    ],
+                    'em' => [
+                        'min'  => 0.5,
+                        'max'  => 5,
+                        'step' => 0.1,
+                    ],
+                ],
+                'default'    => [
+                    'unit' => 'px',
+                    'size' => 20,
+                ],
+                'selectors'  => [
+                    '{{WRAPPER}} .repeater-item-icon' => 'font-size: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .repeater-item-icon svg' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
+                ],
+                'condition'  => [
+                    'display_layout' => 'icon_text',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'icon_color',
+            [
+                'label'     => __('Icon Color', 'islami-dawa-tools'),
+                'type'      => Controls_Manager::COLOR,
+                'default'   => '#27ae60',
+                'selectors' => [
+                    '{{WRAPPER}} .repeater-item-icon' => 'color: {{VALUE}};',
+                ],
+                'condition' => [
+                    'display_layout' => 'icon_text',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'icon_text_spacing',
+            [
+                'label'      => __('Space Between Icon & Text', 'islami-dawa-tools'),
+                'type'       => Controls_Manager::SLIDER,
+                'size_units' => ['px', 'em'],
+                'range'      => [
+                    'px' => [
+                        'min'  => 0,
+                        'max'  => 50,
+                        'step' => 1,
+                    ],
+                    'em' => [
+                        'min'  => 0,
+                        'max'  => 3,
+                        'step' => 0.1,
+                    ],
+                ],
+                'default'    => [
+                    'unit' => 'px',
+                    'size' => 12,
+                ],
+                'selectors'  => [
+                    '{{WRAPPER}} .repeater-icon-text-item' => 'gap: {{SIZE}}{{UNIT}};',
+                ],
+                'condition'  => [
+                    'display_layout' => 'icon_text',
+                ],
+            ]
+        );
+
+        $this->add_group_control(
+            Group_Control_Typography::get_type(),
+            [
+                'name'      => 'icon_text_typography',
+                'label'     => __('Text Typography', 'islami-dawa-tools'),
+                'selector'  => '{{WRAPPER}} .repeater-item-text',
+                'condition' => [
+                    'display_layout' => 'icon_text',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'icon_text_text_color',
+            [
+                'label'     => __('Text Color', 'islami-dawa-tools'),
+                'type'      => Controls_Manager::COLOR,
+                'default'   => '#555',
+                'selectors' => [
+                    '{{WRAPPER}} .repeater-item-text' => 'color: {{VALUE}};',
+                ],
+                'condition' => [
+                    'display_layout' => 'icon_text',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'icon_text_item_background',
+            [
+                'label'     => __('Item Background Color', 'islami-dawa-tools'),
+                'type'      => Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .repeater-icon-text-item' => 'background-color: {{VALUE}};',
+                ],
+                'condition' => [
+                    'display_layout' => 'icon_text',
                 ],
             ]
         );
@@ -246,6 +352,9 @@ class ACF_Repeater_Widget extends Widget_Base
                 'type'      => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .repeater-item' => 'background-color: {{VALUE}};',
+                ],
+                'condition' => [
+                    'display_layout' => 'table',
                 ],
             ]
         );
@@ -389,15 +498,6 @@ class ACF_Repeater_Widget extends Widget_Base
             case 'table':
                 $this->render_table_layout($repeater_data);
                 break;
-            case 'list':
-                $this->render_list_layout($repeater_data);
-                break;
-            case 'cards':
-                $this->render_cards_layout($repeater_data, $settings['columns']);
-                break;
-            case 'custom':
-                $this->render_custom_layout($repeater_data);
-                break;
             case 'icon_text':
                 $this->render_icon_text_layout($repeater_data, $settings);
                 break;
@@ -499,115 +599,6 @@ class ACF_Repeater_Widget extends Widget_Base
     }
 
     /**
-     * Render list layout.
-     *
-     * @since 1.0.0
-     *
-     * @param array $data Repeater data.
-     */
-    private function render_list_layout($data)
-    {
-        echo '<div class="repeater-container repeater-list-container">';
-        echo '<ul class="repeater-list">';
-
-        foreach ($data as $row) {
-            echo '<li class="repeater-item">';
-            if (is_array($row)) {
-                echo '<ul>';
-                foreach ($row as $key => $value) {
-                    echo '<li>';
-                    echo '<strong>' . esc_html(ucwords(str_replace('_', ' ', $key))) . ':</strong> ';
-                    if (is_array($value)) {
-                        echo esc_html(implode(', ', $value));
-                    } else {
-                        echo wp_kses_post($value);
-                    }
-                    echo '</li>';
-                }
-                echo '</ul>';
-            } else {
-                echo wp_kses_post($row);
-            }
-            echo '</li>';
-        }
-
-        echo '</ul>';
-        echo '</div>';
-    }
-
-    /**
-     * Render cards layout.
-     *
-     * @since 1.0.0
-     *
-     * @param array $data    Repeater data.
-     * @param int   $columns Number of columns.
-     */
-    private function render_cards_layout($data, $columns = 2)
-    {
-        echo '<div class="repeater-container repeater-cards-container" style="display: grid; grid-template-columns: repeat(' . absint($columns) . ', 1fr); gap: 20px;">';
-
-        foreach ($data as $row) {
-            echo '<div class="repeater-item repeater-card" style="padding: 20px; border: 1px solid #ddd; border-radius: 8px;">';
-            if (is_array($row)) {
-                foreach ($row as $key => $value) {
-                    echo '<div class="card-field">';
-                    echo '<strong>' . esc_html(ucwords(str_replace('_', ' ', $key))) . ':</strong> ';
-                    if (is_array($value)) {
-                        echo esc_html(implode(', ', $value));
-                    } else {
-                        echo wp_kses_post($value);
-                    }
-                    echo '</div>';
-                }
-            } else {
-                echo wp_kses_post($row);
-            }
-            echo '</div>';
-        }
-
-        echo '</div>';
-    }
-
-    /**
-     * Render custom layout showing all fields.
-     *
-     * @since 1.0.0
-     *
-     * @param array $data Repeater data.
-     */
-    private function render_custom_layout($data)
-    {
-        echo '<div class="repeater-container repeater-custom-container">';
-
-        foreach ($data as $index => $row) {
-            echo '<div class="repeater-item repeater-row" style="margin-bottom: 30px; padding: 20px; border: 1px solid #e0e0e0; border-radius: 4px;">';
-            echo '<h4 style="margin-top: 0;">' . esc_html(sprintf(__('Item %d', 'islami-dawa-tools'), $index + 1)) . '</h4>';
-
-            if (is_array($row)) {
-                echo '<dl style="margin: 0;">';
-                foreach ($row as $key => $value) {
-                    echo '<dt style="font-weight: bold; margin-top: 10px;">' . esc_html(ucwords(str_replace('_', ' ', $key))) . '</dt>';
-                    echo '<dd style="margin: 5px 0 0 20px;">';
-                    if (is_array($value)) {
-                        echo esc_html(implode(', ', $value));
-                    } else {
-                        echo wp_kses_post($value);
-                    }
-                    echo '</dd>';
-                }
-                echo '</dl>';
-            } else {
-                echo wp_kses_post($row);
-            }
-
-            echo '</div>';
-        }
-
-        echo '</div>';
-    }
-
-    /**
      * Render icon and text layout.
      *
      * @since 1.0.0
@@ -622,12 +613,6 @@ class ACF_Repeater_Widget extends Widget_Base
         }
 
         echo '<div class="repeater-container repeater-icon-text-container">';
-
-        // Render heading if provided
-        if (!empty($settings['widget_heading'])) {
-            echo '<h3 class="repeater-heading">' . esc_html($settings['widget_heading']) . '</h3>';
-        }
-
         echo '<ul class="repeater-icon-text-list">';
 
         // Get the icon from settings

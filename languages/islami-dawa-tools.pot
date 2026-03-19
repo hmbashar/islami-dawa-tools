@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-03-19T08:01:06+00:00\n"
+"POT-Creation-Date: 2026-03-19T08:14:41+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: islami-dawa-tools\n"
@@ -89,88 +89,104 @@ msgid "Cards"
 msgstr ""
 
 #: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:141
+msgid "Icon + Text"
+msgstr ""
+
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:142
 msgid "Custom (Show All Fields)"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:149
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:150
+msgid "Widget Heading"
+msgstr ""
+
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:152
+msgid "e.g., Our Services, Features, etc."
+msgstr ""
+
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:162
+msgid "List Item Icon"
+msgstr ""
+
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:177
 msgid "Columns"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:166
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:194
 msgid "Style"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:176
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:204
 msgid "Border"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:185
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:213
 msgid "Box Shadow"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:193
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:221
 msgid "Padding"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:205
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:233
 msgid "Background Color"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:217
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:245
 msgid "Item Background Color"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:229
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:257
 msgid "Item Border"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:237
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:265
 msgid "Item Padding"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:251
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:279
 msgid "Text Typography"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:259
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:287
 msgid "Text Color"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:273
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:301
 msgid "Table Style"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:284
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:312
 msgid "Header Background"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:296
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:324
 msgid "Header Text Color"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:308
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:336
 msgid "Border Color"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:335
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:363
 msgid "ACF (Advanced Custom Fields) is not installed or activated."
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:347
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:375
 #, php-format
 msgid "No data found for repeater field: %s"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:554
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:585
 #, php-format
 msgid "Item %d"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:588
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:674
 msgid "ACF Repeater Field Widget"
 msgstr ""
 
-#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:590
+#: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:676
 msgid "Enter a repeater field key and select a layout to display your ACF repeater data."
 msgstr ""
 
