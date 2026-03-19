@@ -224,7 +224,7 @@ class ACF_Repeater_Widget extends Widget_Base
             ]
         );
 
-        $this->add_control(
+        $this->add_responsive_control(
             'icon_size',
             [
                 'label'      => __('Icon Size', 'islami-dawa-tools'),
@@ -273,7 +273,7 @@ class ACF_Repeater_Widget extends Widget_Base
             ]
         );
 
-        $this->add_control(
+        $this->add_responsive_control(
             'icon_text_spacing',
             [
                 'label'      => __('Space Between Icon & Text', 'islami-dawa-tools'),
@@ -297,6 +297,37 @@ class ACF_Repeater_Widget extends Widget_Base
                 ],
                 'selectors'  => [
                     '{{WRAPPER}} .repeater-icon-text-item' => 'gap: {{SIZE}}{{UNIT}};',
+                ],
+                'condition'  => [
+                    'display_layout' => 'icon_text',
+                ],
+            ]
+        );
+
+        $this->add_responsive_control(
+            'list_item_spacing',
+            [
+                'label'      => __('Space Between List Items', 'islami-dawa-tools'),
+                'type'       => Controls_Manager::SLIDER,
+                'size_units' => ['px', 'em'],
+                'range'      => [
+                    'px' => [
+                        'min'  => 0,
+                        'max'  => 50,
+                        'step' => 1,
+                    ],
+                    'em' => [
+                        'min'  => 0,
+                        'max'  => 3,
+                        'step' => 0.1,
+                    ],
+                ],
+                'default'    => [
+                    'unit' => 'px',
+                    'size' => 12,
+                ],
+                'selectors'  => [
+                    '{{WRAPPER}} .repeater-icon-text-item' => 'margin-bottom: {{SIZE}}{{UNIT}};',
                 ],
                 'condition'  => [
                     'display_layout' => 'icon_text',
