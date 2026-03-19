@@ -1,0 +1,12 @@
+.git
+.gitignore
+.DS_Store
+.distignore
+.wordpress-org
+node_modules
+vendor
+composer.lock
+package-lock.json
+*.zip
+.php-cs-fixer.cache
+phpcs.xml.dist

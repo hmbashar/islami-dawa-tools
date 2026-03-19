@@ -1,0 +1,35 @@
+{
+    "name": "pairdevs/islami-dawa-tools",
+    "license": "GPL-2.0-or-later",
+    "version": "1.0.0",
+    "description": "A comprehensive toolkit for Islamic Dawa with Elementor integration and enhanced features.",
+    "authors": [
+        {
+            "name": "PairDevs",
+            "homepage": "https://github.com/PairDevs"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "IslamiDawaTools\\": "Inc/",
+            "IslamiDawaTools\\Frontend\\": "Frontend/",
+            "IslamiDawaTools\\Admin\\": "Admin/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "require-dev": {
+        "wp-coding-standards/wpcs": "^3.0",
+        "wp-cli/i18n-command": "^2.6",
+        "phpcompatibility/phpcompatibility-wp": "*"
+    },
+    "scripts": {
+        "lint:wpcs": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs",
+        "lint:php": "@php ./vendor/bin/parallel-lint --exclude .git --exclude vendor .",
+        "make-pot": "wp i18n make-pot . languages/islami-dawa-tools.pot",
+        "lint:autofix": "vendor/bin/phpcbf"
+    }
+}

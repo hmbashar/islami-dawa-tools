@@ -1,0 +1,46 @@
+# Dependencies
+/vendor/
+/node_modules/
+composer.lock
+package-lock.json
+
+# IDE & Editor
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db
+
+# WordPress
+wp-content/
+wp-admin/
+wp-includes/
+wp-*.php
+xmlrpc.php
+/index.php
+/license.txt
+/readme.html
+/wp-load.php
+/wp-mail.php
+/wp-settings.php
+/wp-signup.php
+/wp-trackback.php
+
+# Logs
+*.log
+debug.log
+
+# Build files
+*.zip
+dist/
+build/
+
+# Cache
+.php-cs-fixer.cache
+.phpunit.cache/
+
+# Environment
+.env
+.env.local
+.env.*.local
