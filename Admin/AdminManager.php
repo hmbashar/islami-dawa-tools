@@ -10,9 +10,12 @@
 
 namespace IslamiDawaTools\Admin;
 
-if (!defined('ABSPATH')) {
-    exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
 }
+
+use IslamiDawaTools\Admin\YouTubeSyncSettings;
+use IslamiDawaTools\Admin\YouTubeSyncPage;
 
 /**
  * Class AdminManager
@@ -22,36 +25,53 @@ if (!defined('ABSPATH')) {
  * @package IslamiDawaTools\Admin
  * @since 1.0.0
  */
-class AdminManager
-{
-    /**
-     * Constructor for AdminManager class.
-     *
-     * @since 1.0.0
-     */
-    public function __construct()
-    {
-        $this->init_hooks();
-    }
+class AdminManager {
 
-    /**
-     * Initialize admin hooks.
-     *
-     * @since 1.0.0
-     */
-    private function init_hooks()
-    {
-        // Add admin hooks here.
-        add_action('admin_enqueue_scripts', [$this, 'enqueue_scripts']);
-    }
+	/**
+	 * YouTubeSyncSettings instance.
+	 *
+	 * @since 1.0.0
+	 * @var YouTubeSyncSettings
+	 */
+	protected $youtube_sync_settings;
 
-    /**
-     * Enqueue admin scripts and styles.
-     *
-     * @since 1.0.0
-     */
-    public function enqueue_scripts()
-    {
-        // Enqueue admin scripts and styles here.
-    }
+	/**
+	 * YouTubeSyncPage instance.
+	 *
+	 * @since 1.0.0
+	 * @var YouTubeSyncPage
+	 */
+	protected $youtube_sync_page;
+
+	/**
+	 * Constructor for AdminManager class.
+	 *
+	 * @since 1.0.0
+	 */
+	public function __construct() {
+		$this->init_hooks();
+	}
+
+	/**
+	 * Initialize admin hooks and modules.
+	 *
+	 * @since 1.0.0
+	 */
+	private function init_hooks() {
+		// Enqueue admin scripts and styles.
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+
+		// Initialize YouTube sync admin modules.
+		$this->youtube_sync_settings = new YouTubeSyncSettings();
+		$this->youtube_sync_page     = new YouTubeSyncPage();
+	}
+
+	/**
+	 * Enqueue admin scripts and styles.
+	 *
+	 * @since 1.0.0
+	 */
+	public function enqueue_scripts() {
+		// Enqueue admin scripts and styles here.
+	}
 }

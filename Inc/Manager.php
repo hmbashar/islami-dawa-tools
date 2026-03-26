@@ -18,6 +18,8 @@ if (!defined('ABSPATH')) {
 
 use IslamiDawaTools\Admin\AdminManager;
 use IslamiDawaTools\Frontend\Frontend;
+use IslamiDawaTools\YouTubeSyncManager;
+use IslamiDawaTools\CronManager;
 
 /**
  * The manager class for Islami Dawa Tools.
@@ -28,10 +30,19 @@ use IslamiDawaTools\Frontend\Frontend;
  * @package IslamiDawaTools
  * @since 1.0.0
  */
-class Manager
-{
-    protected $Admin_Manager;
-    protected $Frontend;
+class Manager {
+
+	/** @var AdminManager */
+	protected $Admin_Manager;
+
+	/** @var Frontend */
+	protected $Frontend;
+
+	/** @var YouTubeSyncManager */
+	protected $youtube_sync_manager;
+
+	/** @var CronManager */
+	protected $cron_manager;
 
     /**
      * Constructor for the Manager class.
@@ -52,9 +63,10 @@ class Manager
      *
      * @since 1.0.0
      */
-    public function init()
-    {
-        $this->Admin_Manager = new AdminManager();
-        $this->Frontend = new Frontend();
-    }
+	public function init() {
+		$this->Admin_Manager         = new AdminManager();
+		$this->Frontend              = new Frontend();
+		$this->youtube_sync_manager  = new YouTubeSyncManager();
+		$this->cron_manager          = new CronManager();
+	}
 }
