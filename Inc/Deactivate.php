@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-use IslamiDawaTools\CronManager;
+use IslamiDawaTools\Cron\CronManager;
 
 /**
  * Class Deactivate

@@ -1,0 +1,451 @@
+/*
+ * youtube-sync.css
+ *
+ * Professional admin UI styles for the YouTube Sync page.
+ *
+ * @package IslamiDawaTools\Admin
+ * @since   1.0.0
+ */
+
+/* =====================================================================
+   CSS Custom Properties (Design Tokens)
+   ===================================================================== */
+:root {
+	--idt-primary:        #c0392b;
+	--idt-primary-dark:   #96281b;
+	--idt-primary-light:  #e74c3c;
+	--idt-secondary:      #2c3e50;
+	--idt-accent:         #f39c12;
+	--idt-success:        #27ae60;
+	--idt-warning:        #f39c12;
+	--idt-danger:         #e74c3c;
+	--idt-bg:             #f8f9fa;
+	--idt-card-bg:        #ffffff;
+	--idt-border:         #e2e8f0;
+	--idt-text:           #2d3748;
+	--idt-text-muted:     #718096;
+	--idt-radius:         12px;
+	--idt-radius-sm:      8px;
+	--idt-shadow:         0 4px 20px rgba(0,0,0,.08);
+	--idt-shadow-hover:   0 8px 30px rgba(0,0,0,.14);
+	--idt-transition:     all .25s cubic-bezier(.4,0,.2,1);
+	--idt-font:           'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* =====================================================================
+   Page Wrapper
+   ===================================================================== */
+.idt-yt-wrap {
+	font-family: var(--idt-font);
+	color: var(--idt-text);
+	max-width: 860px;
+	padding-top: 12px;
+}
+
+/* =====================================================================
+   Page Header
+   ===================================================================== */
+.idt-page-header {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	padding: 28px 32px;
+	background: linear-gradient(135deg, var(--idt-secondary) 0%, #1a252f 100%);
+	border-radius: var(--idt-radius);
+	margin-bottom: 28px;
+	box-shadow: var(--idt-shadow);
+	position: relative;
+	overflow: hidden;
+}
+
+.idt-page-header::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.idt-page-header-icon {
+	width: 56px;
+	height: 56px;
+	background: var(--idt-primary);
+	border-radius: 14px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	box-shadow: 0 4px 14px rgba(192,57,43,.40);
+}
+
+.idt-page-header-icon svg {
+	width: 30px;
+	height: 30px;
+	fill: #fff;
+}
+
+.idt-page-header-text h1 {
+	margin: 0;
+	font-size: 22px;
+	font-weight: 700;
+	color: #ffffff;
+	line-height: 1.2;
+	padding: 0;
+}
+
+.idt-page-header-text p {
+	margin: 6px 0 0;
+	font-size: 13px;
+	color: rgba(255,255,255,.60);
+}
+
+/* =====================================================================
+   Cards
+   ===================================================================== */
+.idt-card {
+	background: var(--idt-card-bg);
+	border: 1px solid var(--idt-border);
+	border-radius: var(--idt-radius);
+	box-shadow: var(--idt-shadow);
+	margin-bottom: 24px;
+	overflow: hidden;
+	transition: var(--idt-transition);
+}
+
+.idt-card:hover {
+	box-shadow: var(--idt-shadow-hover);
+}
+
+.idt-card-header {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 20px 28px;
+	border-bottom: 1px solid var(--idt-border);
+	background: linear-gradient(180deg, #fafbfc 0%, #f5f7fa 100%);
+}
+
+.idt-card-header-icon {
+	width: 36px;
+	height: 36px;
+	border-radius: var(--idt-radius-sm);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+}
+
+.idt-card-header-icon.icon-settings { background: rgba(44,62,80,.08); color: var(--idt-secondary); }
+.idt-card-header-icon.icon-sync     { background: rgba(192,57,43,.10); color: var(--idt-primary); }
+.idt-card-header-icon.icon-status   { background: rgba(39,174,96,.10); color: var(--idt-success); }
+
+.idt-card-header-icon svg {
+	width: 18px;
+	height: 18px;
+}
+
+.idt-card-header h2 {
+	margin: 0;
+	font-size: 15px;
+	font-weight: 600;
+	color: var(--idt-text);
+	padding: 0;
+	border: none;
+}
+
+.idt-card-body {
+	padding: 28px;
+}
+
+/* =====================================================================
+   Form Fields
+   ===================================================================== */
+.idt-field-group {
+	margin-bottom: 22px;
+}
+
+.idt-field-group:last-child {
+	margin-bottom: 0;
+}
+
+.idt-label {
+	display: block;
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--idt-text);
+	margin-bottom: 8px;
+}
+
+.idt-label span.required {
+	color: var(--idt-danger);
+	margin-left: 2px;
+}
+
+.idt-input {
+	width: 100%;
+	max-width: 480px;
+	height: 42px;
+	padding: 0 14px;
+	border: 1.5px solid var(--idt-border);
+	border-radius: var(--idt-radius-sm);
+	font-size: 14px;
+	font-family: var(--idt-font);
+	color: var(--idt-text);
+	background: #fff;
+	transition: var(--idt-transition);
+	outline: none;
+	box-sizing: border-box;
+}
+
+.idt-input:focus {
+	border-color: var(--idt-primary);
+	box-shadow: 0 0 0 3px rgba(192,57,43,.12);
+}
+
+.idt-input::placeholder {
+	color: #b0bec5;
+}
+
+.idt-hint {
+	margin-top: 6px;
+	font-size: 12px;
+	color: var(--idt-text-muted);
+}
+
+.idt-hint a {
+	color: var(--idt-primary);
+	text-decoration: none;
+}
+
+.idt-hint a:hover {
+	text-decoration: underline;
+}
+
+/* =====================================================================
+   Buttons
+   ===================================================================== */
+.idt-btn-row {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	flex-wrap: wrap;
+	margin-top: 8px;
+}
+
+.idt-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 0 20px;
+	height: 40px;
+	border-radius: var(--idt-radius-sm);
+	font-size: 13.5px;
+	font-weight: 600;
+	font-family: var(--idt-font);
+	cursor: pointer;
+	border: none;
+	transition: var(--idt-transition);
+	text-decoration: none;
+	white-space: nowrap;
+}
+
+.idt-btn svg {
+	width: 16px;
+	height: 16px;
+	flex-shrink: 0;
+}
+
+.idt-btn-primary {
+	background: var(--idt-primary);
+	color: #fff;
+	box-shadow: 0 3px 10px rgba(192,57,43,.30);
+}
+
+.idt-btn-primary:hover {
+	background: var(--idt-primary-dark);
+	box-shadow: 0 5px 16px rgba(192,57,43,.40);
+	transform: translateY(-1px);
+	color: #fff;
+}
+
+.idt-btn-secondary {
+	background: var(--idt-secondary);
+	color: #fff;
+	box-shadow: 0 3px 10px rgba(44,62,80,.20);
+}
+
+.idt-btn-secondary:hover {
+	background: #1a252f;
+	box-shadow: 0 5px 16px rgba(44,62,80,.30);
+	transform: translateY(-1px);
+	color: #fff;
+}
+
+.idt-btn-save {
+	background: linear-gradient(135deg, var(--idt-primary) 0%, var(--idt-primary-dark) 100%);
+	color: #fff;
+	box-shadow: 0 4px 12px rgba(192,57,43,.30);
+	padding: 0 24px;
+	height: 44px;
+	font-size: 14px;
+}
+
+.idt-btn-save:hover {
+	box-shadow: 0 6px 18px rgba(192,57,43,.40);
+	transform: translateY(-1px);
+	color: #fff;
+}
+
+.idt-btn:active {
+	transform: translateY(0) !important;
+}
+
+/* =====================================================================
+   Status Table
+   ===================================================================== */
+.idt-status-table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.idt-status-table tr {
+	border-bottom: 1px solid var(--idt-border);
+}
+
+.idt-status-table tr:last-child {
+	border-bottom: none;
+}
+
+.idt-status-table th,
+.idt-status-table td {
+	padding: 12px 0;
+	font-size: 13.5px;
+	vertical-align: middle;
+}
+
+.idt-status-table th {
+	width: 40%;
+	font-weight: 600;
+	color: var(--idt-text-muted);
+	text-transform: uppercase;
+	font-size: 11px;
+	letter-spacing: .6px;
+}
+
+.idt-status-table td {
+	color: var(--idt-text);
+	font-weight: 500;
+}
+
+/* Status badges */
+.idt-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	padding: 3px 10px;
+	border-radius: 20px;
+	font-size: 12px;
+	font-weight: 600;
+}
+
+.idt-badge-success {
+	background: rgba(39,174,96,.12);
+	color: var(--idt-success);
+}
+
+.idt-badge-danger {
+	background: rgba(231,76,60,.10);
+	color: var(--idt-danger);
+}
+
+.idt-badge-dot {
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: currentColor;
+}
+
+/* =====================================================================
+   Stats Grid (summary cards inside status section)
+   ===================================================================== */
+.idt-stats-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 16px;
+	margin-bottom: 24px;
+}
+
+.idt-stat-card {
+	background: var(--idt-bg);
+	border: 1px solid var(--idt-border);
+	border-radius: var(--idt-radius-sm);
+	padding: 16px;
+	text-align: center;
+}
+
+.idt-stat-card .stat-value {
+	font-size: 28px;
+	font-weight: 700;
+	line-height: 1;
+	margin-bottom: 6px;
+}
+
+.idt-stat-card .stat-label {
+	font-size: 11px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: .5px;
+	color: var(--idt-text-muted);
+}
+
+.idt-stat-card.stat-found   .stat-value { color: var(--idt-secondary); }
+.idt-stat-card.stat-import  .stat-value { color: var(--idt-success); }
+.idt-stat-card.stat-skip    .stat-value { color: var(--idt-accent); }
+.idt-stat-card.stat-fail    .stat-value { color: var(--idt-danger); }
+
+/* =====================================================================
+   Loading Spinner Overlay
+   ===================================================================== */
+.idt-spinner-overlay {
+	display: none;
+	position: fixed;
+	inset: 0;
+	background: rgba(0,0,0,.45);
+	z-index: 9999;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.idt-spinner-overlay.is-active {
+	display: flex;
+}
+
+.idt-spinner {
+	width: 50px;
+	height: 50px;
+	border: 4px solid rgba(255,255,255,.2);
+	border-top-color: #fff;
+	border-radius: 50%;
+	animation: idt-spin .8s linear infinite;
+}
+
+.idt-spinner-label {
+	color: #fff;
+	font-size: 15px;
+	font-weight: 600;
+}
+
+@keyframes idt-spin {
+	to { transform: rotate(360deg); }
+}
+
+/* =====================================================================
+   Responsive
+   ===================================================================== */
+@media (max-width: 700px) {
+	.idt-stats-grid { grid-template-columns: repeat(2, 1fr); }
+	.idt-page-header { padding: 20px; }
+	.idt-card-body { padding: 20px; }
+	.idt-btn-row { flex-direction: column; align-items: flex-start; }
+}

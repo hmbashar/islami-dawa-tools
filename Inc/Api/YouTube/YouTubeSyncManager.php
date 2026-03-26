@@ -2,14 +2,14 @@
 /**
  * YouTubeSyncManager.php
  *
- * Orchestrates all sync operations (manual full sync and cron latest-videos sync).
- * Both admin-triggered and cron-triggered syncs use this class as their single entry point.
+ * Orchestrates all sync operations (manual full sync and cron latest-video sync).
+ * Located under Inc/Api/YouTube/ — tightly coupled to the YouTube API service layer.
  *
- * @package IslamiDawaTools
+ * @package IslamiDawaTools\Api\YouTube
  * @since   1.0.0
  */
 
-namespace IslamiDawaTools;
+namespace IslamiDawaTools\Api\YouTube;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -18,10 +18,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class YouTubeSyncManager
  *
- * Coordinates the YouTubeApiService and YouTubeImporter to perform full-channel
- * sync and latest-video cron sync. Stores timestamps and results in WordPress options.
+ * Coordinates YouTubeApiService and YouTubeImporter to perform full-channel
+ * sync (manual) and latest-video sync (cron). Persists timestamps and result
+ * summaries to WordPress options.
  *
- * @package IslamiDawaTools
+ * @package IslamiDawaTools\Api\YouTube
  * @since   1.0.0
  */
 class YouTubeSyncManager {
@@ -35,7 +36,7 @@ class YouTubeSyncManager {
 	const OPTION_LAST_SYNC_TIME = 'islami_dawa_tools_youtube_last_sync_time';
 
 	/**
-	 * Option key for the last sync result summary.
+	 * Option key for the last sync result summary string.
 	 *
 	 * @since 1.0.0
 	 * @var string
@@ -61,13 +62,13 @@ class YouTubeSyncManager {
 	/**
 	 * Constructor.
 	 *
-	 * Reads the stored API key and channel ID to build the API service.
+	 * Reads the stored API key to build the API service.
 	 *
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		$api_key    = get_option( 'islami_dawa_tools_youtube_api_key', '' );
-		$this->api  = new YouTubeApiService( $api_key );
+		$api_key        = get_option( 'islami_dawa_tools_youtube_api_key', '' );
+		$this->api      = new YouTubeApiService( $api_key );
 		$this->importer = new YouTubeImporter();
 	}
 
@@ -75,7 +76,7 @@ class YouTubeSyncManager {
 	 * Perform a full sync of all videos from the configured YouTube channel.
 	 *
 	 * Fetches every video via API pagination and imports missing ones.
-	 * Intended for use by the manual "Sync All Videos" admin button.
+	 * Intended for the manual "Sync All Videos" admin button.
 	 *
 	 * @since 1.0.0
 	 *
@@ -120,8 +121,7 @@ class YouTubeSyncManager {
 			);
 		}
 
-		$max_results = absint( $max_results );
-		$items       = $this->api->get_latest_videos( $channel_id, $max_results );
+		$items = $this->api->get_latest_videos( $channel_id, absint( $max_results ) );
 
 		if ( is_wp_error( $items ) ) {
 			return $items;
@@ -133,12 +133,12 @@ class YouTubeSyncManager {
 	/**
 	 * Process a raw list of YouTube playlistItems API items.
 	 *
-	 * Parses each item, imports it via YouTubeImporter, accumulates the summary,
+	 * Parses each item, imports via YouTubeImporter, accumulates the summary,
 	 * and persists the result to WordPress options.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $items Raw items returned by YouTubeApiService.
+	 * @param array $items Raw items from YouTubeApiService.
 	 * @return array {
 	 *     Sync result summary.
 	 *
@@ -162,8 +162,7 @@ class YouTubeSyncManager {
 			$video = $this->api->parse_video_item( $raw_item );
 
 			if ( false === $video ) {
-				// Private/deleted video — count as skipped.
-				++$summary['skipped'];
+				++$summary['skipped']; // Private / deleted video.
 				continue;
 			}
 
@@ -184,7 +183,7 @@ class YouTubeSyncManager {
 			$summary['details'][] = $result;
 		}
 
-		// Persist last sync time and result.
+		// Persist last sync metadata.
 		update_option( self::OPTION_LAST_SYNC_TIME, current_time( 'mysql' ) );
 		update_option(
 			self::OPTION_LAST_SYNC_RESULT,

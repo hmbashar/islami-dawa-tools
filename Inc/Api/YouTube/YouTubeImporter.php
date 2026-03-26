@@ -2,15 +2,14 @@
 /**
  * YouTubeImporter.php
  *
- * Responsible for creating a single WordPress "video" post from a parsed YouTube
- * video data array. Handles duplicate checking, ACF field update, and thumbnail
- * sideloading.
+ * Imports a single YouTube video into a WordPress "video" custom post.
+ * Located under Inc/Api/YouTube/ alongside the API service class.
  *
- * @package IslamiDawaTools
+ * @package IslamiDawaTools\Api\YouTube
  * @since   1.0.0
  */
 
-namespace IslamiDawaTools;
+namespace IslamiDawaTools\Api\YouTube;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -22,13 +21,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Imports a single YouTube video into a WordPress custom post of type "video".
  * Used by both the manual sync and the automatic WP-Cron sync.
  *
- * @package IslamiDawaTools
+ * @package IslamiDawaTools\Api\YouTube
  * @since   1.0.0
  */
 class YouTubeImporter {
 
 	/**
-	 * Post meta key to store the YouTube video ID.
+	 * Post meta key to store the YouTube video ID (used for duplicate prevention).
 	 *
 	 * @since 1.0.0
 	 * @var string
@@ -36,7 +35,7 @@ class YouTubeImporter {
 	const META_VIDEO_ID = '_islami_dawa_tools_youtube_video_id';
 
 	/**
-	 * Post meta key to store the YouTube published-at date.
+	 * Post meta key to store the YouTube published-at ISO date.
 	 *
 	 * @since 1.0.0
 	 * @var string
@@ -44,7 +43,7 @@ class YouTubeImporter {
 	const META_PUBLISHED_AT = '_islami_dawa_tools_youtube_published_at';
 
 	/**
-	 * Post meta key to store the remote thumbnail URL (to avoid re-downloading).
+	 * Post meta key to store the remote thumbnail URL (avoids re-downloading).
 	 *
 	 * @since 1.0.0
 	 * @var string
@@ -65,14 +64,14 @@ class YouTubeImporter {
 	 * @since 1.0.0
 	 *
 	 * @param array $video Normalised video data from YouTubeApiService::parse_video_item().
-	 *                     Keys: video_id, title, url, thumbnail, published_at.
+	 *                     Expected keys: video_id, title, url, thumbnail, published_at.
 	 * @return array {
 	 *     Result array.
 	 *
-	 *     @type string      $status  'imported' | 'skipped' | 'failed'
-	 *     @type string      $message Human-readable message.
-	 *     @type int|null    $post_id WordPress post ID if created, otherwise null.
-	 *     @type string      $video_id YouTube video ID.
+	 *     @type string   $status   'imported' | 'skipped' | 'failed'
+	 *     @type string   $message  Human-readable result message.
+	 *     @type int|null $post_id  WordPress post ID if created, otherwise null.
+	 *     @type string   $video_id YouTube video ID.
 	 * }
 	 */
 	public function import( array $video ) {
@@ -97,7 +96,6 @@ class YouTubeImporter {
 		 * Fires before a YouTube video is imported.
 		 *
 		 * @since 1.0.0
-		 *
 		 * @param array $video Normalised video data.
 		 */
 		do_action( 'islami_dawa_tools_before_video_import', $video );
@@ -109,18 +107,15 @@ class YouTubeImporter {
 		 * Filters the post title before the video post is inserted.
 		 *
 		 * @since 1.0.0
-		 *
-		 * @param string $post_title  The video title from YouTube.
-		 * @param array  $video       Normalised video data.
+		 * @param string $post_title The video title from YouTube.
+		 * @param array  $video      Normalised video data.
 		 */
 		$post_title = apply_filters( 'islami_dawa_tools_video_post_title', $post_title, $video );
 
-		// --- Determine post status -------------------------------------
 		/**
 		 * Filters the post status for imported video posts.
 		 *
 		 * @since 1.0.0
-		 *
 		 * @param string $post_status Default 'publish'.
 		 * @param array  $video       Normalised video data.
 		 */
@@ -128,13 +123,14 @@ class YouTubeImporter {
 		$post_status = sanitize_key( $post_status );
 
 		// --- Insert post -----------------------------------------------
-		$post_data = array(
-			'post_title'  => $post_title,
-			'post_status' => $post_status,
-			'post_type'   => 'video',
+		$post_id = wp_insert_post(
+			array(
+				'post_title'  => $post_title,
+				'post_status' => $post_status,
+				'post_type'   => 'video',
+			),
+			true
 		);
-
-		$post_id = wp_insert_post( $post_data, true );
 
 		if ( is_wp_error( $post_id ) ) {
 			return $this->result(
@@ -160,11 +156,9 @@ class YouTubeImporter {
 			update_post_meta( $post_id, self::META_THUMBNAIL_URL, esc_url_raw( $video['thumbnail'] ) );
 		}
 
-		// --- Save video URL to ACF field / post meta -------------------
-		$video_url = isset( $video['url'] ) ? esc_url_raw( $video['url'] ) : '';
-
-		if ( ! empty( $video_url ) ) {
-			$this->save_video_url( $post_id, $video_url );
+		// --- Save video URL via ACF or fallback to post meta -----------
+		if ( ! empty( $video['url'] ) ) {
+			$this->save_video_url( $post_id, esc_url_raw( $video['url'] ) );
 		}
 
 		// --- Sideload thumbnail ----------------------------------------
@@ -176,7 +170,6 @@ class YouTubeImporter {
 		 * Fires after a YouTube video has been successfully imported.
 		 *
 		 * @since 1.0.0
-		 *
 		 * @param int   $post_id WordPress post ID.
 		 * @param array $video   Normalised video data.
 		 */
@@ -192,7 +185,7 @@ class YouTubeImporter {
 	}
 
 	/**
-	 * Check whether a video has already been imported.
+	 * Check whether a video has already been imported by querying post meta.
 	 *
 	 * @since 1.0.0
 	 *
@@ -220,8 +213,7 @@ class YouTubeImporter {
 	}
 
 	/**
-	 * Save the YouTube video URL using ACF update_field() when available,
-	 * with a fallback to update_post_meta().
+	 * Save the YouTube video URL using ACF when available, with a post_meta fallback.
 	 *
 	 * @since 1.0.0
 	 *
@@ -230,33 +222,31 @@ class YouTubeImporter {
 	 */
 	private function save_video_url( $post_id, $video_url ) {
 		if ( function_exists( 'update_field' ) ) {
-			update_field( self::ACF_FIELD_VIDEO_URL, esc_url_raw( $video_url ), $post_id );
+			update_field( self::ACF_FIELD_VIDEO_URL, $video_url, $post_id );
 		} else {
-			update_post_meta( $post_id, self::ACF_FIELD_VIDEO_URL, esc_url_raw( $video_url ) );
+			update_post_meta( $post_id, self::ACF_FIELD_VIDEO_URL, $video_url );
 		}
 	}
 
 	/**
-	 * Sideload a YouTube thumbnail into the media library and set it as
-	 * the featured image for the given post.
+	 * Sideload a YouTube thumbnail and set it as the post's featured image.
 	 *
-	 * Skips sideload if the remote URL matches what is already stored in post meta,
-	 * preventing duplicate media items across multiple sync runs.
+	 * Skips re-download if the stored thumbnail URL matches the current one,
+	 * preventing duplicate media library entries across sync runs.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @param int    $post_id       WordPress post ID.
 	 * @param string $thumbnail_url Remote thumbnail URL.
-	 * @param string $post_title    Post title, used as image description/alt text.
+	 * @param string $post_title    Used as image alt text / description.
 	 * @return int|false Attachment ID on success, false on failure.
 	 */
 	private function sideload_thumbnail( $post_id, $thumbnail_url, $post_title ) {
-		// Check if a thumbnail has already been attached and matches the URL.
 		$stored_url = get_post_meta( $post_id, self::META_THUMBNAIL_URL, true );
 		$current_id = get_post_thumbnail_id( $post_id );
 
+		// Already attached and URL unchanged — skip.
 		if ( $current_id && $stored_url === $thumbnail_url ) {
-			// Thumbnail unchanged; nothing to do.
 			return $current_id;
 		}
 
@@ -274,7 +264,6 @@ class YouTubeImporter {
 		);
 
 		if ( is_wp_error( $attachment_id ) ) {
-			// Log error but don't fail the overall import.
 			error_log( // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 				sprintf(
 					'[IslamiDawaTools] Thumbnail sideload failed for post %d: %s',

@@ -3,17 +3,20 @@
  * CronManager.php
  *
  * Manages WP-Cron scheduling for the YouTube sync feature.
- * Registers a filterable cron interval and schedules/clears the recurring event.
+ * Located under Inc/Cron/ to keep scheduling logic separate from API concerns,
+ * making it easy to add cron jobs for future features outside of YouTube.
  *
- * @package IslamiDawaTools
+ * @package IslamiDawaTools\Cron
  * @since   1.0.0
  */
 
-namespace IslamiDawaTools;
+namespace IslamiDawaTools\Cron;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
+
+use IslamiDawaTools\Api\YouTube\YouTubeSyncManager;
 
 /**
  * Class CronManager
@@ -21,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Registers a custom WP-Cron schedule and hooks the recurring YouTube sync event
  * to YouTubeSyncManager::sync_latest_videos(). The cron interval is filterable.
  *
- * @package IslamiDawaTools
+ * @package IslamiDawaTools\Cron
  * @since   1.0.0
  */
 class CronManager {
@@ -54,10 +57,12 @@ class CronManager {
 	}
 
 	/**
-	 * Register a custom cron schedule (every 15 minutes).
+	 * Register a custom cron schedule (default every 15 minutes).
 	 *
 	 * The interval is filterable via `islami_dawa_tools_cron_interval`.
-	 * The filter receives the interval in seconds and the schedule slug.
+	 *
+	 * Example — change to hourly:
+	 *   add_filter( 'islami_dawa_tools_cron_interval', fn() => 3600 );
 	 *
 	 * @since 1.0.0
 	 *
@@ -68,37 +73,29 @@ class CronManager {
 		/**
 		 * Filters the cron interval in seconds for the YouTube sync event.
 		 *
-		 * Use this filter to increase or decrease how often the plugin checks
-		 * for newly uploaded videos. Default is 900 seconds (15 minutes).
-		 *
-		 * Example (hourly):
-		 *   add_filter( 'islami_dawa_tools_cron_interval', function() { return 3600; } );
-		 *
 		 * @since 1.0.0
-		 *
-		 * @param int $interval Interval in seconds. Default 900.
+		 * @param int $interval Interval in seconds. Default 900 (15 minutes).
 		 */
 		$interval = apply_filters( 'islami_dawa_tools_cron_interval', 900 );
-		$interval = max( 300, absint( $interval ) ); // Enforce a 5-minute minimum.
+		$interval = max( 300, absint( $interval ) ); // Minimum 5 minutes enforced.
 
 		$schedules[ self::SCHEDULE_SLUG ] = array(
 			'interval' => $interval,
-			'display'  => __( 'Islami Dawa Tools: Every 15 minutes (configurable)', 'islami-dawa-tools' ),
+			'display'  => __( 'Islami Dawa Tools: Every 15 minutes (filterable)', 'islami-dawa-tools' ),
 		);
 
 		return $schedules;
 	}
 
 	/**
-	 * Schedule the recurring sync event if it is not already scheduled.
+	 * Schedule the recurring sync event if it is not already queued.
 	 *
-	 * Called on the 'init' action so access to the full WordPress environment
-	 * is guaranteed.
+	 * Only schedules when both the API key and Channel ID are configured.
+	 * Called on the 'init' action.
 	 *
 	 * @since 1.0.0
 	 */
 	public function schedule_event() {
-		// Only schedule if both API key and channel ID are configured.
 		$api_key    = get_option( 'islami_dawa_tools_youtube_api_key', '' );
 		$channel_id = get_option( 'islami_dawa_tools_youtube_channel_id', '' );
 
@@ -114,8 +111,7 @@ class CronManager {
 	/**
 	 * Execute the scheduled YouTube sync.
 	 *
-	 * Runs sync_latest_videos() via the YouTubeSyncManager.
-	 * Errors are silently logged to avoid breaking the cron queue.
+	 * Errors are logged to the PHP error log to avoid breaking the cron queue.
 	 *
 	 * @since 1.0.0
 	 */
@@ -133,7 +129,7 @@ class CronManager {
 	/**
 	 * Clear the scheduled cron event.
 	 *
-	 * Should be called on plugin deactivation.
+	 * Called on plugin deactivation.
 	 *
 	 * @since 1.0.0
 	 */

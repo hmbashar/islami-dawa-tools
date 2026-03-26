@@ -3,13 +3,14 @@
  * YouTubeApiService.php
  *
  * Wraps all YouTube Data API v3 HTTP requests. Returns structured PHP arrays.
- * No raw JSON is ever returned to callers.
+ * Located under Inc/Api/YouTube/ for extensibility — additional API services
+ * (e.g. VimeoApiService) can sit alongside this in their own sub-namespace.
  *
- * @package IslamiDawaTools
+ * @package IslamiDawaTools\Api\YouTube
  * @since   1.0.0
  */
 
-namespace IslamiDawaTools;
+namespace IslamiDawaTools\Api\YouTube;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -19,9 +20,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class YouTubeApiService
  *
  * Responsible for communicating with the YouTube Data API v3.
- * All public methods return WP_Error on failure or a structured array on success.
+ * All public methods return \WP_Error on failure or a structured array on success.
  *
- * @package IslamiDawaTools
+ * @package IslamiDawaTools\Api\YouTube
  * @since   1.0.0
  */
 class YouTubeApiService {
@@ -104,9 +105,9 @@ class YouTubeApiService {
 	}
 
 	/**
-	 * Get all videos from a channel's uploads playlist with pagination support.
+	 * Get all videos from a channel's uploads playlist with full pagination.
 	 *
-	 * Iterates through all pages and returns every video item.
+	 * Iterates through every page and returns all video items.
 	 *
 	 * @since 1.0.0
 	 *
@@ -127,7 +128,7 @@ class YouTubeApiService {
 			$args = array(
 				'part'       => 'snippet',
 				'playlistId' => $playlist_id,
-				'maxResults' => 50, // maximum allowed by the API.
+				'maxResults' => 50,
 				'key'        => $this->api_key,
 			);
 
@@ -156,7 +157,7 @@ class YouTubeApiService {
 	/**
 	 * Get the latest N videos from a channel's uploads playlist.
 	 *
-	 * Used by the cron sync to check for newly uploaded videos.
+	 * Used by the cron sync — only one API page, keeping quota usage low.
 	 *
 	 * @since 1.0.0
 	 *
@@ -195,8 +196,8 @@ class YouTubeApiService {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $item Raw item from YouTubeApiService::get_channel_videos().
-	 * @return array|false Normalised video data or false if the item is invalid/private.
+	 * @param array $item Raw item from get_channel_videos() or get_latest_videos().
+	 * @return array|false Normalised video data or false if the item is private/invalid.
 	 */
 	public function parse_video_item( $item ) {
 		if ( empty( $item['snippet'] ) ) {
@@ -211,14 +212,11 @@ class YouTubeApiService {
 			return false;
 		}
 
-		// Determine the best available thumbnail.
-		$thumbnail_url = $this->get_best_thumbnail( $snippet );
-
 		return array(
 			'video_id'     => $video_id,
 			'title'        => sanitize_text_field( $snippet['title'] ),
 			'url'          => 'https://www.youtube.com/watch?v=' . $video_id,
-			'thumbnail'    => $thumbnail_url,
+			'thumbnail'    => $this->get_best_thumbnail( $snippet ),
 			'published_at' => isset( $snippet['publishedAt'] ) ? sanitize_text_field( $snippet['publishedAt'] ) : '',
 		);
 	}
@@ -258,12 +256,7 @@ class YouTubeApiService {
 	 * @return array|\WP_Error Decoded response body array or WP_Error on failure.
 	 */
 	private function make_request( $url ) {
-		$response = wp_remote_get(
-			$url,
-			array(
-				'timeout' => 30,
-			)
-		);
+		$response = wp_remote_get( $url, array( 'timeout' => 30 ) );
 
 		if ( is_wp_error( $response ) ) {
 			return new \WP_Error(
@@ -280,7 +273,6 @@ class YouTubeApiService {
 		$body = wp_remote_retrieve_body( $response );
 		$data = json_decode( $body, true );
 
-		// Handle non-200 responses, including quota exceeded (403).
 		if ( 200 !== $code ) {
 			$message = isset( $data['error']['message'] )
 				? sanitize_text_field( $data['error']['message'] )
@@ -289,7 +281,7 @@ class YouTubeApiService {
 			return new \WP_Error(
 				'islami_dawa_tools_api_error',
 				sprintf(
-					/* translators: 1: HTTP code, 2: error message */
+					/* translators: 1: HTTP status code, 2: API error message */
 					__( 'YouTube API error %1$d: %2$s', 'islami-dawa-tools' ),
 					$code,
 					$message

@@ -18,8 +18,8 @@ if (!defined('ABSPATH')) {
 
 use IslamiDawaTools\Admin\AdminManager;
 use IslamiDawaTools\Frontend\Frontend;
-use IslamiDawaTools\YouTubeSyncManager;
-use IslamiDawaTools\CronManager;
+use IslamiDawaTools\Api\YouTube\YouTubeSyncManager;
+use IslamiDawaTools\Cron\CronManager;
 
 /**
  * The manager class for Islami Dawa Tools.
