@@ -9,13 +9,15 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-03-19T09:02:18+00:00\n"
+"POT-Creation-Date: 2026-05-02T06:54:30+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: islami-dawa-tools\n"
 
 #. Plugin Name of the plugin
 #: islami-dawa-tools.php
+#: Admin/YouTubeSyncPage.php:78
+#: Admin/YouTubeSyncPage.php:79
 #: Frontend/Elementor/Elementor.php:99
 msgid "Islami Dawa Tools"
 msgstr ""
@@ -38,6 +40,175 @@ msgstr ""
 #. Author URI of the plugin
 #: islami-dawa-tools.php
 msgid "https://github.com/PairDevs"
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:89
+#: Admin/YouTubeSyncPage.php:90
+msgid "YouTube Sync"
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:176
+msgid "Sync Complete!"
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:177
+msgid "Sync Failed"
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:178
+msgid "Sync All Videos?"
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:179
+msgid "This will import all videos from your channel. It may take a while for large channels."
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:180
+msgid "Yes, Start Sync"
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:181
+msgid "Run Latest Sync?"
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:182
+msgid "This will check the 10 most recent uploads and import any that are missing."
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:183
+msgid "Yes, Run Now"
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:184
+msgid "Cancel"
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:185
+msgid "Got it!"
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:186
+#: Admin/YouTubeSyncPage.php:304
+msgid "Syncing videos…"
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:187
+msgid "Syncing all videos — please wait…"
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:188
+msgid "Checking for latest videos…"
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:189
+msgid "Found"
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:190
+msgid "Imported"
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:191
+msgid "Skipped"
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:192
+msgid "Failed"
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:219
+#: Admin/YouTubeSyncPage.php:238
+msgid "You do not have permission to perform this action."
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:302
+msgid "Syncing, please wait…"
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:320
+msgid "YouTube Channel Sync"
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:321
+msgid "Islami Dawa Tools — Automatically import YouTube videos as WordPress posts."
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:333
+msgid "API Settings"
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:341
+msgid "YouTube API Key"
+msgstr ""
+
+#. translators: %s: Google Cloud Console link
+#: Admin/YouTubeSyncPage.php:358
+#, php-format
+msgid "Generate a key in the %s with YouTube Data API v3 enabled."
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:359
+msgid "Google Cloud Console"
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:367
+msgid "YouTube Channel ID"
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:380
+msgid "Found in YouTube Studio → Settings → Channel → Advanced settings."
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:387
+msgid "Save Settings"
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:402
+msgid "Manual Sync"
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:406
+msgid "\"Sync All Videos\" imports every video from your channel (uses full API pagination). \"Run Latest Sync Now\" checks only the 10 most recent uploads — ideal for a quick catch-up."
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:415
+msgid "Sync All Videos"
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:424
+msgid "Run Latest Sync Now"
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:439
+msgid "Sync Status"
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:445
+msgid "Auto-Sync (Cron)"
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:450
+msgid "Active"
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:455
+msgid "Inactive — save API key &amp; Channel ID first"
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:463
+msgid "Next Cron Run"
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:469
+msgid "Last Sync Time"
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:470
+msgid "Never synced"
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:474
+msgid "Last Sync Result"
 msgstr ""
 
 #: Frontend/Elementor/Widgets/ACF_Repeater_Widget.php:54
@@ -190,4 +361,70 @@ msgstr ""
 
 #: Frontend/GravityForms/GravityForms.php:72
 msgid "Bangladeshi Taka"
+msgstr ""
+
+#: Inc/Api/YouTube/YouTubeApiService.php:71
+msgid "YouTube API key is not configured."
+msgstr ""
+
+#: Inc/Api/YouTube/YouTubeApiService.php:78
+#: Inc/Api/YouTube/YouTubeSyncManager.php:91
+#: Inc/Api/YouTube/YouTubeSyncManager.php:120
+msgid "YouTube Channel ID is not configured."
+msgstr ""
+
+#: Inc/Api/YouTube/YouTubeApiService.php:100
+msgid "Could not retrieve uploads playlist for the given channel."
+msgstr ""
+
+#. translators: %s: error message
+#: Inc/Api/YouTube/YouTubeApiService.php:266
+#, php-format
+msgid "YouTube API request failed: %s"
+msgstr ""
+
+#: Inc/Api/YouTube/YouTubeApiService.php:279
+msgid "Unknown API error."
+msgstr ""
+
+#. translators: 1: HTTP status code, 2: API error message
+#: Inc/Api/YouTube/YouTubeApiService.php:285
+#, php-format
+msgid "YouTube API error %1$d: %2$s"
+msgstr ""
+
+#: Inc/Api/YouTube/YouTubeApiService.php:295
+msgid "YouTube API returned an invalid response."
+msgstr ""
+
+#: Inc/Api/YouTube/YouTubeImporter.php:81
+msgid "Video ID is missing."
+msgstr ""
+
+#. translators: %s: YouTube video ID
+#: Inc/Api/YouTube/YouTubeImporter.php:89
+#, php-format
+msgid "Video %s already imported."
+msgstr ""
+
+#. translators: %s: error message
+#: Inc/Api/YouTube/YouTubeImporter.php:140
+#, php-format
+msgid "Failed to insert post: %s"
+msgstr ""
+
+#. translators: 1: video title, 2: YouTube video ID
+#: Inc/Api/YouTube/YouTubeImporter.php:181
+#, php-format
+msgid "Imported \"%1$s\" (%2$s)."
+msgstr ""
+
+#. translators: 1: found, 2: imported, 3: skipped, 4: failed
+#: Inc/Api/YouTube/YouTubeSyncManager.php:192
+#, php-format
+msgid "Found: %1$d | Imported: %2$d | Skipped: %3$d | Failed: %4$d"
+msgstr ""
+
+#: Inc/Cron/CronManager.php:84
+msgid "Islami Dawa Tools: Every 15 minutes (filterable)"
 msgstr ""

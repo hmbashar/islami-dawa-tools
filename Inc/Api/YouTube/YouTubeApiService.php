@@ -256,7 +256,14 @@ class YouTubeApiService {
 	 * @return array|\WP_Error Decoded response body array or WP_Error on failure.
 	 */
 	private function make_request( $url ) {
-		$response = wp_remote_get( $url, array( 'timeout' => 30 ) );
+		$args = array(
+			'timeout' => 30,
+			'headers' => array(
+				'Referer' => home_url(),
+			),
+		);
+
+		$response = wp_remote_get( $url, $args );
 
 		if ( is_wp_error( $response ) ) {
 			return new \WP_Error(
