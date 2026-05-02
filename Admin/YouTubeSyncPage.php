@@ -37,6 +37,7 @@ class YouTubeSyncPage {
 	 * @var string
 	 */
 	const PAGE_SLUG = 'islami-dawa-tools-youtube-sync';
+	const PAGE_SLUG_MAIN = 'islami-dawa-tools';
 
 	/**
 	 * Nonce action for the "Sync All Videos" POST action.
@@ -64,6 +65,15 @@ class YouTubeSyncPage {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
 		add_action( 'admin_post_islami_dawa_tools_sync_all', array( $this, 'handle_sync_all' ) );
 		add_action( 'admin_post_islami_dawa_tools_sync_latest', array( $this, 'handle_sync_latest' ) );
+		add_filter( 'parent_file', array( $this, 'highlight_main_menu' ) );
+	}
+
+	public function highlight_main_menu( $parent_file ) {
+		global $plugin_page;
+		if ( 'islami-dawa-tools' === $plugin_page ) {
+			$parent_file = 'islami-dawa-tools';
+		}
+		return $parent_file;
 	}
 
 	/**
@@ -79,7 +89,7 @@ class YouTubeSyncPage {
 			__( 'Islami Dawa Tools', 'islami-dawa-tools' ),
 			'manage_options',
 			'islami-dawa-tools',
-			'__return_null',
+			array( $this, 'render_main_page' ),
 			'dashicons-admin-tools',
 			60
 		);
@@ -102,8 +112,10 @@ class YouTubeSyncPage {
 	 * @param string $hook Current admin page hook.
 	 */
 	public function enqueue_assets( $hook ) {
-		// Only load on our specific admin page.
-		if ( false === strpos( $hook, self::PAGE_SLUG ) ) {
+		$is_main_page     = false !== strpos( $hook, self::PAGE_SLUG_MAIN );
+		$is_youtube_page = false !== strpos( $hook, self::PAGE_SLUG );
+
+		if ( ! $is_main_page && ! $is_youtube_page ) {
 			return;
 		}
 
@@ -134,22 +146,30 @@ class YouTubeSyncPage {
 			null
 		);
 
-		// Plugin page stylesheet.
+		// Plugin page stylesheet (load on both main page and YouTube sync page).
 		wp_enqueue_style(
 			'idt-youtube-sync',
 			$plugin_url . 'Admin/assets/css/youtube-sync.css',
-			array( 'sweetalert2' ),
+			array(),
 			$version
 		);
 
-		// Plugin page script.
-		wp_enqueue_script(
-			'idt-youtube-sync',
-			$plugin_url . 'Admin/assets/js/youtube-sync.js',
-			array( 'sweetalert2' ),
-			$version,
-			true
-		);
+		// Plugin page script (YouTube sync page only).
+		if ( $is_youtube_page ) {
+			wp_enqueue_script(
+				'idt-youtube-sync',
+				$plugin_url . 'Admin/assets/js/youtube-sync.js',
+				array( 'sweetalert2' ),
+				$version,
+				true
+			);
+		}
+
+		if ( ! $is_youtube_page ) {
+			return;
+		}
+
+		// SweetAlert2 (YouTube sync page only).
 
 		// Collect redirect query params for SweetAlert2 to display.
 		// phpcs:disable WordPress.Security.NonceVerification.Recommended
@@ -285,6 +305,110 @@ class YouTubeSyncPage {
 	 *
 	 * @since 1.0.0
 	 */
+	public function render_main_page() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+		?>
+		<div class="wrap idt-main-wrap">
+			<div class="idt-hero">
+				<div class="idt-hero-icon">
+					<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+				</div>
+				<div class="idt-hero-text">
+					<h1><?php esc_html_e( 'Islami Dawa Tools', 'islami-dawa-tools' ); ?></h1>
+					<p><?php esc_html_e( 'Powerful tools for Islamic content management and Dawa outreach.', 'islami-dawa-tools' ); ?></p>
+				</div>
+			</div>
+
+			<div class="idt-grid">
+				<?php
+				$demo_modules = array(
+					array(
+						'id'        => 'youtube-sync',
+						'title'     => 'YouTube Sync',
+						'desc'      => 'Automatically import videos from your YouTube channel as WordPress posts.',
+						'icon'      => '<path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>',
+						'color'     => '#FF0000',
+						'link'      => admin_url( 'admin.php?page=islami-dawa-tools-youtube-sync' ),
+						'stats'     => array( 'videos' => 142, 'posts' => 138 ),
+					),
+					array(
+						'id'        => 'quran-reciters',
+						'title'     => 'Quran Reciters',
+						'desc'      => 'Manage and display Quran recitations from famous reciters worldwide.',
+						'icon'      => '<path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>',
+						'color'     => '#27ae60',
+						'link'      => '#',
+						'stats'     => array( 'reciters' => 25, 'surahs' => 114 ),
+					),
+					array(
+						'id'        => 'duas-collection',
+						'title'     => 'Duas Collection',
+						'desc'      => 'Beautiful collection of authentic Islamic duas and prayers.',
+						'icon'      => '<path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>',
+						'color'     => '#9b59b6',
+						'link'      => '#',
+						'stats'     => array( 'duas' => 80, 'categories' => 12 ),
+					),
+					array(
+						'id'        => 'event-manager',
+						'title'     => 'Event Manager',
+						'desc'      => 'Organize Islamic events, conferences, and community gatherings.',
+						'icon'      => '<path d="M17 12h-5v5h5v-5zM16 1v3H8V1H6v3H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/>',
+						'color'     => '#e67e22',
+						'link'      => '#',
+						'stats'     => array( 'events' => 5, 'upcoming' => 2 ),
+					),
+					array(
+						'id'        => 'donations',
+						'title'     => 'Donations',
+						'desc'      => 'Secure online donations and Zakat calculation tools.',
+						'icon'      => '<path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.75-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.17h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.41 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>',
+						'color'     => '#3498db',
+						'link'      => '#',
+						'stats'     => array( 'raised' => '$12.5k', 'donors' => 234 ),
+					),
+					array(
+						'id'        => 'analytics',
+						'title'     => 'Analytics',
+						'desc'      => 'Track engagement, views, and user activity across your content.',
+						'icon'      => '<path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>',
+						'color'     => '#e74c3c',
+						'link'      => '#',
+						'stats'     => array( 'views' => '45.2k', 'users' => 1820 ),
+					),
+				);
+
+				foreach ( $demo_modules as $module ) :
+					?>
+					<a href="<?php echo esc_url( $module['link'] ); ?>" class="idt-module-card" style="--module-color: <?php echo esc_attr( $module['color'] ); ?>;">
+						<div class="idt-module-icon">
+							<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><?php echo $module['icon']; ?></svg>
+						</div>
+						<div class="idt-module-content">
+							<h3><?php echo esc_html( $module['title'] ); ?></h3>
+							<p><?php echo esc_html( $module['desc'] ); ?></p>
+						</div>
+						<div class="idt-module-stats">
+							<?php foreach ( $module['stats'] as $label => $value ) : ?>
+								<div class="idt-stat">
+									<span class="idt-stat-value"><?php echo esc_html( $value ); ?></span>
+									<span class="idt-stat-label"><?php echo esc_html( $label ); ?></span>
+								</div>
+							<?php endforeach; ?>
+						</div>
+						<div class="idt-module-arrow">
+							<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+						</div>
+					</a>
+					<?php
+				endforeach;
+				?>
+			</div>
+		</div>
+		<?php
+	}
 	public function render_page() {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
