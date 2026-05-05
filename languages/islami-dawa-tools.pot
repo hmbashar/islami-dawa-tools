@@ -9,15 +9,16 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-02T06:54:30+00:00\n"
+"POT-Creation-Date: 2026-05-05T12:14:41+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: islami-dawa-tools\n"
 
 #. Plugin Name of the plugin
 #: islami-dawa-tools.php
-#: Admin/YouTubeSyncPage.php:78
-#: Admin/YouTubeSyncPage.php:79
+#: Admin/YouTubeSyncPage.php:88
+#: Admin/YouTubeSyncPage.php:89
+#: Admin/YouTubeSyncPage.php:319
 #: Frontend/Elementor/Elementor.php:99
 msgid "Islami Dawa Tools"
 msgstr ""
@@ -42,172 +43,176 @@ msgstr ""
 msgid "https://github.com/PairDevs"
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:89
-#: Admin/YouTubeSyncPage.php:90
+#: Admin/YouTubeSyncPage.php:99
+#: Admin/YouTubeSyncPage.php:100
 msgid "YouTube Sync"
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:176
+#: Admin/YouTubeSyncPage.php:196
 msgid "Sync Complete!"
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:177
+#: Admin/YouTubeSyncPage.php:197
 msgid "Sync Failed"
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:178
+#: Admin/YouTubeSyncPage.php:198
 msgid "Sync All Videos?"
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:179
+#: Admin/YouTubeSyncPage.php:199
 msgid "This will import all videos from your channel. It may take a while for large channels."
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:180
+#: Admin/YouTubeSyncPage.php:200
 msgid "Yes, Start Sync"
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:181
+#: Admin/YouTubeSyncPage.php:201
 msgid "Run Latest Sync?"
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:182
+#: Admin/YouTubeSyncPage.php:202
 msgid "This will check the 10 most recent uploads and import any that are missing."
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:183
+#: Admin/YouTubeSyncPage.php:203
 msgid "Yes, Run Now"
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:184
+#: Admin/YouTubeSyncPage.php:204
 msgid "Cancel"
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:185
+#: Admin/YouTubeSyncPage.php:205
 msgid "Got it!"
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:186
-#: Admin/YouTubeSyncPage.php:304
+#: Admin/YouTubeSyncPage.php:206
+#: Admin/YouTubeSyncPage.php:428
 msgid "Syncing videos…"
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:187
+#: Admin/YouTubeSyncPage.php:207
 msgid "Syncing all videos — please wait…"
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:188
+#: Admin/YouTubeSyncPage.php:208
 msgid "Checking for latest videos…"
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:189
+#: Admin/YouTubeSyncPage.php:209
 msgid "Found"
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:190
+#: Admin/YouTubeSyncPage.php:210
 msgid "Imported"
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:191
+#: Admin/YouTubeSyncPage.php:211
 msgid "Skipped"
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:192
+#: Admin/YouTubeSyncPage.php:212
 msgid "Failed"
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:219
-#: Admin/YouTubeSyncPage.php:238
+#: Admin/YouTubeSyncPage.php:239
+#: Admin/YouTubeSyncPage.php:258
 msgid "You do not have permission to perform this action."
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:302
+#: Admin/YouTubeSyncPage.php:320
+msgid "Powerful tools for Islamic content management and Dawa outreach."
+msgstr ""
+
+#: Admin/YouTubeSyncPage.php:426
 msgid "Syncing, please wait…"
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:320
+#: Admin/YouTubeSyncPage.php:444
 msgid "YouTube Channel Sync"
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:321
+#: Admin/YouTubeSyncPage.php:445
 msgid "Islami Dawa Tools — Automatically import YouTube videos as WordPress posts."
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:333
+#: Admin/YouTubeSyncPage.php:457
 msgid "API Settings"
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:341
+#: Admin/YouTubeSyncPage.php:465
 msgid "YouTube API Key"
 msgstr ""
 
 #. translators: %s: Google Cloud Console link
-#: Admin/YouTubeSyncPage.php:358
+#: Admin/YouTubeSyncPage.php:482
 #, php-format
 msgid "Generate a key in the %s with YouTube Data API v3 enabled."
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:359
+#: Admin/YouTubeSyncPage.php:483
 msgid "Google Cloud Console"
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:367
+#: Admin/YouTubeSyncPage.php:491
 msgid "YouTube Channel ID"
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:380
+#: Admin/YouTubeSyncPage.php:504
 msgid "Found in YouTube Studio → Settings → Channel → Advanced settings."
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:387
+#: Admin/YouTubeSyncPage.php:511
 msgid "Save Settings"
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:402
+#: Admin/YouTubeSyncPage.php:526
 msgid "Manual Sync"
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:406
+#: Admin/YouTubeSyncPage.php:530
 msgid "\"Sync All Videos\" imports every video from your channel (uses full API pagination). \"Run Latest Sync Now\" checks only the 10 most recent uploads — ideal for a quick catch-up."
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:415
+#: Admin/YouTubeSyncPage.php:539
 msgid "Sync All Videos"
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:424
+#: Admin/YouTubeSyncPage.php:548
 msgid "Run Latest Sync Now"
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:439
+#: Admin/YouTubeSyncPage.php:563
 msgid "Sync Status"
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:445
+#: Admin/YouTubeSyncPage.php:569
 msgid "Auto-Sync (Cron)"
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:450
+#: Admin/YouTubeSyncPage.php:574
 msgid "Active"
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:455
+#: Admin/YouTubeSyncPage.php:579
 msgid "Inactive — save API key &amp; Channel ID first"
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:463
+#: Admin/YouTubeSyncPage.php:587
 msgid "Next Cron Run"
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:469
+#: Admin/YouTubeSyncPage.php:593
 msgid "Last Sync Time"
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:470
+#: Admin/YouTubeSyncPage.php:594
 msgid "Never synced"
 msgstr ""
 
-#: Admin/YouTubeSyncPage.php:474
+#: Admin/YouTubeSyncPage.php:598
 msgid "Last Sync Result"
 msgstr ""
 
@@ -378,22 +383,22 @@ msgid "Could not retrieve uploads playlist for the given channel."
 msgstr ""
 
 #. translators: %s: error message
-#: Inc/Api/YouTube/YouTubeApiService.php:266
+#: Inc/Api/YouTube/YouTubeApiService.php:273
 #, php-format
 msgid "YouTube API request failed: %s"
 msgstr ""
 
-#: Inc/Api/YouTube/YouTubeApiService.php:279
+#: Inc/Api/YouTube/YouTubeApiService.php:286
 msgid "Unknown API error."
 msgstr ""
 
 #. translators: 1: HTTP status code, 2: API error message
-#: Inc/Api/YouTube/YouTubeApiService.php:285
+#: Inc/Api/YouTube/YouTubeApiService.php:292
 #, php-format
 msgid "YouTube API error %1$d: %2$s"
 msgstr ""
 
-#: Inc/Api/YouTube/YouTubeApiService.php:295
+#: Inc/Api/YouTube/YouTubeApiService.php:302
 msgid "YouTube API returned an invalid response."
 msgstr ""
 
