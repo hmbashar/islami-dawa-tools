@@ -465,3 +465,154 @@
         grid-column: auto;
     }
 }
+
+
+/* Revision: organized settings tabs and polished controls */
+.idt-badri-settings-shell {
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+}
+.idt-badri-settings-tabs {
+    position: sticky;
+    top: 46px;
+    display: grid;
+    gap: 10px;
+    padding: 16px;
+    background: #fff;
+    border: 1px solid var(--idt-border, #dfe9e2);
+    border-radius: 22px;
+    box-shadow: 0 12px 32px rgba(12,65,38,0.08);
+}
+.idt-badri-settings-tabs button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid transparent;
+    border-radius: 16px;
+    padding: 13px 14px;
+    background: transparent;
+    color: var(--idt-muted, #637066);
+    font-weight: 800;
+    cursor: pointer;
+    text-align: left;
+    transition: .2s ease;
+}
+.idt-badri-settings-tabs button:hover,
+.idt-badri-settings-tabs button.is-active {
+    background: var(--idt-light-green, #eef8f1);
+    color: var(--idt-primary-dark, #084729);
+    border-color: rgba(15,107,63,0.16);
+}
+.idt-badri-settings-tabs .dashicons {
+    color: var(--idt-primary, #0f6b3f);
+}
+.idt-badri-settings-panels {
+    min-width: 0;
+}
+.idt-badri-settings-panel {
+    animation: idtBadriFadeIn .18s ease;
+}
+@keyframes idtBadriFadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.idt-badri-panel-heading {
+    margin-bottom: 20px;
+    padding: 24px;
+    background: linear-gradient(135deg, #fff, var(--idt-soft-bg, #f8fbf8));
+    border: 1px solid var(--idt-border, #dfe9e2);
+    border-radius: 22px;
+    box-shadow: 0 10px 28px rgba(12,65,38,0.055);
+}
+.idt-badri-panel-heading span {
+    display: inline-flex;
+    margin-bottom: 8px;
+    padding: 6px 13px;
+    border-radius: 999px;
+    background: rgba(217,164,65,0.16);
+    color: var(--idt-primary-dark, #084729);
+    font-weight: 900;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+.idt-badri-panel-heading h2 {
+    margin: 0 0 6px;
+    color: var(--idt-primary-dark, #084729);
+    font-size: 28px;
+    line-height: 1.3;
+}
+.idt-badri-panel-heading p {
+    margin: 0;
+    color: var(--idt-muted, #637066);
+    font-size: 15px;
+}
+.idt-badri-admin-grid.compact {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.idt-badri-inline-fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+.idt-badri-sticky-save {
+    position: sticky;
+    bottom: 0;
+    z-index: 5;
+    margin-top: 24px;
+    padding: 16px 0;
+    background: linear-gradient(180deg, rgba(241,241,241,0), #f0f0f1 45%);
+    text-align: right;
+}
+.idt-badri-admin-field input,
+.idt-badri-admin-field textarea,
+.idt-badri-admin-field select,
+.idt-badri-field-builder-grid input,
+.idt-badri-field-builder-grid select,
+.idt-badri-field-builder-grid textarea {
+    min-height: 44px;
+    border: 1.5px solid #d7e4dc;
+    border-radius: 14px;
+    background: linear-gradient(180deg, #fff, #fbfdfb);
+    box-shadow: 0 6px 16px rgba(12,65,38,0.035);
+}
+.idt-badri-remove-field {
+    border-color: #d63638 !important;
+    color: #d63638 !important;
+    background: #fff5f5 !important;
+    border-radius: 999px !important;
+    font-weight: 800 !important;
+    padding: 2px 14px !important;
+}
+.idt-badri-remove-field:hover {
+    background: #d63638 !important;
+    color: #fff !important;
+}
+.idt-badri-add-field {
+    padding: 5px 18px !important;
+    background: var(--idt-light-green, #eef8f1) !important;
+}
+.idt-badri-field-builder-row-head {
+    background: linear-gradient(90deg, #fff, var(--idt-soft-bg, #f8fbf8));
+}
+@media (max-width: 1100px) {
+    .idt-badri-settings-shell {
+        grid-template-columns: 1fr;
+    }
+    .idt-badri-settings-tabs {
+        position: static;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+@media (max-width: 782px) {
+    .idt-badri-admin-grid.compact,
+    .idt-badri-inline-fields,
+    .idt-badri-settings-tabs {
+        grid-template-columns: 1fr;
+    }
+    .idt-badri-sticky-save {
+        text-align: left;
+    }
+}

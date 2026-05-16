@@ -54,6 +54,23 @@
         $(this).closest('[data-badri-field-row]').remove();
     });
 
+
+
+    $(document).on('click', '[data-badri-tab]', function (event) {
+        event.preventDefault();
+
+        var target = $(this).data('badri-tab');
+        var $shell = $(this).closest('[data-badri-tabs]');
+
+        $shell.find('[data-badri-tab]').removeClass('is-active');
+        $(this).addClass('is-active');
+
+        $shell.find('[data-badri-panel]').each(function () {
+            var isActive = $(this).data('badri-panel') === target;
+            $(this).prop('hidden', !isActive).toggleClass('is-active', isActive);
+        });
+    });
+
     $(function () {
         toggleAdminCustomAmount();
         refreshAllBuilderRows();

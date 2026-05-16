@@ -154,3 +154,10 @@ Templates/badri-members-grid.php
 - Extra fields can be text, number, email, textarea, select, or date.
 - Extra fields can be required and optionally displayed in the public grid.
 - Extra fields are saved as post meta on the Badri member post.
+
+
+## Version 1.0.6
+
+- Improved frontend form input/select/textarea styling with a more modern card-based field UI.
+- Added styled delete button for the form builder rows.
+- Reorganized Badri settings into tabbed panels: Form, Messages, Grid, Email, and Form Builder.

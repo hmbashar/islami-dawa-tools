@@ -330,63 +330,113 @@ class BadriMembers {
                 <div class="idt-badri-hero-icon"><span class="dashicons dashicons-groups"></span></div>
                 <div>
                     <h1><?php echo esc_html__( 'বদরী সদস্য সেটিংস', 'islami-dawa-tools' ); ?></h1>
-                    <p><?php echo esc_html__( 'ফরম, AJAX মেসেজ, ছবি আপলোড, গ্রিড টাইটেল এবং অ্যাডমিন নোটিফিকেশন সেটিংস ম্যানেজ করুন।', 'islami-dawa-tools' ); ?></p>
+                    <p><?php echo esc_html__( 'ফরম, মেসেজ, গ্রিড, নোটিফিকেশন এবং অতিরিক্ত ফিল্ডগুলো এক জায়গা থেকে ম্যানেজ করুন।', 'islami-dawa-tools' ); ?></p>
                 </div>
             </div>
 
             <form method="post" action="options.php" class="idt-badri-settings-form">
                 <?php settings_fields( self::SETTINGS_GROUP ); ?>
 
-                <div class="idt-badri-admin-grid">
-                    <div class="idt-badri-admin-card">
-                        <h2><?php echo esc_html__( 'ফরম সেটিংস', 'islami-dawa-tools' ); ?></h2>
-                        <?php $this->render_settings_input( 'form_title', esc_html__( 'ফরম টাইটেল', 'islami-dawa-tools' ), $settings['form_title'] ); ?>
-                        <?php $this->render_settings_textarea( 'form_description', esc_html__( 'ফরম বিবরণ', 'islami-dawa-tools' ), $settings['form_description'] ); ?>
-                        <?php $this->render_settings_input( 'submit_button_text', esc_html__( 'সাবমিট বাটন টেক্সট', 'islami-dawa-tools' ), $settings['submit_button_text'] ); ?>
-                        <?php $this->render_settings_input( 'photo_max_size_mb', esc_html__( 'ছবির সর্বোচ্চ সাইজ (MB)', 'islami-dawa-tools' ), $settings['photo_max_size_mb'], 'number' ); ?>
-                    </div>
+                <div class="idt-badri-settings-shell" data-badri-tabs>
+                    <nav class="idt-badri-settings-tabs" aria-label="<?php echo esc_attr__( 'Badri settings tabs', 'islami-dawa-tools' ); ?>">
+                        <button type="button" class="is-active" data-badri-tab="form"><span class="dashicons dashicons-feedback"></span><?php echo esc_html__( 'ফরম', 'islami-dawa-tools' ); ?></button>
+                        <button type="button" data-badri-tab="messages"><span class="dashicons dashicons-format-chat"></span><?php echo esc_html__( 'মেসেজ', 'islami-dawa-tools' ); ?></button>
+                        <button type="button" data-badri-tab="grid"><span class="dashicons dashicons-screenoptions"></span><?php echo esc_html__( 'গ্রিড', 'islami-dawa-tools' ); ?></button>
+                        <button type="button" data-badri-tab="email"><span class="dashicons dashicons-email-alt"></span><?php echo esc_html__( 'ইমেইল', 'islami-dawa-tools' ); ?></button>
+                        <button type="button" data-badri-tab="builder"><span class="dashicons dashicons-admin-customizer"></span><?php echo esc_html__( 'ফরম বিল্ডার', 'islami-dawa-tools' ); ?></button>
+                    </nav>
 
-                    <div class="idt-badri-admin-card">
-                        <h2><?php echo esc_html__( 'মেসেজ সেটিংস', 'islami-dawa-tools' ); ?></h2>
-                        <?php $this->render_settings_input( 'success_title', esc_html__( 'সাকসেস পপআপ টাইটেল', 'islami-dawa-tools' ), $settings['success_title'] ); ?>
-                        <?php $this->render_settings_textarea( 'success_message', esc_html__( 'সাকসেস মেসেজ', 'islami-dawa-tools' ), $settings['success_message'] ); ?>
-                        <?php $this->render_settings_textarea( 'error_message', esc_html__( 'এরর মেসেজ', 'islami-dawa-tools' ), $settings['error_message'] ); ?>
-                        <?php $this->render_settings_textarea( 'captcha_error_message', esc_html__( 'CAPTCHA এরর মেসেজ', 'islami-dawa-tools' ), $settings['captcha_error_message'] ); ?>
-                        <?php $this->render_settings_input( 'processing_message', esc_html__( 'প্রসেসিং মেসেজ', 'islami-dawa-tools' ), $settings['processing_message'] ); ?>
-                        <?php $this->render_settings_input( 'validation_title', esc_html__( 'ভ্যালিডেশন পপআপ টাইটেল', 'islami-dawa-tools' ), $settings['validation_title'] ); ?>
-                        <?php $this->render_settings_input( 'required_field_message', esc_html__( 'Required ফিল্ড মেসেজ', 'islami-dawa-tools' ), $settings['required_field_message'] ); ?>
-                        <?php $this->render_settings_input( 'custom_amount_error_message', esc_html__( 'কাস্টম এমাউন্ট এরর মেসেজ', 'islami-dawa-tools' ), $settings['custom_amount_error_message'] ); ?>
-                        <?php $this->render_settings_input( 'photo_type_error_message', esc_html__( 'ছবির টাইপ এরর মেসেজ', 'islami-dawa-tools' ), $settings['photo_type_error_message'] ); ?>
-                        <?php $this->render_settings_input( 'photo_size_error_message', esc_html__( 'ছবির সাইজ এরর মেসেজ', 'islami-dawa-tools' ), $settings['photo_size_error_message'] ); ?>
-                        <p class="idt-badri-hint"><?php echo esc_html__( 'Required মেসেজে {field} এবং ছবির সাইজ মেসেজে {size} ব্যবহার করা যাবে।', 'islami-dawa-tools' ); ?></p>
-                    </div>
+                    <div class="idt-badri-settings-panels">
+                        <section class="idt-badri-settings-panel is-active" data-badri-panel="form">
+                            <div class="idt-badri-panel-heading">
+                                <span><?php echo esc_html__( 'General Form', 'islami-dawa-tools' ); ?></span>
+                                <h2><?php echo esc_html__( 'ফরম সেটিংস', 'islami-dawa-tools' ); ?></h2>
+                                <p><?php echo esc_html__( 'ফ্রন্টএন্ড ফরমের টাইটেল, বিবরণ, বাটন এবং ছবির আপলোড সাইজ নির্ধারণ করুন।', 'islami-dawa-tools' ); ?></p>
+                            </div>
+                            <div class="idt-badri-admin-grid compact">
+                                <div class="idt-badri-admin-card">
+                                    <?php $this->render_settings_input( 'form_title', esc_html__( 'ফরম টাইটেল', 'islami-dawa-tools' ), $settings['form_title'] ); ?>
+                                    <?php $this->render_settings_textarea( 'form_description', esc_html__( 'ফরম বিবরণ', 'islami-dawa-tools' ), $settings['form_description'] ); ?>
+                                </div>
+                                <div class="idt-badri-admin-card">
+                                    <?php $this->render_settings_input( 'submit_button_text', esc_html__( 'সাবমিট বাটন টেক্সট', 'islami-dawa-tools' ), $settings['submit_button_text'] ); ?>
+                                    <?php $this->render_settings_input( 'photo_max_size_mb', esc_html__( 'ছবির সর্বোচ্চ সাইজ (MB)', 'islami-dawa-tools' ), $settings['photo_max_size_mb'], 'number' ); ?>
+                                </div>
+                            </div>
+                        </section>
 
-                    <div class="idt-badri-admin-card">
-                        <h2><?php echo esc_html__( 'গ্রিড সেটিংস', 'islami-dawa-tools' ); ?></h2>
-                        <?php $this->render_settings_input( 'grid_title', esc_html__( 'গ্রিড টাইটেল', 'islami-dawa-tools' ), $settings['grid_title'] ); ?>
-                        <?php $this->render_settings_textarea( 'grid_description', esc_html__( 'গ্রিড বিবরণ', 'islami-dawa-tools' ), $settings['grid_description'] ); ?>
-                        <?php $this->render_settings_input( 'empty_message', esc_html__( 'খালি তালিকা মেসেজ', 'islami-dawa-tools' ), $settings['empty_message'] ); ?>
-                    </div>
+                        <section class="idt-badri-settings-panel" data-badri-panel="messages" hidden>
+                            <div class="idt-badri-panel-heading">
+                                <span><?php echo esc_html__( 'SweetAlert2 Messages', 'islami-dawa-tools' ); ?></span>
+                                <h2><?php echo esc_html__( 'মেসেজ সেটিংস', 'islami-dawa-tools' ); ?></h2>
+                                <p><?php echo esc_html__( 'সাবমিশন, এরর ও ভ্যালিডেশন পপআপের মেসেজ কাস্টমাইজ করুন।', 'islami-dawa-tools' ); ?></p>
+                            </div>
+                            <div class="idt-badri-admin-grid compact">
+                                <div class="idt-badri-admin-card">
+                                    <?php $this->render_settings_input( 'success_title', esc_html__( 'সাকসেস পপআপ টাইটেল', 'islami-dawa-tools' ), $settings['success_title'] ); ?>
+                                    <?php $this->render_settings_textarea( 'success_message', esc_html__( 'সাকসেস মেসেজ', 'islami-dawa-tools' ), $settings['success_message'] ); ?>
+                                    <?php $this->render_settings_textarea( 'error_message', esc_html__( 'এরর মেসেজ', 'islami-dawa-tools' ), $settings['error_message'] ); ?>
+                                </div>
+                                <div class="idt-badri-admin-card">
+                                    <?php $this->render_settings_textarea( 'captcha_error_message', esc_html__( 'CAPTCHA এরর মেসেজ', 'islami-dawa-tools' ), $settings['captcha_error_message'] ); ?>
+                                    <?php $this->render_settings_input( 'processing_message', esc_html__( 'প্রসেসিং মেসেজ', 'islami-dawa-tools' ), $settings['processing_message'] ); ?>
+                                    <?php $this->render_settings_input( 'validation_title', esc_html__( 'ভ্যালিডেশন পপআপ টাইটেল', 'islami-dawa-tools' ), $settings['validation_title'] ); ?>
+                                </div>
+                                <div class="idt-badri-admin-card idt-badri-admin-card-wide">
+                                    <div class="idt-badri-inline-fields">
+                                        <?php $this->render_settings_input( 'required_field_message', esc_html__( 'Required ফিল্ড মেসেজ', 'islami-dawa-tools' ), $settings['required_field_message'] ); ?>
+                                        <?php $this->render_settings_input( 'custom_amount_error_message', esc_html__( 'কাস্টম এমাউন্ট এরর মেসেজ', 'islami-dawa-tools' ), $settings['custom_amount_error_message'] ); ?>
+                                        <?php $this->render_settings_input( 'photo_type_error_message', esc_html__( 'ছবির টাইপ এরর মেসেজ', 'islami-dawa-tools' ), $settings['photo_type_error_message'] ); ?>
+                                        <?php $this->render_settings_input( 'photo_size_error_message', esc_html__( 'ছবির সাইজ এরর মেসেজ', 'islami-dawa-tools' ), $settings['photo_size_error_message'] ); ?>
+                                    </div>
+                                    <p class="idt-badri-hint"><?php echo esc_html__( 'Required মেসেজে {field} এবং ছবির সাইজ মেসেজে {size} ব্যবহার করা যাবে।', 'islami-dawa-tools' ); ?></p>
+                                </div>
+                            </div>
+                        </section>
 
-                    <div class="idt-badri-admin-card">
-                        <h2><?php echo esc_html__( 'অ্যাডমিন নোটিফিকেশন', 'islami-dawa-tools' ); ?></h2>
-                        <?php $this->render_settings_input( 'admin_notification_email', esc_html__( 'নোটিফিকেশন ইমেইল', 'islami-dawa-tools' ), $settings['admin_notification_email'], 'email' ); ?>
-                        <?php $this->render_settings_input( 'admin_email_subject', esc_html__( 'ইমেইল সাবজেক্ট', 'islami-dawa-tools' ), $settings['admin_email_subject'] ); ?>
-                        <?php $this->render_settings_textarea( 'admin_email_body', esc_html__( 'ইমেইল বডি', 'islami-dawa-tools' ), $settings['admin_email_body'] ); ?>
-                        <p class="idt-badri-hint"><?php echo esc_html__( 'ইমেইল সাবজেক্টে {name} ব্যবহার করলে সদস্যের নাম বসবে।', 'islami-dawa-tools' ); ?></p>
-                    </div>
+                        <section class="idt-badri-settings-panel" data-badri-panel="grid" hidden>
+                            <div class="idt-badri-panel-heading">
+                                <span><?php echo esc_html__( 'Public Listing', 'islami-dawa-tools' ); ?></span>
+                                <h2><?php echo esc_html__( 'গ্রিড সেটিংস', 'islami-dawa-tools' ); ?></h2>
+                                <p><?php echo esc_html__( 'প্রকাশিত বদরী সদস্য তালিকার হেডিং ও খালি মেসেজ কাস্টমাইজ করুন।', 'islami-dawa-tools' ); ?></p>
+                            </div>
+                            <div class="idt-badri-admin-card">
+                                <?php $this->render_settings_input( 'grid_title', esc_html__( 'গ্রিড টাইটেল', 'islami-dawa-tools' ), $settings['grid_title'] ); ?>
+                                <?php $this->render_settings_textarea( 'grid_description', esc_html__( 'গ্রিড বিবরণ', 'islami-dawa-tools' ), $settings['grid_description'] ); ?>
+                                <?php $this->render_settings_input( 'empty_message', esc_html__( 'খালি তালিকা মেসেজ', 'islami-dawa-tools' ), $settings['empty_message'] ); ?>
+                            </div>
+                        </section>
 
+                        <section class="idt-badri-settings-panel" data-badri-panel="email" hidden>
+                            <div class="idt-badri-panel-heading">
+                                <span><?php echo esc_html__( 'Admin Notification', 'islami-dawa-tools' ); ?></span>
+                                <h2><?php echo esc_html__( 'অ্যাডমিন নোটিফিকেশন', 'islami-dawa-tools' ); ?></h2>
+                                <p><?php echo esc_html__( 'নতুন আবেদন জমা হলে কোন ইমেইলে নোটিফিকেশন যাবে তা ঠিক করুন।', 'islami-dawa-tools' ); ?></p>
+                            </div>
+                            <div class="idt-badri-admin-card">
+                                <?php $this->render_settings_input( 'admin_notification_email', esc_html__( 'নোটিফিকেশন ইমেইল', 'islami-dawa-tools' ), $settings['admin_notification_email'], 'email' ); ?>
+                                <?php $this->render_settings_input( 'admin_email_subject', esc_html__( 'ইমেইল সাবজেক্ট', 'islami-dawa-tools' ), $settings['admin_email_subject'] ); ?>
+                                <?php $this->render_settings_textarea( 'admin_email_body', esc_html__( 'ইমেইল বডি', 'islami-dawa-tools' ), $settings['admin_email_body'] ); ?>
+                                <p class="idt-badri-hint"><?php echo esc_html__( 'ইমেইল সাবজেক্টে {name} ব্যবহার করলে সদস্যের নাম বসবে।', 'islami-dawa-tools' ); ?></p>
+                            </div>
+                        </section>
 
-                    <div class="idt-badri-admin-card idt-badri-admin-card-wide">
-                        <h2><?php echo esc_html__( 'ফরম বিল্ডার: অতিরিক্ত ফিল্ড', 'islami-dawa-tools' ); ?></h2>
-                        <p class="idt-badri-hint"><?php echo esc_html__( 'প্রয়োজন অনুযায়ী অতিরিক্ত ফিল্ড যোগ করুন। এগুলো ফ্রন্টএন্ড ফরমে, সদস্য এডিট স্ক্রিনে এবং চাইলে গ্রিডে দেখানো যাবে।', 'islami-dawa-tools' ); ?></p>
-                        <?php $this->render_additional_fields_builder( $settings ); ?>
+                        <section class="idt-badri-settings-panel" data-badri-panel="builder" hidden>
+                            <div class="idt-badri-panel-heading">
+                                <span><?php echo esc_html__( 'Extra Fields', 'islami-dawa-tools' ); ?></span>
+                                <h2><?php echo esc_html__( 'ফরম বিল্ডার: অতিরিক্ত ফিল্ড', 'islami-dawa-tools' ); ?></h2>
+                                <p><?php echo esc_html__( 'প্রয়োজন অনুযায়ী অতিরিক্ত ফিল্ড যোগ করুন। এগুলো ফ্রন্টএন্ড ফরমে, সদস্য এডিট স্ক্রিনে এবং চাইলে গ্রিডে দেখানো যাবে।', 'islami-dawa-tools' ); ?></p>
+                            </div>
+                            <div class="idt-badri-admin-card idt-badri-admin-card-wide">
+                                <?php $this->render_additional_fields_builder( $settings ); ?>
+                            </div>
+                        </section>
                     </div>
                 </div>
 
-                <p class="submit">
+                <div class="idt-badri-sticky-save">
                     <button type="submit" class="button button-primary idt-badri-save-btn"><?php echo esc_html__( 'সেটিংস সংরক্ষণ করুন', 'islami-dawa-tools' ); ?></button>
-                </p>
+                </div>
             </form>
         </div>
         <?php
@@ -442,7 +492,7 @@ class BadriMembers {
         <div class="idt-badri-field-builder-row" data-badri-field-row>
             <div class="idt-badri-field-builder-row-head">
                 <strong><?php echo esc_html__( 'কাস্টম ফিল্ড', 'islami-dawa-tools' ); ?></strong>
-                <button type="button" class="button-link-delete" data-badri-remove-field><?php echo esc_html__( 'মুছে ফেলুন', 'islami-dawa-tools' ); ?></button>
+                <button type="button" class="button idt-badri-remove-field" data-badri-remove-field><?php echo esc_html__( 'মুছে ফেলুন', 'islami-dawa-tools' ); ?></button>
             </div>
             <div class="idt-badri-field-builder-grid">
                 <label>

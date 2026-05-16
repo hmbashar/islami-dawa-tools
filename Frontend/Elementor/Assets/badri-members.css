@@ -518,3 +518,75 @@
         text-align: left;
     }
 }
+
+
+/* Revision: stronger modern form field UI */
+.at-badri-form {
+    background: linear-gradient(180deg, #ffffff 0%, #fbfdfb 100%);
+}
+.at-badri-form > .at-badri-grid {
+    padding: 26px;
+    border: 1px solid rgba(223, 233, 226, 0.9);
+    border-radius: 26px;
+    background: rgba(255,255,255,0.86);
+    box-shadow: 0 12px 32px rgba(12,65,38,0.055);
+}
+.at-badri-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.at-badri-field label {
+    margin: 0;
+    letter-spacing: .01em;
+}
+.at-badri-field input:not([type="radio"]):not([type="checkbox"]),
+.at-badri-field select,
+.at-badri-field textarea {
+    appearance: none;
+    -webkit-appearance: none;
+    height: auto;
+    min-height: 58px;
+    border: 1.5px solid #d7e4dc;
+    border-radius: 18px;
+    background: linear-gradient(180deg, #ffffff, #fbfdfb);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 10px 24px rgba(12,65,38,0.045);
+}
+.at-badri-field select {
+    padding-right: 42px;
+    background-image:
+        linear-gradient(45deg, transparent 50%, var(--primary, #0f6b3f) 50%),
+        linear-gradient(135deg, var(--primary, #0f6b3f) 50%, transparent 50%),
+        linear-gradient(180deg, #ffffff, #fbfdfb);
+    background-position:
+        calc(100% - 24px) 50%,
+        calc(100% - 17px) 50%,
+        0 0;
+    background-size: 7px 7px, 7px 7px, 100% 100%;
+    background-repeat: no-repeat;
+}
+.at-badri-field input:not([type="radio"]):not([type="checkbox"]):hover,
+.at-badri-field select:hover,
+.at-badri-field textarea:hover {
+    border-color: rgba(15,107,63,0.45);
+}
+.at-badri-custom-amount {
+    margin-top: 14px;
+    padding: 16px;
+    border: 1px dashed rgba(15,107,63,0.28);
+    border-radius: 18px;
+    background: var(--light-green, #eef8f1);
+}
+.at-badri-photo-field input[type="file"] {
+    padding: 18px;
+    background: linear-gradient(180deg, var(--soft-bg, #f8fbf8), #fff);
+    border: 1.5px dashed rgba(15,107,63,0.38);
+}
+.at-badri-submit {
+    background: linear-gradient(135deg, var(--secondary, #d9a441), #e7b85b);
+}
+@media (max-width: 640px) {
+    .at-badri-form > .at-badri-grid {
+        padding: 18px;
+    }
+}
