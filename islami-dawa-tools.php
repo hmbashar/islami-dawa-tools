@@ -70,6 +70,8 @@ final class IslamiDawaTools
         define('ISLAMI_DAWA_TOOLS_DIR', plugin_dir_path(__FILE__));
         define('ISLAMI_DAWA_TOOLS_URL', plugin_dir_url(__FILE__));
         define('ISLAMI_DAWA_TOOLS_BASENAME', plugin_basename(__FILE__));
+        define('ISLAMI_DAWA_TOOLS_PATH', ISLAMI_DAWA_TOOLS_DIR);
+        define('ISLAMI_DAWA_TOOLS_FRONTEND_ASSETS', ISLAMI_DAWA_TOOLS_URL . 'Frontend/Elementor/Assets/');
     }
 
     /**
