@@ -3,7 +3,7 @@
  * Plugin Name: Islami Dawa Tools
  * Plugin URI: https://github.com/PairDevs/islami-dawa-tools
  * Description: A comprehensive toolkit for Islamic Dawa (outreach) with Elementor integration, custom widgets, and enhanced form features including multi-currency support.
- * Version: 1.1.0
+ * Version: 1.1.1
  * Author: PairDevs
  * Author URI: https://github.com/PairDevs
  * License: GPL2
