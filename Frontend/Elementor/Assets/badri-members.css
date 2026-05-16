@@ -301,3 +301,40 @@
     margin: 0 auto;
     font-size: 19px;
 }
+
+/* Badri member photo + AJAX enhancements */
+.at-badri-photo-field .at-badri-file-label {
+    margin-top: 14px;
+}
+
+.at-badri-photo-field input[type="file"] {
+    padding: 11px;
+    background: var(--soft-bg, #f8fbf8);
+}
+
+.at-badri-submit:disabled,
+.at-badri-submit-loading {
+    opacity: 0.75;
+    cursor: wait;
+    transform: none;
+}
+
+.at-badri-member-avatar-image {
+    overflow: hidden;
+    background: var(--light-green, #eef8f1);
+    color: transparent;
+}
+
+.at-badri-member-avatar-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.column-badri_photo img {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 50%;
+}
