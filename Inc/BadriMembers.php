@@ -1714,25 +1714,172 @@ class BadriMembers {
         $pending   = isset( $counts->pending ) ? absint( $counts->pending ) : 0;
         $draft     = isset( $counts->draft ) ? absint( $counts->draft ) : 0;
         $total     = $published + $pending + $draft;
+
+        $hidden      = $this->count_members_by_meta( '_badri_public_visibility', 'hide' );
+        $public      = $this->count_members_by_meta( '_badri_public_visibility', 'show' );
+        $monthly     = $this->count_members_by_meta( '_badri_donation_frequency', 'monthly' );
+        $yearly      = $this->count_members_by_meta( '_badri_donation_frequency', 'yearly' );
+        $with_photo  = $this->count_members_with_thumbnail();
+        $this_month  = $this->count_members_this_month();
+
+        $published_percent = $total ? round( ( $published / $total ) * 100 ) : 0;
+        $pending_percent   = $total ? round( ( $pending / $total ) * 100 ) : 0;
+        $hidden_percent    = $total ? round( ( $hidden / $total ) * 100 ) : 0;
+
+        $base_url       = admin_url( 'edit.php?post_type=' . self::POST_TYPE );
+        $pending_url    = add_query_arg( 'badri_filter_status', 'pending', $base_url );
+        $published_url  = add_query_arg( 'badri_filter_status', 'publish', $base_url );
+        $monthly_url    = add_query_arg( 'badri_filter_frequency', 'monthly', $base_url );
+        $yearly_url     = add_query_arg( 'badri_filter_frequency', 'yearly', $base_url );
+        $hidden_url     = add_query_arg( 'badri_filter_visibility', 'hide', $base_url );
+        $public_url     = add_query_arg( 'badri_filter_visibility', 'show', $base_url );
+        $settings_url   = admin_url( 'admin.php?page=' . self::SETTINGS_SLUG );
+        $new_member_url = admin_url( 'post-new.php?post_type=' . self::POST_TYPE );
         ?>
-        <div class="idt-badri-list-hero">
-            <div class="idt-badri-list-hero-icon"><span class="dashicons dashicons-groups"></span></div>
-            <div class="idt-badri-list-hero-content">
-                <span><?php echo esc_html__( 'Badri Members', 'islami-dawa-tools' ); ?></span>
-                <h1><?php echo esc_html__( 'বদরী সদস্য ম্যানেজমেন্ট', 'islami-dawa-tools' ); ?></h1>
-                <p><?php echo esc_html__( 'সদস্য আবেদন, প্রকাশ অবস্থা, অনুদান ধরন এবং পাবলিক দৃশ্যমানতা এক জায়গা থেকে পর্যবেক্ষণ করুন।', 'islami-dawa-tools' ); ?></p>
-            </div>
-            <div class="idt-badri-list-hero-stats">
-                <div><strong><?php echo esc_html( number_format_i18n( $total ) ); ?></strong><span><?php echo esc_html__( 'মোট', 'islami-dawa-tools' ); ?></span></div>
-                <div><strong><?php echo esc_html( number_format_i18n( $published ) ); ?></strong><span><?php echo esc_html__( 'প্রকাশিত', 'islami-dawa-tools' ); ?></span></div>
-                <div><strong><?php echo esc_html( number_format_i18n( $pending ) ); ?></strong><span><?php echo esc_html__( 'Pending', 'islami-dawa-tools' ); ?></span></div>
-            </div>
-            <div class="idt-badri-list-hero-actions">
-                <a class="button button-primary" href="<?php echo esc_url( admin_url( 'post-new.php?post_type=' . self::POST_TYPE ) ); ?>"><?php echo esc_html__( 'নতুন সদস্য যোগ করুন', 'islami-dawa-tools' ); ?></a>
-                <a class="button" href="<?php echo esc_url( admin_url( 'admin.php?page=' . self::SETTINGS_SLUG ) ); ?>"><?php echo esc_html__( 'সেটিংস', 'islami-dawa-tools' ); ?></a>
-            </div>
+        <div class="idt-badri-list-dashboard">
+            <section class="idt-badri-list-hero v2">
+                <div class="idt-badri-list-hero-icon"><span class="dashicons dashicons-groups"></span></div>
+                <div class="idt-badri-list-hero-content">
+                    <span><?php echo esc_html__( 'Badri Member Control Center', 'islami-dawa-tools' ); ?></span>
+                    <h1><?php echo esc_html__( 'বদরী সদস্য ম্যানেজমেন্ট', 'islami-dawa-tools' ); ?></h1>
+                    <p><?php echo esc_html__( 'সদস্য আবেদন, অনুমোদন, অনুদান ধরন, ছবি এবং পাবলিক দৃশ্যমানতা একটি আধুনিক ড্যাশবোর্ড থেকে পরিচালনা করুন।', 'islami-dawa-tools' ); ?></p>
+                </div>
+                <div class="idt-badri-list-hero-actions">
+                    <a class="idt-badri-admin-action is-primary" href="<?php echo esc_url( $new_member_url ); ?>"><span class="dashicons dashicons-plus-alt2"></span><?php echo esc_html__( 'নতুন সদস্য', 'islami-dawa-tools' ); ?></a>
+                    <a class="idt-badri-admin-action" href="<?php echo esc_url( $settings_url ); ?>"><span class="dashicons dashicons-admin-generic"></span><?php echo esc_html__( 'সেটিংস', 'islami-dawa-tools' ); ?></a>
+                </div>
+            </section>
+
+            <section class="idt-badri-list-stats-modern">
+                <a class="idt-badri-list-stat-card is-total" href="<?php echo esc_url( $base_url ); ?>">
+                    <span class="dashicons dashicons-groups"></span>
+                    <strong><?php echo esc_html( number_format_i18n( $total ) ); ?></strong>
+                    <em><?php echo esc_html__( 'মোট সদস্য', 'islami-dawa-tools' ); ?></em>
+                    <small><?php echo esc_html__( 'সব আবেদন', 'islami-dawa-tools' ); ?></small>
+                </a>
+                <a class="idt-badri-list-stat-card is-published" href="<?php echo esc_url( $published_url ); ?>">
+                    <span class="dashicons dashicons-yes-alt"></span>
+                    <strong><?php echo esc_html( number_format_i18n( $published ) ); ?></strong>
+                    <em><?php echo esc_html__( 'প্রকাশিত', 'islami-dawa-tools' ); ?></em>
+                    <small><?php echo esc_html( $published_percent ); ?>%</small>
+                </a>
+                <a class="idt-badri-list-stat-card is-pending" href="<?php echo esc_url( $pending_url ); ?>">
+                    <span class="dashicons dashicons-clock"></span>
+                    <strong><?php echo esc_html( number_format_i18n( $pending ) ); ?></strong>
+                    <em><?php echo esc_html__( 'রিভিউ অপেক্ষমাণ', 'islami-dawa-tools' ); ?></em>
+                    <small><?php echo esc_html( $pending_percent ); ?>%</small>
+                </a>
+                <a class="idt-badri-list-stat-card is-hidden" href="<?php echo esc_url( $hidden_url ); ?>">
+                    <span class="dashicons dashicons-hidden"></span>
+                    <strong><?php echo esc_html( number_format_i18n( $hidden ) ); ?></strong>
+                    <em><?php echo esc_html__( 'গোপন সদস্য', 'islami-dawa-tools' ); ?></em>
+                    <small><?php echo esc_html( $hidden_percent ); ?>%</small>
+                </a>
+            </section>
+
+            <section class="idt-badri-list-insights">
+                <div class="idt-badri-list-insight-card">
+                    <div class="idt-badri-list-insight-head">
+                        <span class="dashicons dashicons-chart-pie"></span>
+                        <strong><?php echo esc_html__( 'অনুদান ধরন', 'islami-dawa-tools' ); ?></strong>
+                    </div>
+                    <div class="idt-badri-list-split">
+                        <a href="<?php echo esc_url( $monthly_url ); ?>"><span><?php echo esc_html__( 'মাসিক', 'islami-dawa-tools' ); ?></span><strong><?php echo esc_html( number_format_i18n( $monthly ) ); ?></strong></a>
+                        <a href="<?php echo esc_url( $yearly_url ); ?>"><span><?php echo esc_html__( 'বার্ষিক', 'islami-dawa-tools' ); ?></span><strong><?php echo esc_html( number_format_i18n( $yearly ) ); ?></strong></a>
+                    </div>
+                </div>
+
+                <div class="idt-badri-list-insight-card">
+                    <div class="idt-badri-list-insight-head">
+                        <span class="dashicons dashicons-visibility"></span>
+                        <strong><?php echo esc_html__( 'প্রকাশ অনুমতি', 'islami-dawa-tools' ); ?></strong>
+                    </div>
+                    <div class="idt-badri-list-progress-row">
+                        <div><span><?php echo esc_html__( 'পাবলিক', 'islami-dawa-tools' ); ?></span><strong><?php echo esc_html( number_format_i18n( $public ) ); ?></strong></div>
+                        <div class="idt-badri-list-progress"><span style="width: <?php echo esc_attr( $total ? round( ( $public / $total ) * 100 ) : 0 ); ?>%"></span></div>
+                    </div>
+                    <a class="idt-badri-list-mini-link" href="<?php echo esc_url( $public_url ); ?>"><?php echo esc_html__( 'পাবলিক সদস্য দেখুন', 'islami-dawa-tools' ); ?></a>
+                </div>
+
+                <div class="idt-badri-list-insight-card">
+                    <div class="idt-badri-list-insight-head">
+                        <span class="dashicons dashicons-format-image"></span>
+                        <strong><?php echo esc_html__( 'ছবি ও নতুন আবেদন', 'islami-dawa-tools' ); ?></strong>
+                    </div>
+                    <div class="idt-badri-list-split">
+                        <span><span><?php echo esc_html__( 'ছবিসহ', 'islami-dawa-tools' ); ?></span><strong><?php echo esc_html( number_format_i18n( $with_photo ) ); ?></strong></span>
+                        <span><span><?php echo esc_html__( 'এই মাসে', 'islami-dawa-tools' ); ?></span><strong><?php echo esc_html( number_format_i18n( $this_month ) ); ?></strong></span>
+                    </div>
+                </div>
+            </section>
         </div>
         <?php
+    }
+
+    private function count_members_by_meta( $meta_key, $meta_value ) {
+        $query = new \WP_Query(
+            array(
+                'post_type'              => self::POST_TYPE,
+                'post_status'            => array( 'publish', 'pending', 'draft' ),
+                'posts_per_page'         => 1,
+                'fields'                 => 'ids',
+                'no_found_rows'          => false,
+                'update_post_meta_cache' => false,
+                'update_post_term_cache' => false,
+                'meta_query'             => array(
+                    array(
+                        'key'   => $meta_key,
+                        'value' => $meta_value,
+                    ),
+                ),
+            )
+        );
+
+        return absint( $query->found_posts );
+    }
+
+    private function count_members_with_thumbnail() {
+        $query = new \WP_Query(
+            array(
+                'post_type'              => self::POST_TYPE,
+                'post_status'            => array( 'publish', 'pending', 'draft' ),
+                'posts_per_page'         => 1,
+                'fields'                 => 'ids',
+                'no_found_rows'          => false,
+                'update_post_meta_cache' => false,
+                'update_post_term_cache' => false,
+                'meta_query'             => array(
+                    array(
+                        'key'     => '_thumbnail_id',
+                        'compare' => 'EXISTS',
+                    ),
+                ),
+            )
+        );
+
+        return absint( $query->found_posts );
+    }
+
+    private function count_members_this_month() {
+        $query = new \WP_Query(
+            array(
+                'post_type'              => self::POST_TYPE,
+                'post_status'            => array( 'publish', 'pending', 'draft' ),
+                'posts_per_page'         => 1,
+                'fields'                 => 'ids',
+                'no_found_rows'          => false,
+                'update_post_meta_cache' => false,
+                'update_post_term_cache' => false,
+                'date_query'             => array(
+                    array(
+                        'year'  => absint( current_time( 'Y' ) ),
+                        'month' => absint( current_time( 'n' ) ),
+                    ),
+                ),
+            )
+        );
+
+        return absint( $query->found_posts );
     }
 
     public function add_admin_columns( $columns ) {
