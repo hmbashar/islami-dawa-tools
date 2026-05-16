@@ -65,6 +65,20 @@ Optional attributes:
 [badri_members_grid per_page="12" columns="3"]
 ```
 
+Pagination is enabled by default for the public grid. This is important for large member lists, for example 100+ published members.
+
+Pagination uses a dedicated query parameter to avoid WordPress page pagination conflicts:
+
+```text
+/badri-members/?badri_page=2
+```
+
+You can disable pagination only when needed:
+
+```text
+[badri_members_grid per_page="12" columns="3" pagination="no"]
+```
+
 ## Frontend form fields
 
 Default fields include:
@@ -361,7 +375,7 @@ Templates/badri-members-grid.php
 
 ## Version history
 
-### 1.1.2
+### 1.1.3
 
 - Updated docs with all current Badri member features.
 - Added premium drag/drop UI for `সদস্যের ছবি` field.

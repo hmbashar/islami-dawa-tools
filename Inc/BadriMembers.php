@@ -1562,21 +1562,58 @@ class BadriMembers {
 
     public function render_grid_shortcode( $atts ) {
         $settings = $this->get_settings();
+
+        /**
+         * Shortcode attributes.
+         *
+         * Example:
+         * [badri_members_grid per_page="12" columns="3"]
+         *
+         * Pagination is enabled by default because this list can grow to
+         * hundreds or thousands of members over time.
+         */
         $atts = shortcode_atts(
             array(
-                'per_page' => 12,
-                'columns'  => 3,
+                'per_page'   => 12,
+                'columns'    => 3,
+                'pagination' => 'yes',
             ),
             $atts,
             'badri_members_grid'
+        );
+
+        $per_page        = max( 1, absint( $atts['per_page'] ) );
+        $columns         = max( 1, min( 4, absint( $atts['columns'] ) ) );
+        $show_pagination = 'no' !== strtolower( sanitize_text_field( $atts['pagination'] ) );
+
+        /**
+         * Use a dedicated query argument for shortcode pagination.
+         *
+         * Why not only use get_query_var( 'paged' )?
+         * - This shortcode is usually rendered inside a normal WordPress page.
+         * - Some WordPress page URLs can conflict with /page/2/ pagination.
+         * - A dedicated query argument is safer and avoids 404 issues.
+         *
+         * URL example:
+         * /badri-members/?badri_page=2
+         */
+        $badri_page = isset( $_GET['badri_page'] )
+            ? absint( wp_unslash( $_GET['badri_page'] ) )
+            : 0;
+
+        $paged = max(
+            1,
+            $badri_page,
+            absint( get_query_var( 'paged' ) ),
+            absint( get_query_var( 'page' ) )
         );
 
         $query = new \WP_Query(
             array(
                 'post_type'      => self::POST_TYPE,
                 'post_status'    => 'publish',
-                'posts_per_page' => absint( $atts['per_page'] ),
-                'paged'          => max( 1, get_query_var( 'paged' ) ),
+                'posts_per_page' => $per_page,
+                'paged'          => $paged,
                 'orderby'        => 'date',
                 'order'          => 'DESC',
             )
@@ -1584,7 +1621,7 @@ class BadriMembers {
 
         ob_start();
         ?>
-        <div class="at-badri-grid-wrap" style="--at-badri-columns: <?php echo esc_attr( absint( $atts['columns'] ) ); ?>;">
+        <div class="at-badri-grid-wrap" style="--at-badri-columns: <?php echo esc_attr( $columns ); ?>;">
             <div class="at-badri-list-header">
                 <span><?php echo esc_html__( 'Badri Members', 'islami-dawa-tools' ); ?></span>
                 <h2><?php echo esc_html( $settings['grid_title'] ); ?></h2>
@@ -1597,6 +1634,38 @@ class BadriMembers {
                         <?php $this->render_member_card( get_the_ID() ); ?>
                     <?php endwhile; ?>
                 </div>
+
+                <?php
+                /**
+                 * Render pagination when there is more than one page.
+                 */
+                if ( $show_pagination && $query->max_num_pages > 1 ) :
+                    $pagination_base = remove_query_arg( 'badri_page' );
+                    $pagination_base = add_query_arg( 'badri_page', '%#%', $pagination_base );
+
+                    $pagination_links = paginate_links(
+                        array(
+                            'base'      => $pagination_base,
+                            'format'    => '',
+                            'current'   => $paged,
+                            'total'     => absint( $query->max_num_pages ),
+                            'mid_size'  => 2,
+                            'end_size'  => 1,
+                            'prev_text' => esc_html__( '← পূর্ববর্তী', 'islami-dawa-tools' ),
+                            'next_text' => esc_html__( 'পরবর্তী →', 'islami-dawa-tools' ),
+                            'type'      => 'list',
+                        )
+                    );
+
+                    if ( $pagination_links ) :
+                        ?>
+                        <nav class="at-badri-pagination" aria-label="<?php echo esc_attr__( 'Badri members pagination', 'islami-dawa-tools' ); ?>">
+                            <?php echo wp_kses_post( $pagination_links ); ?>
+                        </nav>
+                        <?php
+                    endif;
+                endif;
+                ?>
             <?php else : ?>
                 <div class="at-badri-empty-state"><?php echo esc_html( $settings['empty_message'] ); ?></div>
             <?php endif; ?>

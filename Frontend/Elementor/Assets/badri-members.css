@@ -490,7 +490,10 @@
         margin-left: 22px;
         margin-right: 22px;
     }
-
+  .at-badri-form > .at-badri-grid {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
     .at-badri-form-header {
         padding: 36px 22px 26px;
         margin-left: 0;
@@ -849,5 +852,89 @@
 
     .at-badri-upload-content em {
         max-width: 240px;
+    }
+}
+
+
+/*---------------------------------
+ * Badri Members Grid Pagination
+ * Shortcode: [badri_members_grid]
+ * -------------------------------*/
+
+.at-badri-pagination {
+    margin-top: 38px;
+    display: flex;
+    justify-content: center;
+}
+
+.at-badri-pagination ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+}
+
+.at-badri-pagination li {
+    margin: 0;
+    padding: 0;
+}
+
+.at-badri-pagination a,
+.at-badri-pagination span {
+    min-width: 46px;
+    height: 46px;
+    padding: 0 16px;
+    border-radius: 999px;
+    display: inline-grid;
+    place-items: center;
+    background: var(--soft-bg, #f8fbf8);
+    border: 1px solid var(--border, #dfe9e2);
+    color: var(--muted, #637066);
+    font-family: 'Hind Siliguri', sans-serif;
+    font-size: 15px;
+    font-weight: 900;
+    line-height: 1;
+    text-decoration: none;
+    transition: 0.25s ease;
+}
+
+.at-badri-pagination a:hover,
+.at-badri-pagination span.current {
+    background: var(--primary, #0f6b3f);
+    border-color: var(--primary, #0f6b3f);
+    color: var(--white, #fff);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(15, 107, 63, 0.16);
+}
+
+.at-badri-pagination .prev,
+.at-badri-pagination .next {
+    min-width: 120px;
+}
+
+@media (max-width: 640px) {
+    .at-badri-pagination {
+        margin-top: 28px;
+    }
+
+    .at-badri-pagination ul {
+        gap: 8px;
+    }
+
+    .at-badri-pagination a,
+    .at-badri-pagination span {
+        min-width: 40px;
+        height: 40px;
+        padding: 0 12px;
+        font-size: 14px;
+    }
+
+    .at-badri-pagination .prev,
+    .at-badri-pagination .next {
+        min-width: auto;
     }
 }

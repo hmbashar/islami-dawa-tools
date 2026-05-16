@@ -2,14 +2,14 @@
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Islami Dawa Tools 1.0.0\n"
+"Project-Id-Version: Islami Dawa Tools 1.1.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/islami-dawa-tools\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-16T08:49:20+00:00\n"
+"POT-Creation-Date: 2026-05-16T16:28:43+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: islami-dawa-tools\n"
@@ -430,277 +430,980 @@ msgstr ""
 msgid "Found: %1$d | Imported: %2$d | Skipped: %3$d | Failed: %4$d"
 msgstr ""
 
-#: Inc/BadriMembers.php:47
-#: Inc/BadriMembers.php:48
-#: Inc/BadriMembers.php:49
-#: Inc/BadriMembers.php:50
+#: Inc/BadriMembers.php:69
+#: Inc/BadriMembers.php:70
+#: Inc/BadriMembers.php:71
+#: Inc/BadriMembers.php:72
 msgid "বদরী সদস্য"
 msgstr ""
 
-#: Inc/BadriMembers.php:51
+#: Inc/BadriMembers.php:73
+#: Inc/BadriMembers.php:1829
 msgid "নতুন সদস্য"
 msgstr ""
 
-#: Inc/BadriMembers.php:52
+#: Inc/BadriMembers.php:74
 msgid "নতুন বদরী সদস্য যোগ করুন"
 msgstr ""
 
-#: Inc/BadriMembers.php:53
+#: Inc/BadriMembers.php:75
 msgid "বদরী সদস্য সম্পাদনা করুন"
 msgstr ""
 
-#: Inc/BadriMembers.php:54
+#: Inc/BadriMembers.php:76
 msgid "নতুন বদরী সদস্য"
 msgstr ""
 
-#: Inc/BadriMembers.php:55
+#: Inc/BadriMembers.php:77
 msgid "বদরী সদস্য দেখুন"
 msgstr ""
 
-#: Inc/BadriMembers.php:56
+#: Inc/BadriMembers.php:78
 msgid "বদরী সদস্য খুঁজুন"
 msgstr ""
 
-#: Inc/BadriMembers.php:57
+#: Inc/BadriMembers.php:79
 msgid "কোনো সদস্য পাওয়া যায়নি"
 msgstr ""
 
-#: Inc/BadriMembers.php:58
+#: Inc/BadriMembers.php:80
 msgid "ট্র্যাশে কোনো সদস্য পাওয়া যায়নি"
 msgstr ""
 
-#: Inc/BadriMembers.php:84
-msgid "৳৫০০"
+#: Inc/BadriMembers.php:150
+#: Inc/BadriMembers.php:997
+#: Inc/BadriMembers.php:999
+#: Inc/BadriMembers.php:1971
+msgid "ছবি"
 msgstr ""
 
-#: Inc/BadriMembers.php:85
-msgid "৳১,০০০"
+#: Inc/BadriMembers.php:151
+#: Inc/BadriMembers.php:1005
+msgid "কোনো ছবি নির্বাচন করা হয়নি"
 msgstr ""
 
-#: Inc/BadriMembers.php:86
-msgid "৳২,০০০"
+#: Inc/BadriMembers.php:152
+msgid "ঠিক আছে"
 msgstr ""
 
-#: Inc/BadriMembers.php:87
-msgid "৳৫,০০০"
+#: Inc/BadriMembers.php:188
+#: Inc/BadriMembers.php:189
+#: Inc/BadriMembers.php:647
+msgid "বদরী সদস্য সেটিংস"
 msgstr ""
 
-#: Inc/BadriMembers.php:88
-msgid "৳১০,০০০"
-msgstr ""
-
-#: Inc/BadriMembers.php:89
-msgid "অন্যান্য"
-msgstr ""
-
-#: Inc/BadriMembers.php:98
-msgid "আপনার তথ্য সফলভাবে জমা হয়েছে। অ্যাডমিন যাচাই করার পর প্রকাশ করা হবে।"
-msgstr ""
-
-#: Inc/BadriMembers.php:102
-msgid "দুঃখিত, তথ্য জমা দেওয়া যায়নি। অনুগ্রহ করে সব প্রয়োজনীয় তথ্য পূরণ করুন।"
-msgstr ""
-
-#: Inc/BadriMembers.php:110
+#: Inc/BadriMembers.php:198
 msgid "আজীবন বদরী সদস্য/সদস্যা ফরম"
 msgstr ""
 
-#: Inc/BadriMembers.php:111
+#: Inc/BadriMembers.php:199
 msgid "নিচের তথ্যগুলো পূরণ করে জমা দিন। অ্যাডমিন যাচাই করার পর সদস্য তালিকায় প্রকাশ করা হবে।"
 msgstr ""
 
-#: Inc/BadriMembers.php:115
-msgid "সদস্য/সদস্যার নাম"
-msgstr ""
-
-#: Inc/BadriMembers.php:116
-#: Inc/BadriMembers.php:281
-#: Inc/BadriMembers.php:388
-msgid "পিতা/স্বামীর নাম"
-msgstr ""
-
-#: Inc/BadriMembers.php:117
-#: Inc/BadriMembers.php:282
-msgid "মোবাইল নং"
-msgstr ""
-
-#: Inc/BadriMembers.php:118
-#: Inc/BadriMembers.php:283
-#: Inc/BadriMembers.php:390
-msgid "পেশা"
-msgstr ""
-
-#: Inc/BadriMembers.php:123
-#: Inc/BadriMembers.php:284
-#: Inc/BadriMembers.php:391
-msgid "অনুদান ধরন"
-msgstr ""
-
-#: Inc/BadriMembers.php:123
-#: Inc/BadriMembers.php:131
-#: Inc/BadriMembers.php:156
-#: Inc/BadriMembers.php:165
-#: Inc/BadriMembers.php:178
-#: Inc/BadriMembers.php:186
-msgid "(Required)"
-msgstr ""
-
-#: Inc/BadriMembers.php:125
-#: Inc/BadriMembers.php:284
-#: Inc/BadriMembers.php:414
-msgid "বার্ষিক"
-msgstr ""
-
-#: Inc/BadriMembers.php:126
-#: Inc/BadriMembers.php:284
-#: Inc/BadriMembers.php:418
-msgid "মাসিক"
-msgstr ""
-
-#: Inc/BadriMembers.php:131
-#: Inc/BadriMembers.php:285
-msgid "অনুদানের পরিমাণ: অংকে"
-msgstr ""
-
-#: Inc/BadriMembers.php:133
-msgid "নির্বাচন করুন"
-msgstr ""
-
-#: Inc/BadriMembers.php:140
-#: Inc/BadriMembers.php:286
-msgid "অনুদানের পরিমাণ: কথায়"
-msgstr ""
-
-#: Inc/BadriMembers.php:140
-msgid "অনুদানের পরিমাণ কথায় লিখুন"
-msgstr ""
-
-#: Inc/BadriMembers.php:145
-#: Inc/BadriMembers.php:287
-msgid "স্থায়ী ঠিকানা"
-msgstr ""
-
-#: Inc/BadriMembers.php:147
-#: Inc/BadriMembers.php:288
-msgid "স্থায়ী জেলার নাম"
-msgstr ""
-
-#: Inc/BadriMembers.php:147
-#: Inc/BadriMembers.php:152
-msgid "জেলা"
-msgstr ""
-
-#: Inc/BadriMembers.php:150
-#: Inc/BadriMembers.php:289
-msgid "বর্তমান ঠিকানা"
-msgstr ""
-
-#: Inc/BadriMembers.php:152
-#: Inc/BadriMembers.php:290
-msgid "বর্তমান জেলার নাম"
-msgstr ""
-
-#: Inc/BadriMembers.php:156
-msgid "তথ্য প্রকাশের অনুমতি"
-msgstr ""
-
-#: Inc/BadriMembers.php:158
-msgid "আমার তথ্য প্রকাশ করা যাবে"
-msgstr ""
-
-#: Inc/BadriMembers.php:159
-msgid "আমাকে পাবলিক তালিকায় গোপন রাখুন"
-msgstr ""
-
-#: Inc/BadriMembers.php:161
-msgid "গোপন রাখলে তালিকায় শুধু আপনার নাম দেখা যাবে; বাকি তথ্য xxx হিসেবে দেখানো হবে।"
-msgstr ""
-
-#: Inc/BadriMembers.php:165
-msgid "CAPTCHA: ৭ + ২ = ?"
-msgstr ""
-
-#: Inc/BadriMembers.php:169
+#: Inc/BadriMembers.php:200
 msgid "জমা দিন"
 msgstr ""
 
-#: Inc/BadriMembers.php:233
-#, php-format
-msgid "নতুন বদরী সদস্য আবেদন: %s"
+#: Inc/BadriMembers.php:201
+msgid "ধন্যবাদ!"
 msgstr ""
 
-#: Inc/BadriMembers.php:234
-msgid "একটি নতুন বদরী সদস্য আবেদন জমা হয়েছে। অনুগ্রহ করে অ্যাডমিন থেকে রিভিউ করুন।"
+#: Inc/BadriMembers.php:202
+#: Inc/BadriMembers.php:235
+msgid "আপনার তথ্য সফলভাবে জমা হয়েছে। অ্যাডমিন যাচাই করার পর আপনার সাথে যোগাযোগ করা হবে।"
 msgstr ""
 
-#: Inc/BadriMembers.php:269
-msgid "বদরী সদস্য তথ্য"
+#: Inc/BadriMembers.php:203
+msgid "দুঃখিত, তথ্য জমা দেওয়া যায়নি। অনুগ্রহ করে সব প্রয়োজনীয় তথ্য পূরণ করুন।"
 msgstr ""
 
-#: Inc/BadriMembers.php:291
-msgid "পাবলিক তথ্য প্রদর্শন"
+#: Inc/BadriMembers.php:204
+msgid "CAPTCHA উত্তর সঠিক নয়। অনুগ্রহ করে আবার চেষ্টা করুন।"
 msgstr ""
 
-#: Inc/BadriMembers.php:291
-msgid "প্রকাশ করা যাবে"
+#: Inc/BadriMembers.php:205
+msgid "আপনার তথ্য জমা হচ্ছে..."
 msgstr ""
 
-#: Inc/BadriMembers.php:291
-msgid "গোপন রাখুন"
+#: Inc/BadriMembers.php:206
+msgid "প্রয়োজনীয় তথ্য দিন"
 msgstr ""
 
-#: Inc/BadriMembers.php:362
+#: Inc/BadriMembers.php:207
+msgid "অনুগ্রহ করে “{field}” পূরণ করুন।"
+msgstr ""
+
+#: Inc/BadriMembers.php:208
+msgid "অনুগ্রহ করে কাস্টম অনুদানের পরিমাণ লিখুন।"
+msgstr ""
+
+#: Inc/BadriMembers.php:209
+msgid "অনুগ্রহ করে JPG, PNG বা WEBP ছবি আপলোড করুন।"
+msgstr ""
+
+#: Inc/BadriMembers.php:210
+msgid "ছবির সাইজ সর্বোচ্চ {size}MB হতে পারবে।"
+msgstr ""
+
+#: Inc/BadriMembers.php:211
 msgid "আজীবন বদরী সদস্য/সদস্যা তালিকা"
 msgstr ""
 
-#: Inc/BadriMembers.php:363
+#: Inc/BadriMembers.php:212
 msgid "অ্যাডমিন অনুমোদিত সদস্যদের তালিকা এখানে প্রদর্শিত হচ্ছে।"
 msgstr ""
 
-#: Inc/BadriMembers.php:373
+#: Inc/BadriMembers.php:213
 msgid "এখনো কোনো প্রকাশিত সদস্য পাওয়া যায়নি।"
 msgstr ""
 
-#: Inc/BadriMembers.php:385
-msgid "xxx"
+#: Inc/BadriMembers.php:216
+msgid "নতুন বদরী সদস্য আবেদন: {name}"
+msgstr ""
+
+#: Inc/BadriMembers.php:217
+msgid "একটি নতুন বদরী সদস্য আবেদন জমা হয়েছে। অনুগ্রহ করে অ্যাডমিন থেকে রিভিউ করুন।"
+msgstr ""
+
+#: Inc/BadriMembers.php:218
+msgid "অতিরিক্ত তথ্য"
+msgstr ""
+
+#: Inc/BadriMembers.php:219
+msgid "প্রয়োজনীয় অতিরিক্ত তথ্য"
+msgstr ""
+
+#: Inc/BadriMembers.php:224
+#: Inc/BadriMembers.php:479
+#: Inc/BadriMembers.php:626
+#: Inc/BadriMembers.php:662
+#: Inc/BadriMembers.php:1048
+#: Inc/BadriMembers.php:1179
+msgid "CAPTCHA"
+msgstr ""
+
+#: Inc/BadriMembers.php:233
+msgid "আপনার তথ্য সফলভাবে জমা হয়েছে। অ্যাডমিন যাচাই করার পর প্রকাশ করা হবে।"
+msgstr ""
+
+#: Inc/BadriMembers.php:388
+#: Inc/BadriMembers.php:539
+msgid "বদরী সদস্য ড্যাশবোর্ড"
 msgstr ""
 
 #: Inc/BadriMembers.php:389
-#: Inc/BadriMembers.php:468
-msgid "মোবাইল"
+msgid "আজীবন বদরী সদস্য/সদস্যা আবেদন, প্রকাশনা ও সেটিংস এক জায়গা থেকে দেখুন।"
 msgstr ""
 
 #: Inc/BadriMembers.php:392
-#: Inc/BadriMembers.php:469
-msgid "অনুদান"
+msgid "+ নতুন সদস্য"
 msgstr ""
 
 #: Inc/BadriMembers.php:393
-msgid "স্থায়ী জেলা"
+#: Inc/BadriMembers.php:460
+#: Inc/BadriMembers.php:1830
+msgid "সেটিংস"
 msgstr ""
 
-#: Inc/BadriMembers.php:394
-msgid "বর্তমান জেলা"
+#: Inc/BadriMembers.php:400
+#: Inc/BadriMembers.php:546
+#: Inc/BadriMembers.php:1838
+msgid "মোট সদস্য"
+msgstr ""
+
+#: Inc/BadriMembers.php:401
+#: Inc/BadriMembers.php:547
+#: Inc/BadriMembers.php:1844
+#: Inc/BadriMembers.php:2035
+msgid "প্রকাশিত"
+msgstr ""
+
+#: Inc/BadriMembers.php:402
+#: Inc/BadriMembers.php:548
+#: Inc/BadriMembers.php:1850
+#: Inc/BadriMembers.php:2036
+msgid "রিভিউ অপেক্ষমাণ"
+msgstr ""
+
+#: Inc/BadriMembers.php:403
+#: Inc/BadriMembers.php:549
+#: Inc/BadriMembers.php:1856
+msgid "গোপন সদস্য"
+msgstr ""
+
+#: Inc/BadriMembers.php:418
+#: Inc/BadriMembers.php:564
+msgid "সাম্প্রতিক আবেদন"
+msgstr ""
+
+#: Inc/BadriMembers.php:419
+#: Inc/BadriMembers.php:565
+msgid "সব দেখুন"
 msgstr ""
 
 #: Inc/BadriMembers.php:438
-msgid "Badri Member Form"
+#: Inc/BadriMembers.php:585
+msgid "মোবাইল নম্বর নেই"
 msgstr ""
 
-#: Inc/BadriMembers.php:439
-msgid "Badri Members Grid"
+#: Inc/BadriMembers.php:441
+#: Inc/BadriMembers.php:588
+msgid "Edit"
+msgstr ""
+
+#: Inc/BadriMembers.php:447
+#: Inc/BadriMembers.php:594
+msgid "এখনো কোনো আবেদন জমা হয়নি।"
+msgstr ""
+
+#: Inc/BadriMembers.php:454
+#: Inc/BadriMembers.php:601
+msgid "Quick Actions"
+msgstr ""
+
+#: Inc/BadriMembers.php:457
+#: Inc/BadriMembers.php:604
+msgid "সদস্য যোগ করুন"
+msgstr ""
+
+#: Inc/BadriMembers.php:458
+#: Inc/BadriMembers.php:605
+msgid "Pending Review"
+msgstr ""
+
+#: Inc/BadriMembers.php:459
+#: Inc/BadriMembers.php:606
+msgid "সব সদস্য"
+msgstr ""
+
+#: Inc/BadriMembers.php:466
+#: Inc/BadriMembers.php:613
+msgid "Shortcodes"
+msgstr ""
+
+#: Inc/BadriMembers.php:469
+#: Inc/BadriMembers.php:616
+msgid "সদস্য ফরম"
 msgstr ""
 
 #: Inc/BadriMembers.php:470
+#: Inc/BadriMembers.php:617
+msgid "সদস্য তালিকা"
+msgstr ""
+
+#: Inc/BadriMembers.php:476
+#: Inc/BadriMembers.php:623
+msgid "Active Settings"
+msgstr ""
+
+#: Inc/BadriMembers.php:479
+#: Inc/BadriMembers.php:626
+msgid "Enabled"
+msgstr ""
+
+#: Inc/BadriMembers.php:479
+#: Inc/BadriMembers.php:626
+msgid "Disabled"
+msgstr ""
+
+#: Inc/BadriMembers.php:480
+#: Inc/BadriMembers.php:627
+#: Inc/BadriMembers.php:772
+msgid "Extra Fields"
+msgstr ""
+
+#: Inc/BadriMembers.php:481
+#: Inc/BadriMembers.php:628
+msgid "Photo Max Size"
+msgstr ""
+
+#: Inc/BadriMembers.php:538
+msgid "Overview"
+msgstr ""
+
+#: Inc/BadriMembers.php:540
+msgid "সদস্য আবেদন, অনুমোদন, শর্টকোড এবং সক্রিয় সেটিংস এক জায়গা থেকে দেখুন।"
+msgstr ""
+
+#: Inc/BadriMembers.php:607
+#: Inc/BadriMembers.php:663
+msgid "ফরম বিল্ডার"
+msgstr ""
+
+#: Inc/BadriMembers.php:648
+msgid "ড্যাশবোর্ড, ফরম, মেসেজ, গ্রিড, CAPTCHA, ইমেইল এবং অতিরিক্ত ফিল্ডগুলো এক জায়গা থেকে ম্যানেজ করুন।"
+msgstr ""
+
+#: Inc/BadriMembers.php:656
+msgid "Badri settings tabs"
+msgstr ""
+
+#: Inc/BadriMembers.php:657
+msgid "ড্যাশবোর্ড"
+msgstr ""
+
+#: Inc/BadriMembers.php:658
+msgid "ফরম"
+msgstr ""
+
+#: Inc/BadriMembers.php:659
+msgid "মেসেজ"
+msgstr ""
+
+#: Inc/BadriMembers.php:660
+msgid "গ্রিড"
+msgstr ""
+
+#: Inc/BadriMembers.php:661
+msgid "ইমেইল"
+msgstr ""
+
+#: Inc/BadriMembers.php:673
+msgid "General Form"
+msgstr ""
+
+#: Inc/BadriMembers.php:674
+msgid "ফরম সেটিংস"
+msgstr ""
+
+#: Inc/BadriMembers.php:675
+msgid "ফ্রন্টএন্ড ফরমের টাইটেল, বিবরণ, বাটন এবং ছবির আপলোড সাইজ নির্ধারণ করুন।"
+msgstr ""
+
+#: Inc/BadriMembers.php:679
+msgid "ফরম টাইটেল"
+msgstr ""
+
+#: Inc/BadriMembers.php:680
+msgid "ফরম বিবরণ"
+msgstr ""
+
+#: Inc/BadriMembers.php:683
+msgid "সাবমিট বাটন টেক্সট"
+msgstr ""
+
+#: Inc/BadriMembers.php:684
+msgid "ছবির সর্বোচ্চ সাইজ (MB)"
+msgstr ""
+
+#: Inc/BadriMembers.php:685
+msgid "অতিরিক্ত ফিল্ড সেকশন ছোট টাইটেল"
+msgstr ""
+
+#: Inc/BadriMembers.php:686
+msgid "অতিরিক্ত ফিল্ড সেকশন টাইটেল"
+msgstr ""
+
+#: Inc/BadriMembers.php:693
+msgid "SweetAlert2 Messages"
+msgstr ""
+
+#: Inc/BadriMembers.php:694
+msgid "মেসেজ সেটিংস"
+msgstr ""
+
+#: Inc/BadriMembers.php:695
+msgid "সাবমিশন, এরর ও ভ্যালিডেশন পপআপের মেসেজ কাস্টমাইজ করুন।"
+msgstr ""
+
+#: Inc/BadriMembers.php:699
+msgid "সাকসেস পপআপ টাইটেল"
+msgstr ""
+
+#: Inc/BadriMembers.php:700
+msgid "সাকসেস মেসেজ"
+msgstr ""
+
+#: Inc/BadriMembers.php:701
+msgid "এরর মেসেজ"
+msgstr ""
+
+#: Inc/BadriMembers.php:704
+msgid "CAPTCHA এরর মেসেজ"
+msgstr ""
+
+#: Inc/BadriMembers.php:705
+msgid "প্রসেসিং মেসেজ"
+msgstr ""
+
+#: Inc/BadriMembers.php:706
+msgid "ভ্যালিডেশন পপআপ টাইটেল"
+msgstr ""
+
+#: Inc/BadriMembers.php:710
+msgid "Required ফিল্ড মেসেজ"
+msgstr ""
+
+#: Inc/BadriMembers.php:711
+msgid "কাস্টম এমাউন্ট এরর মেসেজ"
+msgstr ""
+
+#: Inc/BadriMembers.php:712
+msgid "ছবির টাইপ এরর মেসেজ"
+msgstr ""
+
+#: Inc/BadriMembers.php:713
+msgid "ছবির সাইজ এরর মেসেজ"
+msgstr ""
+
+#: Inc/BadriMembers.php:715
+msgid "Required মেসেজে {field} এবং ছবির সাইজ মেসেজে {size} ব্যবহার করা যাবে।"
+msgstr ""
+
+#: Inc/BadriMembers.php:722
+msgid "Public Listing"
+msgstr ""
+
+#: Inc/BadriMembers.php:723
+msgid "গ্রিড সেটিংস"
+msgstr ""
+
+#: Inc/BadriMembers.php:724
+msgid "প্রকাশিত বদরী সদস্য তালিকার হেডিং ও খালি মেসেজ কাস্টমাইজ করুন।"
+msgstr ""
+
+#: Inc/BadriMembers.php:727
+msgid "গ্রিড টাইটেল"
+msgstr ""
+
+#: Inc/BadriMembers.php:728
+msgid "গ্রিড বিবরণ"
+msgstr ""
+
+#: Inc/BadriMembers.php:729
+msgid "খালি তালিকা মেসেজ"
+msgstr ""
+
+#: Inc/BadriMembers.php:735
+msgid "Admin Notification"
+msgstr ""
+
+#: Inc/BadriMembers.php:736
+msgid "অ্যাডমিন নোটিফিকেশন"
+msgstr ""
+
+#: Inc/BadriMembers.php:737
+msgid "নতুন আবেদন জমা হলে কোন ইমেইলে নোটিফিকেশন যাবে তা ঠিক করুন।"
+msgstr ""
+
+#: Inc/BadriMembers.php:740
+msgid "নোটিফিকেশন ইমেইল"
+msgstr ""
+
+#: Inc/BadriMembers.php:741
+msgid "ইমেইল সাবজেক্ট"
+msgstr ""
+
+#: Inc/BadriMembers.php:742
+msgid "ইমেইল বডি"
+msgstr ""
+
+#: Inc/BadriMembers.php:743
+msgid "ইমেইল সাবজেক্টে {name} ব্যবহার করলে সদস্যের নাম বসবে।"
+msgstr ""
+
+#: Inc/BadriMembers.php:749
+msgid "Bot Protection"
+msgstr ""
+
+#: Inc/BadriMembers.php:750
+msgid "র‍্যান্ডম CAPTCHA সেটিংস"
+msgstr ""
+
+#: Inc/BadriMembers.php:751
+msgid "প্রতিবার ফরম লোড হলে নতুন অংক দেখাবে, তাই বট একই উত্তর দিয়ে বারবার সাবমিট করতে পারবে না।"
+msgstr ""
+
+#: Inc/BadriMembers.php:757
+msgid "CAPTCHA চালু রাখুন"
+msgstr ""
+
+#: Inc/BadriMembers.php:761
+msgid "সর্বনিম্ন সংখ্যা"
+msgstr ""
+
+#: Inc/BadriMembers.php:762
+msgid "সর্বোচ্চ সংখ্যা"
+msgstr ""
+
+#: Inc/BadriMembers.php:764
+msgid "অপারেশন"
+msgstr ""
+
+#: Inc/BadriMembers.php:764
+msgid "শুধু যোগ"
+msgstr ""
+
+#: Inc/BadriMembers.php:764
+msgid "শুধু বিয়োগ"
+msgstr ""
+
+#: Inc/BadriMembers.php:764
+msgid "মিক্সড"
+msgstr ""
+
+#: Inc/BadriMembers.php:765
+msgid "CAPTCHA লেবেল"
+msgstr ""
+
+#: Inc/BadriMembers.php:766
+msgid "উদাহরণ: CAPTCHA: ৬ + ৩ = ? অথবা CAPTCHA: ৮ - ২ = ?"
+msgstr ""
+
+#: Inc/BadriMembers.php:773
+msgid "ফরম বিল্ডার: অতিরিক্ত ফিল্ড"
+msgstr ""
+
+#: Inc/BadriMembers.php:774
+msgid "প্রয়োজন অনুযায়ী অতিরিক্ত ফিল্ড যোগ করুন। এগুলো ফ্রন্টএন্ড ফরমে, সদস্য এডিট স্ক্রিনে এবং চাইলে গ্রিডে দেখানো যাবে।"
+msgstr ""
+
+#: Inc/BadriMembers.php:784
+msgid "সেটিংস সংরক্ষণ করুন"
+msgstr ""
+
+#: Inc/BadriMembers.php:801
+msgid "নতুন ফিল্ড যোগ করুন"
+msgstr ""
+
+#: Inc/BadriMembers.php:840
+msgid "কাস্টম ফিল্ড"
+msgstr ""
+
+#: Inc/BadriMembers.php:841
+msgid "মুছে ফেলুন"
+msgstr ""
+
+#: Inc/BadriMembers.php:845
+msgid "ফিল্ড লেবেল"
+msgstr ""
+
+#: Inc/BadriMembers.php:846
+msgid "যেমন: জন্ম তারিখ"
+msgstr ""
+
+#: Inc/BadriMembers.php:849
+msgid "ফিল্ড কী"
+msgstr ""
+
+#: Inc/BadriMembers.php:850
+msgid "যেমন: date_of_birth"
+msgstr ""
+
+#: Inc/BadriMembers.php:853
+msgid "ফিল্ড টাইপ"
+msgstr ""
+
+#: Inc/BadriMembers.php:861
+msgid "Placeholder"
+msgstr ""
+
+#: Inc/BadriMembers.php:865
+msgid "Select options"
+msgstr ""
+
+#: Inc/BadriMembers.php:866
+msgid "প্রতি লাইনে একটি অপশন লিখুন"
+msgstr ""
+
+#: Inc/BadriMembers.php:869
+msgid "Required"
+msgstr ""
+
+#: Inc/BadriMembers.php:870
+msgid "গ্রিডে দেখান"
+msgstr ""
+
+#: Inc/BadriMembers.php:912
+msgid "৳৫০০"
+msgstr ""
+
+#: Inc/BadriMembers.php:913
+msgid "৳১,০০০"
+msgstr ""
+
+#: Inc/BadriMembers.php:914
+msgid "৳২,০০০"
+msgstr ""
+
+#: Inc/BadriMembers.php:915
+msgid "৳৫,০০০"
+msgstr ""
+
+#: Inc/BadriMembers.php:916
+msgid "৳১০,০০০"
+msgstr ""
+
+#: Inc/BadriMembers.php:917
+#: Inc/BadriMembers.php:1741
+msgid "অন্যান্য"
+msgstr ""
+
+#: Inc/BadriMembers.php:938
+msgid "Leave this field empty"
+msgstr ""
+
+#: Inc/BadriMembers.php:943
+msgid "Badri Membership"
+msgstr ""
+
+#: Inc/BadriMembers.php:949
+#: Inc/BadriMembers.php:1229
+msgid "সদস্য/সদস্যার নাম"
+msgstr ""
+
+#: Inc/BadriMembers.php:950
+#: Inc/BadriMembers.php:1230
+#: Inc/BadriMembers.php:1429
+#: Inc/BadriMembers.php:1687
+msgid "পিতা/স্বামীর নাম"
+msgstr ""
+
+#: Inc/BadriMembers.php:951
+#: Inc/BadriMembers.php:1231
+#: Inc/BadriMembers.php:1430
+msgid "মোবাইল নং"
+msgstr ""
+
+#: Inc/BadriMembers.php:952
+#: Inc/BadriMembers.php:1232
+#: Inc/BadriMembers.php:1431
+#: Inc/BadriMembers.php:1689
+msgid "পেশা"
+msgstr ""
+
+#: Inc/BadriMembers.php:957
+#: Inc/BadriMembers.php:959
+#: Inc/BadriMembers.php:960
+#: Inc/BadriMembers.php:1233
+#: Inc/BadriMembers.php:1440
+#: Inc/BadriMembers.php:1690
+#: Inc/BadriMembers.php:1865
+msgid "অনুদান ধরন"
+msgstr ""
+
+#: Inc/BadriMembers.php:957
+#: Inc/BadriMembers.php:965
+#: Inc/BadriMembers.php:973
+#: Inc/BadriMembers.php:1035
+#: Inc/BadriMembers.php:1046
+#: Inc/BadriMembers.php:1061
+#: Inc/BadriMembers.php:1069
+#: Inc/BadriMembers.php:1088
+msgid "(Required)"
+msgstr ""
+
+#: Inc/BadriMembers.php:959
+#: Inc/BadriMembers.php:1440
+#: Inc/BadriMembers.php:1728
+#: Inc/BadriMembers.php:1869
+#: Inc/BadriMembers.php:2043
+msgid "বার্ষিক"
+msgstr ""
+
+#: Inc/BadriMembers.php:960
+#: Inc/BadriMembers.php:1440
+#: Inc/BadriMembers.php:1732
+#: Inc/BadriMembers.php:1868
+#: Inc/BadriMembers.php:2042
+msgid "মাসিক"
+msgstr ""
+
+#: Inc/BadriMembers.php:965
+#: Inc/BadriMembers.php:966
+#: Inc/BadriMembers.php:1234
+#: Inc/BadriMembers.php:1441
+msgid "অনুদানের পরিমাণ: অংকে"
+msgstr ""
+
+#: Inc/BadriMembers.php:967
+#: Inc/BadriMembers.php:1093
+#: Inc/BadriMembers.php:1531
+msgid "নির্বাচন করুন"
+msgstr ""
+
+#: Inc/BadriMembers.php:973
+#: Inc/BadriMembers.php:974
+#: Inc/BadriMembers.php:1443
+msgid "কাস্টম অনুদানের পরিমাণ"
+msgstr ""
+
+#: Inc/BadriMembers.php:974
+msgid "যেমন: ১৫০০"
+msgstr ""
+
+#: Inc/BadriMembers.php:978
+#: Inc/BadriMembers.php:1235
+#: Inc/BadriMembers.php:1445
+msgid "অনুদানের পরিমাণ: কথায়"
+msgstr ""
+
+#: Inc/BadriMembers.php:978
+msgid "অনুদানের পরিমাণ কথায় লিখুন"
+msgstr ""
+
+#: Inc/BadriMembers.php:983
+#: Inc/BadriMembers.php:1236
+#: Inc/BadriMembers.php:1452
+msgid "স্থায়ী ঠিকানা"
+msgstr ""
+
+#: Inc/BadriMembers.php:985
+#: Inc/BadriMembers.php:1453
+msgid "স্থায়ী জেলার নাম"
+msgstr ""
+
+#: Inc/BadriMembers.php:985
+#: Inc/BadriMembers.php:990
+msgid "জেলা"
+msgstr ""
+
+#: Inc/BadriMembers.php:988
+#: Inc/BadriMembers.php:1237
+#: Inc/BadriMembers.php:1454
+msgid "বর্তমান ঠিকানা"
+msgstr ""
+
+#: Inc/BadriMembers.php:990
+#: Inc/BadriMembers.php:1455
+msgid "বর্তমান জেলার নাম"
+msgstr ""
+
+#: Inc/BadriMembers.php:995
+msgid "সদস্যের ছবি"
+msgstr ""
+
+#: Inc/BadriMembers.php:1002
+msgid "ছবি এখানে ড্র্যাগ করুন অথবা আপলোড করুন"
+msgstr ""
+
+#: Inc/BadriMembers.php:1003
+#, php-format
+msgid "JPG, PNG বা WEBP। সর্বোচ্চ %sMB।"
+msgstr ""
+
+#: Inc/BadriMembers.php:1004
+msgid "ছবি নির্বাচন করুন"
+msgstr ""
+
+#: Inc/BadriMembers.php:1011
+msgid "ছবি প্রকাশের অনুমতি"
+msgstr ""
+
+#: Inc/BadriMembers.php:1013
+msgid "আমার ছবি প্রকাশ করা যাবে"
+msgstr ""
+
+#: Inc/BadriMembers.php:1014
+msgid "ছবি প্রকাশ না করুন"
+msgstr ""
+
+#: Inc/BadriMembers.php:1035
+#: Inc/BadriMembers.php:1037
+#: Inc/BadriMembers.php:1038
+#: Inc/BadriMembers.php:1238
+msgid "তথ্য প্রকাশের অনুমতি"
+msgstr ""
+
+#: Inc/BadriMembers.php:1037
+msgid "আমার তথ্য প্রকাশ করা যাবে"
+msgstr ""
+
+#: Inc/BadriMembers.php:1038
+msgid "আমাকে পাবলিক তালিকায় গোপন রাখুন"
+msgstr ""
+
+#: Inc/BadriMembers.php:1040
+msgid "গোপন রাখলে তালিকায় শুধু আপনার নাম দেখা যাবে; ছবি ও বাকি তথ্য xxx হিসেবে দেখানো হবে।"
+msgstr ""
+
+#. translators: 1: captcha label, 2: first number, 3: math operator, 4: second number.
+#: Inc/BadriMembers.php:1185
+#, php-format
+msgid "%1$s: %2$s %3$s %4$s = ?"
+msgstr ""
+
+#: Inc/BadriMembers.php:1399
+#: Inc/BadriMembers.php:1421
+msgid "বদরী সদস্য তথ্য"
+msgstr ""
+
+#: Inc/BadriMembers.php:1422
+msgid "সদস্য/সদস্যার আবেদন তথ্য রিভিউ ও সম্পাদনা করুন। প্রকাশ করলে সদস্য তালিকায় দেখা যাবে।"
+msgstr ""
+
+#: Inc/BadriMembers.php:1427
+msgid "ব্যক্তিগত তথ্য"
+msgstr ""
+
+#: Inc/BadriMembers.php:1432
+msgid "পাবলিক তথ্য প্রদর্শন"
+msgstr ""
+
+#: Inc/BadriMembers.php:1432
+msgid "প্রকাশ করা যাবে"
+msgstr ""
+
+#: Inc/BadriMembers.php:1432
+msgid "গোপন রাখুন"
+msgstr ""
+
+#: Inc/BadriMembers.php:1433
+msgid "ছবি প্রদর্শন"
+msgstr ""
+
+#: Inc/BadriMembers.php:1433
+msgid "ছবি প্রকাশ করা যাবে"
+msgstr ""
+
+#: Inc/BadriMembers.php:1433
+msgid "ছবি গোপন রাখুন"
+msgstr ""
+
+#: Inc/BadriMembers.php:1438
+msgid "অনুদান তথ্য"
+msgstr ""
+
+#: Inc/BadriMembers.php:1450
+msgid "ঠিকানা"
+msgstr ""
+
+#: Inc/BadriMembers.php:1472
+msgid "সদস্যের ছবি Featured Image হিসেবে সংরক্ষিত হয়। ছবি পরিবর্তন করতে ডান পাশের Featured Image ব্যবহার করুন।"
+msgstr ""
+
+#: Inc/BadriMembers.php:1626
+msgid "Badri Members"
+msgstr ""
+
+#: Inc/BadriMembers.php:1654
+msgid "← পূর্ববর্তী"
+msgstr ""
+
+#: Inc/BadriMembers.php:1655
+msgid "পরবর্তী →"
+msgstr ""
+
+#: Inc/BadriMembers.php:1662
+msgid "Badri members pagination"
+msgstr ""
+
+#: Inc/BadriMembers.php:1683
+msgid "xxx"
+msgstr ""
+
+#: Inc/BadriMembers.php:1688
+#: Inc/BadriMembers.php:1972
+msgid "মোবাইল"
+msgstr ""
+
+#: Inc/BadriMembers.php:1691
+#: Inc/BadriMembers.php:1974
+msgid "অনুদান"
+msgstr ""
+
+#: Inc/BadriMembers.php:1692
+msgid "স্থায়ী জেলা"
+msgstr ""
+
+#: Inc/BadriMembers.php:1693
+msgid "বর্তমান জেলা"
+msgstr ""
+
+#: Inc/BadriMembers.php:1741
+#, php-format
+msgid "৳%s"
+msgstr ""
+
+#: Inc/BadriMembers.php:1757
+msgid "Badri Member Form"
+msgstr ""
+
+#: Inc/BadriMembers.php:1758
+msgid "Badri Members Grid"
+msgstr ""
+
+#: Inc/BadriMembers.php:1824
+msgid "Badri Member Control Center"
+msgstr ""
+
+#: Inc/BadriMembers.php:1825
+msgid "বদরী সদস্য ম্যানেজমেন্ট"
+msgstr ""
+
+#: Inc/BadriMembers.php:1826
+msgid "সদস্য আবেদন, অনুমোদন, অনুদান ধরন, ছবি এবং পাবলিক দৃশ্যমানতা একটি আধুনিক ড্যাশবোর্ড থেকে পরিচালনা করুন।"
+msgstr ""
+
+#: Inc/BadriMembers.php:1839
+msgid "সব আবেদন"
+msgstr ""
+
+#: Inc/BadriMembers.php:1876
+msgid "প্রকাশ অনুমতি"
+msgstr ""
+
+#: Inc/BadriMembers.php:1879
+#: Inc/BadriMembers.php:2009
+#: Inc/BadriMembers.php:2048
+msgid "পাবলিক"
+msgstr ""
+
+#: Inc/BadriMembers.php:1882
+msgid "পাবলিক সদস্য দেখুন"
+msgstr ""
+
+#: Inc/BadriMembers.php:1888
+msgid "ছবি ও নতুন আবেদন"
+msgstr ""
+
+#: Inc/BadriMembers.php:1891
+msgid "ছবিসহ"
+msgstr ""
+
+#: Inc/BadriMembers.php:1892
+msgid "এই মাসে"
+msgstr ""
+
+#: Inc/BadriMembers.php:1973
+msgid "ধরন"
+msgstr ""
+
+#: Inc/BadriMembers.php:1975
 msgid "প্রকাশ"
 msgstr ""
 
-#: Inc/BadriMembers.php:487
+#: Inc/BadriMembers.php:1976
+msgid "স্ট্যাটাস"
+msgstr ""
+
+#: Inc/BadriMembers.php:2009
+#: Inc/BadriMembers.php:2049
 msgid "গোপন"
 msgstr ""
 
-#: Inc/BadriMembers.php:487
-msgid "প্রকাশিত"
+#: Inc/BadriMembers.php:2034
+msgid "সব স্ট্যাটাস"
+msgstr ""
+
+#: Inc/BadriMembers.php:2037
+msgid "ড্রাফট"
+msgstr ""
+
+#: Inc/BadriMembers.php:2041
+msgid "সব অনুদান ধরন"
+msgstr ""
+
+#: Inc/BadriMembers.php:2047
+msgid "সব প্রকাশ অনুমতি"
+msgstr ""
+
+#: Inc/BadriMembers.php:2053
+msgid "সব বছর"
+msgstr ""
+
+#: Inc/BadriMembers.php:2063
+msgid "সব মাস"
 msgstr ""
 
 #: Inc/Cron/CronManager.php:84
