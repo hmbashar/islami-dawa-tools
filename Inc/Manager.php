@@ -20,6 +20,7 @@ use IslamiDawaTools\Admin\AdminManager;
 use IslamiDawaTools\Frontend\Frontend;
 use IslamiDawaTools\Api\YouTube\YouTubeSyncManager;
 use IslamiDawaTools\Cron\CronManager;
+use IslamiDawaTools\Inc\BadriMembers;
 
 /**
  * The manager class for Islami Dawa Tools.
@@ -43,6 +44,9 @@ class Manager {
 
 	/** @var CronManager */
 	protected $cron_manager;
+
+	/** @var BadriMembers */
+	protected $badri_members;
 
     /**
      * Constructor for the Manager class.
@@ -68,5 +72,6 @@ class Manager {
 		$this->Frontend              = new Frontend();
 		$this->youtube_sync_manager  = new YouTubeSyncManager();
 		$this->cron_manager          = new CronManager();
+		$this->badri_members         = new BadriMembers();
 	}
 }

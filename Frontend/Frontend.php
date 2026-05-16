@@ -73,6 +73,12 @@ class Frontend
      */
     public function enqueue_scripts()
     {
-        // Enqueue frontend scripts and styles here.
+        // Enqueue Badri Members CSS
+        wp_enqueue_style(
+            'islami-dawa-badri-members',
+            ISLAMI_DAWA_TOOLS_FRONTEND_ASSETS . 'badri-members.css',
+            [],
+            ISLAMI_DAWA_TOOLS_VERSION
+        );
     }
 }
