@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-05T12:14:41+00:00\n"
+"POT-Creation-Date: 2026-05-16T08:45:32+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: islami-dawa-tools\n"
@@ -428,6 +428,279 @@ msgstr ""
 #: Inc/Api/YouTube/YouTubeSyncManager.php:192
 #, php-format
 msgid "Found: %1$d | Imported: %2$d | Skipped: %3$d | Failed: %4$d"
+msgstr ""
+
+#: Inc/BadriMembers.php:47
+#: Inc/BadriMembers.php:48
+#: Inc/BadriMembers.php:49
+#: Inc/BadriMembers.php:50
+msgid "বদরী সদস্য"
+msgstr ""
+
+#: Inc/BadriMembers.php:51
+msgid "নতুন সদস্য"
+msgstr ""
+
+#: Inc/BadriMembers.php:52
+msgid "নতুন বদরী সদস্য যোগ করুন"
+msgstr ""
+
+#: Inc/BadriMembers.php:53
+msgid "বদরী সদস্য সম্পাদনা করুন"
+msgstr ""
+
+#: Inc/BadriMembers.php:54
+msgid "নতুন বদরী সদস্য"
+msgstr ""
+
+#: Inc/BadriMembers.php:55
+msgid "বদরী সদস্য দেখুন"
+msgstr ""
+
+#: Inc/BadriMembers.php:56
+msgid "বদরী সদস্য খুঁজুন"
+msgstr ""
+
+#: Inc/BadriMembers.php:57
+msgid "কোনো সদস্য পাওয়া যায়নি"
+msgstr ""
+
+#: Inc/BadriMembers.php:58
+msgid "ট্র্যাশে কোনো সদস্য পাওয়া যায়নি"
+msgstr ""
+
+#: Inc/BadriMembers.php:84
+msgid "৳৫০০"
+msgstr ""
+
+#: Inc/BadriMembers.php:85
+msgid "৳১,০০০"
+msgstr ""
+
+#: Inc/BadriMembers.php:86
+msgid "৳২,০০০"
+msgstr ""
+
+#: Inc/BadriMembers.php:87
+msgid "৳৫,০০০"
+msgstr ""
+
+#: Inc/BadriMembers.php:88
+msgid "৳১০,০০০"
+msgstr ""
+
+#: Inc/BadriMembers.php:89
+msgid "অন্যান্য"
+msgstr ""
+
+#: Inc/BadriMembers.php:98
+msgid "আপনার তথ্য সফলভাবে জমা হয়েছে। অ্যাডমিন যাচাই করার পর প্রকাশ করা হবে।"
+msgstr ""
+
+#: Inc/BadriMembers.php:102
+msgid "দুঃখিত, তথ্য জমা দেওয়া যায়নি। অনুগ্রহ করে সব প্রয়োজনীয় তথ্য পূরণ করুন।"
+msgstr ""
+
+#: Inc/BadriMembers.php:110
+msgid "আজীবন বদরী সদস্য/সদস্যা ফরম"
+msgstr ""
+
+#: Inc/BadriMembers.php:111
+msgid "নিচের তথ্যগুলো পূরণ করে জমা দিন। অ্যাডমিন যাচাই করার পর সদস্য তালিকায় প্রকাশ করা হবে।"
+msgstr ""
+
+#: Inc/BadriMembers.php:115
+msgid "সদস্য/সদস্যার নাম"
+msgstr ""
+
+#: Inc/BadriMembers.php:116
+#: Inc/BadriMembers.php:281
+#: Inc/BadriMembers.php:388
+msgid "পিতা/স্বামীর নাম"
+msgstr ""
+
+#: Inc/BadriMembers.php:117
+#: Inc/BadriMembers.php:282
+msgid "মোবাইল নং"
+msgstr ""
+
+#: Inc/BadriMembers.php:118
+#: Inc/BadriMembers.php:283
+#: Inc/BadriMembers.php:390
+msgid "পেশা"
+msgstr ""
+
+#: Inc/BadriMembers.php:123
+#: Inc/BadriMembers.php:284
+#: Inc/BadriMembers.php:391
+msgid "অনুদান ধরন"
+msgstr ""
+
+#: Inc/BadriMembers.php:123
+#: Inc/BadriMembers.php:131
+#: Inc/BadriMembers.php:156
+#: Inc/BadriMembers.php:165
+#: Inc/BadriMembers.php:178
+#: Inc/BadriMembers.php:186
+msgid "(Required)"
+msgstr ""
+
+#: Inc/BadriMembers.php:125
+#: Inc/BadriMembers.php:284
+#: Inc/BadriMembers.php:414
+msgid "বার্ষিক"
+msgstr ""
+
+#: Inc/BadriMembers.php:126
+#: Inc/BadriMembers.php:284
+#: Inc/BadriMembers.php:418
+msgid "মাসিক"
+msgstr ""
+
+#: Inc/BadriMembers.php:131
+#: Inc/BadriMembers.php:285
+msgid "অনুদানের পরিমাণ: অংকে"
+msgstr ""
+
+#: Inc/BadriMembers.php:133
+msgid "নির্বাচন করুন"
+msgstr ""
+
+#: Inc/BadriMembers.php:140
+#: Inc/BadriMembers.php:286
+msgid "অনুদানের পরিমাণ: কথায়"
+msgstr ""
+
+#: Inc/BadriMembers.php:140
+msgid "অনুদানের পরিমাণ কথায় লিখুন"
+msgstr ""
+
+#: Inc/BadriMembers.php:145
+#: Inc/BadriMembers.php:287
+msgid "স্থায়ী ঠিকানা"
+msgstr ""
+
+#: Inc/BadriMembers.php:147
+#: Inc/BadriMembers.php:288
+msgid "স্থায়ী জেলার নাম"
+msgstr ""
+
+#: Inc/BadriMembers.php:147
+#: Inc/BadriMembers.php:152
+msgid "জেলা"
+msgstr ""
+
+#: Inc/BadriMembers.php:150
+#: Inc/BadriMembers.php:289
+msgid "বর্তমান ঠিকানা"
+msgstr ""
+
+#: Inc/BadriMembers.php:152
+#: Inc/BadriMembers.php:290
+msgid "বর্তমান জেলার নাম"
+msgstr ""
+
+#: Inc/BadriMembers.php:156
+msgid "তথ্য প্রকাশের অনুমতি"
+msgstr ""
+
+#: Inc/BadriMembers.php:158
+msgid "আমার তথ্য প্রকাশ করা যাবে"
+msgstr ""
+
+#: Inc/BadriMembers.php:159
+msgid "আমাকে পাবলিক তালিকায় গোপন রাখুন"
+msgstr ""
+
+#: Inc/BadriMembers.php:161
+msgid "গোপন রাখলে তালিকায় শুধু আপনার নাম দেখা যাবে; বাকি তথ্য xxx হিসেবে দেখানো হবে।"
+msgstr ""
+
+#: Inc/BadriMembers.php:165
+msgid "CAPTCHA: ৭ + ২ = ?"
+msgstr ""
+
+#: Inc/BadriMembers.php:169
+msgid "জমা দিন"
+msgstr ""
+
+#: Inc/BadriMembers.php:233
+#, php-format
+msgid "নতুন বদরী সদস্য আবেদন: %s"
+msgstr ""
+
+#: Inc/BadriMembers.php:234
+msgid "একটি নতুন বদরী সদস্য আবেদন জমা হয়েছে। অনুগ্রহ করে অ্যাডমিন থেকে রিভিউ করুন।"
+msgstr ""
+
+#: Inc/BadriMembers.php:269
+msgid "বদরী সদস্য তথ্য"
+msgstr ""
+
+#: Inc/BadriMembers.php:291
+msgid "পাবলিক তথ্য প্রদর্শন"
+msgstr ""
+
+#: Inc/BadriMembers.php:291
+msgid "প্রকাশ করা যাবে"
+msgstr ""
+
+#: Inc/BadriMembers.php:291
+msgid "গোপন রাখুন"
+msgstr ""
+
+#: Inc/BadriMembers.php:362
+msgid "আজীবন বদরী সদস্য/সদস্যা তালিকা"
+msgstr ""
+
+#: Inc/BadriMembers.php:363
+msgid "অ্যাডমিন অনুমোদিত সদস্যদের তালিকা এখানে প্রদর্শিত হচ্ছে।"
+msgstr ""
+
+#: Inc/BadriMembers.php:373
+msgid "এখনো কোনো প্রকাশিত সদস্য পাওয়া যায়নি।"
+msgstr ""
+
+#: Inc/BadriMembers.php:385
+msgid "xxx"
+msgstr ""
+
+#: Inc/BadriMembers.php:389
+#: Inc/BadriMembers.php:468
+msgid "মোবাইল"
+msgstr ""
+
+#: Inc/BadriMembers.php:392
+#: Inc/BadriMembers.php:469
+msgid "অনুদান"
+msgstr ""
+
+#: Inc/BadriMembers.php:393
+msgid "স্থায়ী জেলা"
+msgstr ""
+
+#: Inc/BadriMembers.php:394
+msgid "বর্তমান জেলা"
+msgstr ""
+
+#: Inc/BadriMembers.php:438
+msgid "Badri Member Form"
+msgstr ""
+
+#: Inc/BadriMembers.php:439
+msgid "Badri Members Grid"
+msgstr ""
+
+#: Inc/BadriMembers.php:470
+msgid "প্রকাশ"
+msgstr ""
+
+#: Inc/BadriMembers.php:487
+msgid "গোপন"
+msgstr ""
+
+#: Inc/BadriMembers.php:487
+msgid "প্রকাশিত"
 msgstr ""
 
 #: Inc/Cron/CronManager.php:84
