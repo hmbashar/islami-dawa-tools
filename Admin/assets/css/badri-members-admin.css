@@ -848,7 +848,7 @@
 
 /* v1.0.9 - refined form builder controls and Badri member list UI */
 .idt-badri-builder-checks {
-    align-items: stretch;
+    /* align-items: stretch; */
     gap: 12px;
     padding-top: 18px;
 }
@@ -858,7 +858,7 @@
     display: inline-flex !important;
     align-items: center;
     gap: 10px;
-    min-height: 42px;
+    min-height: unset;
     padding: 10px 14px;
     border: 1px solid #dfe9e2;
     border-radius: 999px;
@@ -881,6 +881,7 @@
     display: inline-grid;
     place-items: center;
     box-shadow: none !important;
+    min-height: unset;
 }
 
 .idt-badri-builder-checks input[type="checkbox"]::before {
