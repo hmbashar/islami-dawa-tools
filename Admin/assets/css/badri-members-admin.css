@@ -353,3 +353,115 @@
         grid-template-columns: repeat(3, minmax(220px, 1fr));
     }
 }
+
+/* Badri form builder settings */
+.idt-badri-admin-card-wide {
+    grid-column: 1 / -1;
+}
+
+.idt-badri-field-builder {
+    margin-top: 18px;
+}
+
+.idt-badri-field-builder-list {
+    display: grid;
+    gap: 18px;
+    margin-bottom: 18px;
+}
+
+.idt-badri-field-builder-row {
+    border: 1px solid var(--idt-border, #dfe9e2);
+    border-radius: 18px;
+    background: linear-gradient(180deg, #fff, var(--idt-soft-bg, #f8fbf8));
+    overflow: hidden;
+}
+
+.idt-badri-field-builder-row-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--idt-border, #dfe9e2);
+    background: #fff;
+}
+
+.idt-badri-field-builder-row-head strong {
+    color: var(--idt-primary-dark, #084729);
+    font-size: 16px;
+}
+
+.idt-badri-field-builder-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    padding: 18px;
+}
+
+.idt-badri-field-builder-grid label {
+    display: grid;
+    gap: 7px;
+    color: var(--idt-primary-dark, #084729);
+    font-weight: 700;
+}
+
+.idt-badri-field-builder-grid label span {
+    font-size: 13px;
+}
+
+.idt-badri-field-builder-grid input,
+.idt-badri-field-builder-grid select,
+.idt-badri-field-builder-grid textarea {
+    width: 100%;
+    border: 1px solid var(--idt-border, #dfe9e2);
+    border-radius: 12px;
+    padding: 10px 12px;
+    background: #fff;
+}
+
+.idt-badri-builder-options {
+    grid-column: span 2;
+}
+
+.idt-badri-builder-checks {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    padding-top: 23px;
+}
+
+.idt-badri-builder-checks label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    color: var(--idt-primary-dark, #084729);
+}
+
+.idt-badri-add-field {
+    border-color: var(--idt-primary, #0f6b3f) !important;
+    color: var(--idt-primary, #0f6b3f) !important;
+    border-radius: 999px !important;
+    font-weight: 700 !important;
+}
+
+.idt-badri-member-admin-field-wide {
+    grid-column: 1 / -1;
+}
+
+@media (max-width: 1200px) {
+    .idt-badri-field-builder-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 782px) {
+    .idt-badri-field-builder-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .idt-badri-builder-options {
+        grid-column: auto;
+    }
+}

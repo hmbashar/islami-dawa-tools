@@ -143,3 +143,14 @@ Templates:
 Templates/badri-member-form.php
 Templates/badri-members-grid.php
 ```
+
+
+## Version 1.0.5 updates
+
+- Modernized the frontend Badri member form UI.
+- Fixed SweetAlert2 success popup so title and message are not duplicated.
+- Updated default success message: admin will contact the member after review.
+- Added an admin-managed extra field builder under Badri member settings.
+- Extra fields can be text, number, email, textarea, select, or date.
+- Extra fields can be required and optionally displayed in the public grid.
+- Extra fields are saved as post meta on the Badri member post.

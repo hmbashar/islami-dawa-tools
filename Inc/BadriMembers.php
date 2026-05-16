@@ -134,6 +134,7 @@ class BadriMembers {
                 'nonce'   => wp_create_nonce( self::NONCE_ACTION ),
                 'i18n'    => array(
                     'processing'        => $settings['processing_message'],
+                    'successTitle'      => $settings['success_title'],
                     'success'           => $settings['success_message'],
                     'error'             => $settings['error_message'],
                     'validationTitle'   => $settings['validation_title'],
@@ -189,7 +190,8 @@ class BadriMembers {
             'form_title'               => esc_html__( 'আজীবন বদরী সদস্য/সদস্যা ফরম', 'islami-dawa-tools' ),
             'form_description'         => esc_html__( 'নিচের তথ্যগুলো পূরণ করে জমা দিন। অ্যাডমিন যাচাই করার পর সদস্য তালিকায় প্রকাশ করা হবে।', 'islami-dawa-tools' ),
             'submit_button_text'       => esc_html__( 'জমা দিন', 'islami-dawa-tools' ),
-            'success_message'          => esc_html__( 'আপনার তথ্য সফলভাবে জমা হয়েছে। অ্যাডমিন যাচাই করার পর প্রকাশ করা হবে।', 'islami-dawa-tools' ),
+            'success_title'            => esc_html__( 'ধন্যবাদ!', 'islami-dawa-tools' ),
+            'success_message'          => esc_html__( 'আপনার তথ্য সফলভাবে জমা হয়েছে। অ্যাডমিন যাচাই করার পর আপনার সাথে যোগাযোগ করা হবে।', 'islami-dawa-tools' ),
             'error_message'            => esc_html__( 'দুঃখিত, তথ্য জমা দেওয়া যায়নি। অনুগ্রহ করে সব প্রয়োজনীয় তথ্য পূরণ করুন।', 'islami-dawa-tools' ),
             'captcha_error_message'    => esc_html__( 'CAPTCHA উত্তর সঠিক নয়। অনুগ্রহ করে আবার চেষ্টা করুন।', 'islami-dawa-tools' ),
             'processing_message'       => esc_html__( 'আপনার তথ্য জমা হচ্ছে...', 'islami-dawa-tools' ),
@@ -205,12 +207,20 @@ class BadriMembers {
             'admin_notification_email' => get_option( 'admin_email' ),
             'admin_email_subject'      => esc_html__( 'নতুন বদরী সদস্য আবেদন: {name}', 'islami-dawa-tools' ),
             'admin_email_body'         => esc_html__( 'একটি নতুন বদরী সদস্য আবেদন জমা হয়েছে। অনুগ্রহ করে অ্যাডমিন থেকে রিভিউ করুন।', 'islami-dawa-tools' ),
+            'additional_fields'        => array(),
         );
     }
 
     public function get_settings() {
-        $saved = get_option( self::OPTION_NAME, array() );
-        return wp_parse_args( is_array( $saved ) ? $saved : array(), $this->get_default_settings() );
+        $saved    = get_option( self::OPTION_NAME, array() );
+        $settings = wp_parse_args( is_array( $saved ) ? $saved : array(), $this->get_default_settings() );
+
+        $old_success_message = esc_html__( 'আপনার তথ্য সফলভাবে জমা হয়েছে। অ্যাডমিন যাচাই করার পর প্রকাশ করা হবে।', 'islami-dawa-tools' );
+        if ( isset( $settings['success_message'] ) && $old_success_message === $settings['success_message'] ) {
+            $settings['success_message'] = esc_html__( 'আপনার তথ্য সফলভাবে জমা হয়েছে। অ্যাডমিন যাচাই করার পর আপনার সাথে যোগাযোগ করা হবে।', 'islami-dawa-tools' );
+        }
+
+        return $settings;
     }
 
     public function register_settings() {
@@ -228,11 +238,16 @@ class BadriMembers {
     public function sanitize_settings( $input ) {
         $defaults = $this->get_default_settings();
         $output   = array();
+        $input    = is_array( $input ) ? $input : array();
 
         foreach ( $defaults as $key => $default ) {
+            if ( 'additional_fields' === $key ) {
+                continue;
+            }
+
             $value = isset( $input[ $key ] ) ? wp_unslash( $input[ $key ] ) : $default;
 
-            if ( in_array( $key, array( 'form_description', 'admin_email_body', 'grid_description' ), true ) ) {
+            if ( in_array( $key, array( 'form_description', 'admin_email_body', 'grid_description', 'success_message', 'error_message', 'captcha_error_message' ), true ) ) {
                 $output[ $key ] = sanitize_textarea_field( $value );
             } elseif ( 'admin_notification_email' === $key ) {
                 $output[ $key ] = sanitize_email( $value );
@@ -243,7 +258,64 @@ class BadriMembers {
             }
         }
 
+        $output['additional_fields'] = $this->sanitize_additional_fields( isset( $input['additional_fields'] ) ? $input['additional_fields'] : array() );
+
         return $output;
+    }
+
+    private function sanitize_additional_fields( $fields ) {
+        $clean = array();
+
+        if ( ! is_array( $fields ) ) {
+            return $clean;
+        }
+
+        foreach ( $fields as $field ) {
+            if ( ! is_array( $field ) ) {
+                continue;
+            }
+
+            $label = isset( $field['label'] ) ? sanitize_text_field( wp_unslash( $field['label'] ) ) : '';
+            $key   = isset( $field['key'] ) ? sanitize_key( wp_unslash( $field['key'] ) ) : '';
+            $type  = isset( $field['type'] ) ? sanitize_key( wp_unslash( $field['type'] ) ) : 'text';
+
+            if ( '' === $label ) {
+                continue;
+            }
+
+            if ( '' === $key ) {
+                $key = sanitize_key( strtolower( remove_accents( $label ) ) );
+            }
+
+            if ( '' === $key ) {
+                $key = 'field_' . count( $clean );
+            }
+
+            $key = preg_replace( '/^badri_extra_/', '', $key );
+
+            if ( ! in_array( $type, array( 'text', 'number', 'email', 'textarea', 'select', 'date' ), true ) ) {
+                $type = 'text';
+            }
+
+            $options_raw = isset( $field['options'] ) ? sanitize_textarea_field( wp_unslash( $field['options'] ) ) : '';
+
+            $clean[] = array(
+                'key'          => $key,
+                'label'        => $label,
+                'type'         => $type,
+                'placeholder'  => isset( $field['placeholder'] ) ? sanitize_text_field( wp_unslash( $field['placeholder'] ) ) : '',
+                'options'      => $options_raw,
+                'required'     => ! empty( $field['required'] ) ? '1' : '0',
+                'show_in_grid' => ! empty( $field['show_in_grid'] ) ? '1' : '0',
+            );
+        }
+
+        return $clean;
+    }
+
+    private function get_additional_fields() {
+        $settings = $this->get_settings();
+        return isset( $settings['additional_fields'] ) && is_array( $settings['additional_fields'] ) ? $settings['additional_fields'] : array();
     }
 
     public function render_settings_page() {
@@ -276,6 +348,7 @@ class BadriMembers {
 
                     <div class="idt-badri-admin-card">
                         <h2><?php echo esc_html__( 'মেসেজ সেটিংস', 'islami-dawa-tools' ); ?></h2>
+                        <?php $this->render_settings_input( 'success_title', esc_html__( 'সাকসেস পপআপ টাইটেল', 'islami-dawa-tools' ), $settings['success_title'] ); ?>
                         <?php $this->render_settings_textarea( 'success_message', esc_html__( 'সাকসেস মেসেজ', 'islami-dawa-tools' ), $settings['success_message'] ); ?>
                         <?php $this->render_settings_textarea( 'error_message', esc_html__( 'এরর মেসেজ', 'islami-dawa-tools' ), $settings['error_message'] ); ?>
                         <?php $this->render_settings_textarea( 'captcha_error_message', esc_html__( 'CAPTCHA এরর মেসেজ', 'islami-dawa-tools' ), $settings['captcha_error_message'] ); ?>
@@ -302,12 +375,105 @@ class BadriMembers {
                         <?php $this->render_settings_textarea( 'admin_email_body', esc_html__( 'ইমেইল বডি', 'islami-dawa-tools' ), $settings['admin_email_body'] ); ?>
                         <p class="idt-badri-hint"><?php echo esc_html__( 'ইমেইল সাবজেক্টে {name} ব্যবহার করলে সদস্যের নাম বসবে।', 'islami-dawa-tools' ); ?></p>
                     </div>
+
+
+                    <div class="idt-badri-admin-card idt-badri-admin-card-wide">
+                        <h2><?php echo esc_html__( 'ফরম বিল্ডার: অতিরিক্ত ফিল্ড', 'islami-dawa-tools' ); ?></h2>
+                        <p class="idt-badri-hint"><?php echo esc_html__( 'প্রয়োজন অনুযায়ী অতিরিক্ত ফিল্ড যোগ করুন। এগুলো ফ্রন্টএন্ড ফরমে, সদস্য এডিট স্ক্রিনে এবং চাইলে গ্রিডে দেখানো যাবে।', 'islami-dawa-tools' ); ?></p>
+                        <?php $this->render_additional_fields_builder( $settings ); ?>
+                    </div>
                 </div>
 
                 <p class="submit">
                     <button type="submit" class="button button-primary idt-badri-save-btn"><?php echo esc_html__( 'সেটিংস সংরক্ষণ করুন', 'islami-dawa-tools' ); ?></button>
                 </p>
             </form>
+        </div>
+        <?php
+    }
+
+    private function render_additional_fields_builder( $settings ) {
+        $fields = isset( $settings['additional_fields'] ) && is_array( $settings['additional_fields'] ) ? $settings['additional_fields'] : array();
+        ?>
+        <div class="idt-badri-field-builder" data-badri-field-builder>
+            <div class="idt-badri-field-builder-list" data-badri-field-builder-list>
+                <?php foreach ( $fields as $index => $field ) : ?>
+                    <?php $this->render_field_builder_row( $index, $field ); ?>
+                <?php endforeach; ?>
+            </div>
+
+            <button type="button" class="button idt-badri-add-field" data-badri-add-field><?php echo esc_html__( 'নতুন ফিল্ড যোগ করুন', 'islami-dawa-tools' ); ?></button>
+
+            <script type="text/html" id="tmpl-idt-badri-field-row">
+                <?php
+                $this->render_field_builder_row(
+                    '__INDEX__',
+                    array(
+                        'key'          => '',
+                        'label'        => '',
+                        'type'         => 'text',
+                        'placeholder'  => '',
+                        'options'      => '',
+                        'required'     => '0',
+                        'show_in_grid' => '0',
+                    )
+                );
+                ?>
+            </script>
+        </div>
+        <?php
+    }
+
+    private function render_field_builder_row( $index, $field ) {
+        $field = wp_parse_args(
+            $field,
+            array(
+                'key'          => '',
+                'label'        => '',
+                'type'         => 'text',
+                'placeholder'  => '',
+                'options'      => '',
+                'required'     => '0',
+                'show_in_grid' => '0',
+            )
+        );
+        $name = self::OPTION_NAME . '[additional_fields][' . $index . ']';
+        ?>
+        <div class="idt-badri-field-builder-row" data-badri-field-row>
+            <div class="idt-badri-field-builder-row-head">
+                <strong><?php echo esc_html__( 'কাস্টম ফিল্ড', 'islami-dawa-tools' ); ?></strong>
+                <button type="button" class="button-link-delete" data-badri-remove-field><?php echo esc_html__( 'মুছে ফেলুন', 'islami-dawa-tools' ); ?></button>
+            </div>
+            <div class="idt-badri-field-builder-grid">
+                <label>
+                    <span><?php echo esc_html__( 'ফিল্ড লেবেল', 'islami-dawa-tools' ); ?></span>
+                    <input type="text" name="<?php echo esc_attr( $name . '[label]' ); ?>" value="<?php echo esc_attr( $field['label'] ); ?>" placeholder="<?php echo esc_attr__( 'যেমন: জন্ম তারিখ', 'islami-dawa-tools' ); ?>" />
+                </label>
+                <label>
+                    <span><?php echo esc_html__( 'ফিল্ড কী', 'islami-dawa-tools' ); ?></span>
+                    <input type="text" name="<?php echo esc_attr( $name . '[key]' ); ?>" value="<?php echo esc_attr( $field['key'] ); ?>" placeholder="<?php echo esc_attr__( 'যেমন: date_of_birth', 'islami-dawa-tools' ); ?>" />
+                </label>
+                <label>
+                    <span><?php echo esc_html__( 'ফিল্ড টাইপ', 'islami-dawa-tools' ); ?></span>
+                    <select name="<?php echo esc_attr( $name . '[type]' ); ?>" data-badri-builder-type>
+                        <?php foreach ( array( 'text' => 'Text', 'number' => 'Number', 'email' => 'Email', 'textarea' => 'Textarea', 'select' => 'Select', 'date' => 'Date' ) as $type_value => $type_label ) : ?>
+                            <option value="<?php echo esc_attr( $type_value ); ?>" <?php selected( $field['type'], $type_value ); ?>><?php echo esc_html( $type_label ); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </label>
+                <label>
+                    <span><?php echo esc_html__( 'Placeholder', 'islami-dawa-tools' ); ?></span>
+                    <input type="text" name="<?php echo esc_attr( $name . '[placeholder]' ); ?>" value="<?php echo esc_attr( $field['placeholder'] ); ?>" />
+                </label>
+                <label class="idt-badri-builder-options">
+                    <span><?php echo esc_html__( 'Select options', 'islami-dawa-tools' ); ?></span>
+                    <textarea name="<?php echo esc_attr( $name . '[options]' ); ?>" rows="3" placeholder="<?php echo esc_attr__( 'প্রতি লাইনে একটি অপশন লিখুন', 'islami-dawa-tools' ); ?>"><?php echo esc_textarea( $field['options'] ); ?></textarea>
+                </label>
+                <div class="idt-badri-builder-checks">
+                    <label><input type="checkbox" name="<?php echo esc_attr( $name . '[required]' ); ?>" value="1" <?php checked( $field['required'], '1' ); ?> /> <?php echo esc_html__( 'Required', 'islami-dawa-tools' ); ?></label>
+                    <label><input type="checkbox" name="<?php echo esc_attr( $name . '[show_in_grid]' ); ?>" value="1" <?php checked( $field['show_in_grid'], '1' ); ?> /> <?php echo esc_html__( 'গ্রিডে দেখান', 'islami-dawa-tools' ); ?></label>
+                </div>
+            </div>
         </div>
         <?php
     }
@@ -427,6 +593,21 @@ class BadriMembers {
                 </div>
             </div>
 
+            <?php $additional_fields = $this->get_additional_fields(); ?>
+            <?php if ( ! empty( $additional_fields ) ) : ?>
+                <div class="at-badri-form-section">
+                    <div class="at-badri-section-title">
+                        <span><?php echo esc_html__( 'অতিরিক্ত তথ্য', 'islami-dawa-tools' ); ?></span>
+                        <h3><?php echo esc_html__( 'প্রয়োজনীয় অতিরিক্ত তথ্য', 'islami-dawa-tools' ); ?></h3>
+                    </div>
+                    <div class="at-badri-grid at-badri-grid-2">
+                        <?php foreach ( $additional_fields as $extra_field ) : ?>
+                            <?php $this->render_front_extra_field( $extra_field ); ?>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+
             <div class="at-badri-field at-badri-privacy-field">
                 <label><?php echo esc_html__( 'তথ্য প্রকাশের অনুমতি', 'islami-dawa-tools' ); ?> <span><?php echo esc_html__( '(Required)', 'islami-dawa-tools' ); ?></span></label>
                 <div class="at-badri-radio-list at-badri-option-list">
@@ -461,6 +642,49 @@ class BadriMembers {
         <label for="badri_<?php echo esc_attr( $name ); ?>"><?php echo esc_html( $label ); ?> <?php if ( $required ) : ?><span><?php echo esc_html__( '(Required)', 'islami-dawa-tools' ); ?></span><?php endif; ?></label>
         <textarea id="badri_<?php echo esc_attr( $name ); ?>" name="<?php echo esc_attr( $name ); ?>" placeholder="<?php echo esc_attr( $placeholder ); ?>" data-badri-label="<?php echo esc_attr( $label ); ?>" <?php echo $required ? 'required' : ''; ?>></textarea>
         <?php
+    }
+
+    private function render_front_extra_field( $field ) {
+        $key         = isset( $field['key'] ) ? sanitize_key( $field['key'] ) : '';
+        $label       = isset( $field['label'] ) ? $field['label'] : '';
+        $type        = isset( $field['type'] ) ? $field['type'] : 'text';
+        $placeholder = isset( $field['placeholder'] ) ? $field['placeholder'] : '';
+        $required    = ! empty( $field['required'] ) && '1' === $field['required'];
+
+        if ( '' === $key || '' === $label ) {
+            return;
+        }
+
+        $name = 'badri_extra_' . $key;
+        ?>
+        <div class="at-badri-field <?php echo 'textarea' === $type ? 'at-badri-field-wide' : ''; ?>">
+            <label for="badri_<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $label ); ?> <?php if ( $required ) : ?><span><?php echo esc_html__( '(Required)', 'islami-dawa-tools' ); ?></span><?php endif; ?></label>
+            <?php if ( 'textarea' === $type ) : ?>
+                <textarea id="badri_<?php echo esc_attr( $key ); ?>" name="<?php echo esc_attr( $name ); ?>" placeholder="<?php echo esc_attr( $placeholder ); ?>" data-badri-label="<?php echo esc_attr( $label ); ?>" <?php echo $required ? 'required' : ''; ?>></textarea>
+            <?php elseif ( 'select' === $type ) : ?>
+                <select id="badri_<?php echo esc_attr( $key ); ?>" name="<?php echo esc_attr( $name ); ?>" data-badri-label="<?php echo esc_attr( $label ); ?>" <?php echo $required ? 'required' : ''; ?>>
+                    <option value=""><?php echo esc_html__( 'নির্বাচন করুন', 'islami-dawa-tools' ); ?></option>
+                    <?php foreach ( $this->parse_options( isset( $field['options'] ) ? $field['options'] : '' ) as $option ) : ?>
+                        <option value="<?php echo esc_attr( $option ); ?>"><?php echo esc_html( $option ); ?></option>
+                    <?php endforeach; ?>
+                </select>
+            <?php else : ?>
+                <input id="badri_<?php echo esc_attr( $key ); ?>" type="<?php echo esc_attr( in_array( $type, array( 'text', 'number', 'email', 'date' ), true ) ? $type : 'text' ); ?>" name="<?php echo esc_attr( $name ); ?>" placeholder="<?php echo esc_attr( $placeholder ); ?>" data-badri-label="<?php echo esc_attr( $label ); ?>" <?php echo $required ? 'required' : ''; ?> />
+            <?php endif; ?>
+        </div>
+        <?php
+    }
+
+    private function parse_options( $options ) {
+        $lines = preg_split( '/\r\n|\r|\n/', (string) $options );
+        $clean = array();
+        foreach ( $lines as $line ) {
+            $line = trim( $line );
+            if ( '' !== $line ) {
+                $clean[] = $line;
+            }
+        }
+        return $clean;
     }
 
     public function handle_form_submission() {
@@ -528,6 +752,21 @@ class BadriMembers {
 
             if ( '' === $value ) {
                 return new \WP_Error( 'missing_' . $field, $this->format_required_message( $label ) );
+            }
+        }
+
+        foreach ( $this->get_additional_fields() as $extra_field ) {
+            if ( empty( $extra_field['required'] ) || '1' !== $extra_field['required'] ) {
+                continue;
+            }
+
+            $extra_key   = isset( $extra_field['key'] ) ? sanitize_key( $extra_field['key'] ) : '';
+            $extra_label = isset( $extra_field['label'] ) ? $extra_field['label'] : $extra_key;
+            $extra_name  = 'badri_extra_' . $extra_key;
+            $extra_value = isset( $_POST[ $extra_name ] ) ? trim( sanitize_text_field( wp_unslash( $_POST[ $extra_name ] ) ) ) : '';
+
+            if ( '' === $extra_value ) {
+                return new \WP_Error( 'missing_' . $extra_key, $this->format_required_message( $extra_label ) );
             }
         }
 
@@ -634,6 +873,22 @@ class BadriMembers {
         if ( ! get_post_meta( $post_id, '_badri_photo_visibility', true ) ) {
             update_post_meta( $post_id, '_badri_photo_visibility', 'hide' );
         }
+
+        foreach ( $this->get_additional_fields() as $extra_field ) {
+            $extra_key = isset( $extra_field['key'] ) ? sanitize_key( $extra_field['key'] ) : '';
+            if ( '' === $extra_key ) {
+                continue;
+            }
+
+            $request_key = 'badri_extra_' . $extra_key;
+            $meta_key    = '_badri_extra_' . $extra_key;
+
+            if ( isset( $_POST[ $request_key ] ) ) {
+                $value = wp_unslash( $_POST[ $request_key ] );
+                $value = 'textarea' === ( isset( $extra_field['type'] ) ? $extra_field['type'] : '' ) ? sanitize_textarea_field( $value ) : sanitize_text_field( $value );
+                update_post_meta( $post_id, $meta_key, $value );
+            }
+        }
     }
 
     private function redirect_with_status( $status ) {
@@ -706,6 +961,18 @@ class BadriMembers {
                 </div>
             </div>
 
+            <?php $additional_fields = $this->get_additional_fields(); ?>
+            <?php if ( ! empty( $additional_fields ) ) : ?>
+                <div class="idt-badri-member-admin-section">
+                    <h3><?php echo esc_html__( 'অতিরিক্ত তথ্য', 'islami-dawa-tools' ); ?></h3>
+                    <div class="idt-badri-member-admin-grid two-cols">
+                        <?php foreach ( $additional_fields as $extra_field ) : ?>
+                            <?php $this->render_admin_extra_field( $post->ID, $extra_field ); ?>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+
             <div class="idt-badri-member-admin-note">
                 <?php echo esc_html__( 'সদস্যের ছবি Featured Image হিসেবে সংরক্ষিত হয়। ছবি পরিবর্তন করতে ডান পাশের Featured Image ব্যবহার করুন।', 'islami-dawa-tools' ); ?>
             </div>
@@ -743,6 +1010,37 @@ class BadriMembers {
                     <option value="<?php echo esc_attr( $option_value ); ?>" <?php selected( $value, $option_value ); ?>><?php echo esc_html( $option_label ); ?></option>
                 <?php endforeach; ?>
             </select>
+        </div>
+        <?php
+    }
+
+    private function render_admin_extra_field( $post_id, $field ) {
+        $key         = isset( $field['key'] ) ? sanitize_key( $field['key'] ) : '';
+        $label       = isset( $field['label'] ) ? $field['label'] : '';
+        $type        = isset( $field['type'] ) ? $field['type'] : 'text';
+        $placeholder = isset( $field['placeholder'] ) ? $field['placeholder'] : '';
+
+        if ( '' === $key || '' === $label ) {
+            return;
+        }
+
+        $value = get_post_meta( $post_id, '_badri_extra_' . $key, true );
+        $name  = 'badri_extra_' . $key;
+        ?>
+        <div class="idt-badri-member-admin-field <?php echo 'textarea' === $type ? 'idt-badri-member-admin-field-wide' : ''; ?>">
+            <label for="badri_admin_extra_<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $label ); ?></label>
+            <?php if ( 'textarea' === $type ) : ?>
+                <textarea id="badri_admin_extra_<?php echo esc_attr( $key ); ?>" name="<?php echo esc_attr( $name ); ?>" rows="3" placeholder="<?php echo esc_attr( $placeholder ); ?>"><?php echo esc_textarea( $value ); ?></textarea>
+            <?php elseif ( 'select' === $type ) : ?>
+                <select id="badri_admin_extra_<?php echo esc_attr( $key ); ?>" name="<?php echo esc_attr( $name ); ?>">
+                    <option value=""><?php echo esc_html__( 'নির্বাচন করুন', 'islami-dawa-tools' ); ?></option>
+                    <?php foreach ( $this->parse_options( isset( $field['options'] ) ? $field['options'] : '' ) as $option ) : ?>
+                        <option value="<?php echo esc_attr( $option ); ?>" <?php selected( $value, $option ); ?>><?php echo esc_html( $option ); ?></option>
+                    <?php endforeach; ?>
+                </select>
+            <?php else : ?>
+                <input id="badri_admin_extra_<?php echo esc_attr( $key ); ?>" type="<?php echo esc_attr( in_array( $type, array( 'text', 'number', 'email', 'date' ), true ) ? $type : 'text' ); ?>" name="<?php echo esc_attr( $name ); ?>" value="<?php echo esc_attr( $value ); ?>" placeholder="<?php echo esc_attr( $placeholder ); ?>" />
+            <?php endif; ?>
         </div>
         <?php
     }
@@ -826,6 +1124,17 @@ class BadriMembers {
             esc_html__( 'স্থায়ী জেলা', 'islami-dawa-tools' ) => get_post_meta( $post_id, '_badri_permanent_district', true ),
             esc_html__( 'বর্তমান জেলা', 'islami-dawa-tools' ) => get_post_meta( $post_id, '_badri_current_district', true ),
         );
+
+        foreach ( $this->get_additional_fields() as $extra_field ) {
+            if ( empty( $extra_field['show_in_grid'] ) || '1' !== $extra_field['show_in_grid'] ) {
+                continue;
+            }
+            $extra_key = isset( $extra_field['key'] ) ? sanitize_key( $extra_field['key'] ) : '';
+            $label     = isset( $extra_field['label'] ) ? $extra_field['label'] : $extra_key;
+            if ( '' !== $extra_key && '' !== $label ) {
+                $fields[ $label ] = get_post_meta( $post_id, '_badri_extra_' . $extra_key, true );
+            }
+        }
         ?>
         <article class="at-badri-member-card <?php echo $hidden ? 'is-hidden-member' : 'is-visible-member'; ?>">
             <?php if ( $show_photo ) : ?>

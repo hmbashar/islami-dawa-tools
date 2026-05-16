@@ -16,13 +16,16 @@
                 text: text,
                 confirmButtonText: getMessage('ok', 'OK'),
                 confirmButtonColor: '#0f6b3f',
+                buttonsStyling: true,
                 customClass: {
-                    popup: 'at-badri-swal-popup'
+                    popup: 'at-badri-swal-popup',
+                    title: 'at-badri-swal-title',
+                    htmlContainer: 'at-badri-swal-text'
                 }
             });
             return;
         }
-        window.alert(text);
+        window.alert((title ? title + '\n\n' : '') + text);
     }
 
     function requiredMessage(fieldName) {
@@ -46,10 +49,17 @@
         return $field.attr('name') || 'field';
     }
 
+    function markField($field, hasError) {
+        var $wrap = $field.closest('.at-badri-field');
+        $wrap.toggleClass('has-error', !!hasError);
+    }
+
     function validateForm(form) {
         var $form = $(form);
         var invalidMessage = '';
         var invalidField = null;
+
+        $form.find('.has-error').removeClass('has-error');
 
         $form.find('[required]').each(function () {
             var field = this;
@@ -57,10 +67,15 @@
             var type = ($field.attr('type') || '').toLowerCase();
             var name = $field.attr('name');
 
+            if (!$field.is(':visible') && type !== 'radio' && type !== 'checkbox') {
+                return true;
+            }
+
             if ((type === 'radio' || type === 'checkbox') && name) {
                 if (!$form.find('[name="' + name + '"]:checked').length) {
                     invalidMessage = requiredMessage(getFieldLabel($field));
                     invalidField = field;
+                    markField($field, true);
                     return false;
                 }
                 return true;
@@ -69,12 +84,14 @@
             if (!$.trim($field.val())) {
                 invalidMessage = requiredMessage(getFieldLabel($field));
                 invalidField = field;
+                markField($field, true);
                 return false;
             }
 
             if (type === 'email' && field.validity && !field.validity.valid) {
                 invalidMessage = requiredMessage(getFieldLabel($field));
                 invalidField = field;
+                markField($field, true);
                 return false;
             }
 
@@ -83,9 +100,10 @@
 
         var $amountSelect = $form.find('[data-badri-amount-select]');
         var $customAmount = $form.find('[data-badri-custom-amount]');
-        if ($amountSelect.val() === 'other' && !$.trim($customAmount.val())) {
+        if (!invalidMessage && $amountSelect.val() === 'other' && !$.trim($customAmount.val())) {
             invalidMessage = getMessage('customAmountError', 'Please enter custom amount.');
             invalidField = $customAmount.get(0);
+            markField($customAmount, true);
         }
 
         var $photo = $form.find('input[name="member_photo"]');
@@ -98,9 +116,11 @@
             if (allowed.indexOf(file.type) === -1) {
                 invalidMessage = getMessage('photoTypeError', 'Please upload JPG, PNG or WEBP image.');
                 invalidField = $photo.get(0);
+                markField($photo, true);
             } else if (file.size > maxSize) {
                 invalidMessage = getMessage('photoSizeError', 'Photo size can be maximum {size}MB.').replace('{size}', maxSizeMb);
                 invalidField = $photo.get(0);
+                markField($photo, true);
             }
         }
 
@@ -131,9 +151,14 @@
 
             if (!isOther) {
                 $input.val('');
+                markField($input, false);
             }
         });
     }
+
+    $(document).on('change input', '.at-badri-field input, .at-badri-field select, .at-badri-field textarea', function () {
+        markField($(this), false);
+    });
 
     $(document).on('change', '[data-badri-amount-select]', function () {
         toggleCustomAmount($(this).closest('form'));
@@ -172,7 +197,11 @@
                 if (response && response.success) {
                     form.reset();
                     toggleCustomAmount(form);
-                    showAlert('success', getMessage('success', 'Success'), response.data && response.data.message ? response.data.message : getMessage('success', 'Submitted successfully.'));
+                    showAlert(
+                        'success',
+                        getMessage('successTitle', 'Success'),
+                        response.data && response.data.message ? response.data.message : getMessage('success', 'Submitted successfully.')
+                    );
                     return;
                 }
 

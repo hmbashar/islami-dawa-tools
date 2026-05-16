@@ -1,4 +1,4 @@
-/* Badri Member Form and Grid - Islami Dawa Center style */
+/* Badri Member Form and Grid - modern Islami Dawa Center style */
 .at-badri-form,
 .at-badri-grid-wrap {
     font-family: 'Hind Siliguri', sans-serif;
@@ -8,10 +8,10 @@
 .at-badri-form {
     width: min(1180px, 92%);
     margin: 70px auto;
-    padding: 44px;
+    padding: 0;
     background: var(--white, #fff);
     border: 1px solid var(--border, #dfe9e2);
-    border-radius: var(--radius, 22px);
+    border-radius: 30px;
     box-shadow: var(--shadow, 0 14px 40px rgba(12, 65, 38, 0.1));
     position: relative;
     overflow: hidden;
@@ -20,16 +20,18 @@
 .at-badri-form::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 7px;
+    inset: 0 0 auto;
+    height: 8px;
     background: linear-gradient(90deg, var(--primary, #0f6b3f), var(--secondary, #d9a441));
 }
 
 .at-badri-form-header {
-    margin-bottom: 34px;
+    padding: 48px 48px 32px;
     text-align: center;
+    background:
+        radial-gradient(circle at 15% 15%, rgba(217,164,65,0.16), transparent 26%),
+        linear-gradient(180deg, var(--soft-bg, #f8fbf8), #fff);
+    border-bottom: 1px solid var(--border, #dfe9e2);
 }
 
 .at-badri-form-header > span,
@@ -39,15 +41,16 @@
     border-radius: 999px;
     background: rgba(217, 164, 65, 0.16);
     color: var(--primary-dark, #084729);
-    font-weight: 800;
+    font-weight: 900;
     margin-bottom: 12px;
+    letter-spacing: .01em;
 }
 
 .at-badri-form-header h2,
 .at-badri-list-header h2 {
     font-family: 'Noto Serif Bengali', serif;
     color: var(--primary-dark, #084729);
-    font-size: clamp(30px, 4vw, 46px);
+    font-size: clamp(30px, 4vw, 48px);
     line-height: 1.35;
     margin: 0 0 10px;
 }
@@ -61,10 +64,48 @@
     margin: 0;
 }
 
+.at-badri-form > .at-badri-grid,
+.at-badri-form > .at-badri-form-section,
+.at-badri-form > .at-badri-field,
+.at-badri-form > .at-badri-submit {
+    margin-left: 48px;
+    margin-right: 48px;
+}
+
+.at-badri-form > .at-badri-grid:first-of-type {
+    margin-top: 38px;
+}
+
+.at-badri-form-section {
+    padding: 28px;
+    margin-bottom: 30px;
+    border: 1px solid var(--border, #dfe9e2);
+    border-radius: 24px;
+    background: linear-gradient(180deg, #fff, var(--soft-bg, #f8fbf8));
+}
+
+.at-badri-section-title {
+    margin-bottom: 22px;
+}
+
+.at-badri-section-title span {
+    color: var(--secondary, #d9a441);
+    font-weight: 900;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.at-badri-section-title h3 {
+    margin: 4px 0 0;
+    color: var(--primary-dark, #084729);
+    font-size: 24px;
+    line-height: 1.35;
+}
+
 .at-badri-grid {
     display: grid;
-    gap: 22px;
-    margin-bottom: 28px;
+    gap: 24px;
+    margin-bottom: 30px;
 }
 
 .at-badri-grid-2 {
@@ -72,44 +113,61 @@
 }
 
 .at-badri-grid-3 {
-    grid-template-columns: 0.9fr 1fr 1.8fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.at-badri-field {
+    position: relative;
 }
 
 .at-badri-field label {
     display: block;
     color: var(--primary-dark, #084729);
-    font-weight: 800;
-    margin-bottom: 8px;
+    font-weight: 900;
+    margin-bottom: 9px;
+    font-size: 15px;
 }
 
 .at-badri-field label span {
     color: #d22f21;
-    font-size: 13px;
+    font-size: 12px;
+    font-weight: 800;
 }
 
 .at-badri-field input,
 .at-badri-field select,
 .at-badri-field textarea {
     width: 100%;
-    min-height: 54px;
+    min-height: 56px;
     border: 1px solid var(--border, #dfe9e2);
-    border-radius: 15px;
-    padding: 13px 16px;
+    border-radius: 16px;
+    padding: 14px 16px;
     font-family: inherit;
     font-size: 16px;
     color: var(--text, #1f2a24);
     outline: none;
-    background: var(--white, #fff);
-    transition: 0.2s ease;
+    background: #fff;
+    transition: 0.22s ease;
+    box-shadow: 0 8px 18px rgba(12, 65, 38, 0.035);
+}
+
+.at-badri-field input::placeholder,
+.at-badri-field textarea::placeholder {
+    color: #8b978f;
+}
+
+.at-badri-field select {
+    cursor: pointer;
 }
 
 .at-badri-field input[type="file"] {
-    padding: 12px;
+    padding: 13px;
     background: var(--soft-bg, #f8fbf8);
+    border-style: dashed;
 }
 
 .at-badri-field textarea {
-    min-height: 88px;
+    min-height: 112px;
     resize: vertical;
 }
 
@@ -117,7 +175,15 @@
 .at-badri-field select:focus,
 .at-badri-field textarea:focus {
     border-color: var(--primary, #0f6b3f);
-    box-shadow: 0 0 0 4px rgba(15, 107, 63, 0.08);
+    box-shadow: 0 0 0 4px rgba(15, 107, 63, 0.09), 0 12px 24px rgba(12, 65, 38, 0.06);
+}
+
+.at-badri-field.has-error input,
+.at-badri-field.has-error select,
+.at-badri-field.has-error textarea,
+.at-badri-field.has-error .at-badri-option-list {
+    border-color: #d22f21;
+    box-shadow: 0 0 0 4px rgba(210, 47, 33, 0.08);
 }
 
 .at-badri-field-wide {
@@ -126,7 +192,7 @@
 
 .at-badri-radio-list {
     display: grid;
-    gap: 10px;
+    gap: 12px;
 }
 
 .at-badri-option-list {
@@ -141,8 +207,19 @@
     align-items: center;
     gap: 10px;
     margin: 0;
+    padding: 11px 12px;
     color: var(--text, #1f2a24);
-    font-weight: 700;
+    font-weight: 800;
+    border-radius: 14px;
+    background: #fff;
+    border: 1px solid rgba(223,233,226,0.9);
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.at-badri-radio-list label:hover {
+    border-color: var(--primary, #0f6b3f);
+    background: var(--light-green, #eef8f1);
 }
 
 .at-badri-radio-list input {
@@ -150,11 +227,18 @@
     min-height: 20px;
     height: 20px;
     accent-color: var(--primary, #0f6b3f);
+    box-shadow: none;
+}
+
+.at-badri-photo-field p,
+.at-badri-privacy-field p {
+    margin-top: 10px;
+    font-size: 15px;
 }
 
 .at-badri-privacy-field,
 .at-badri-captcha-field {
-    margin-bottom: 28px;
+    margin-bottom: 30px;
 }
 
 .at-badri-submit {
@@ -163,7 +247,9 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 15px 30px;
+    min-width: 180px;
+    padding: 16px 34px;
+    margin-bottom: 48px;
     border-radius: 999px;
     background: var(--secondary, #d9a441);
     color: var(--primary-dark, #084729);
@@ -202,6 +288,27 @@
     background: #fff0ef;
     border: 1px solid #f2c3bf;
     color: #8a241d;
+}
+
+.at-badri-custom-amount {
+    margin-top: 14px;
+    padding: 16px;
+    border: 1px solid var(--border, #dfe9e2);
+    border-radius: 18px;
+    background: #fff;
+}
+
+.at-badri-custom-amount[hidden] {
+    display: none !important;
+}
+
+.at-badri-custom-amount.is-visible {
+    animation: atBadriFadeIn 0.22s ease;
+}
+
+@keyframes atBadriFadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .at-badri-grid-wrap {
@@ -347,8 +454,16 @@
 }
 
 .at-badri-swal-popup {
-    border-radius: 22px !important;
+    border-radius: 24px !important;
     font-family: 'Hind Siliguri', sans-serif !important;
+}
+
+.at-badri-swal-title {
+    color: var(--primary-dark, #084729) !important;
+}
+
+.at-badri-swal-text {
+    color: var(--muted, #637066) !important;
 }
 
 @media (max-width: 980px) {
@@ -364,7 +479,30 @@
 
 @media (max-width: 640px) {
     .at-badri-form {
-        padding: 28px 22px;
+        border-radius: 22px;
+    }
+
+    .at-badri-form-header,
+    .at-badri-form > .at-badri-grid,
+    .at-badri-form > .at-badri-form-section,
+    .at-badri-form > .at-badri-field,
+    .at-badri-form > .at-badri-submit {
+        margin-left: 22px;
+        margin-right: 22px;
+    }
+
+    .at-badri-form-header {
+        padding: 36px 22px 26px;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .at-badri-form-section {
+        padding: 20px;
+    }
+
+    .at-badri-submit {
+        width: calc(100% - 44px);
     }
 
     .at-badri-members-grid {
@@ -379,26 +517,4 @@
     .at-badri-member-info strong {
         text-align: left;
     }
-}
-
-/* Custom donation amount field */
-.at-badri-custom-amount {
-    margin-top: 14px;
-    padding: 16px;
-    border: 1px solid var(--border, #dfe9e2);
-    border-radius: 16px;
-    background: var(--soft-bg, #f8fbf8);
-}
-
-.at-badri-custom-amount[hidden] {
-    display: none !important;
-}
-
-.at-badri-custom-amount.is-visible {
-    animation: atBadriFadeIn 0.2s ease;
-}
-
-@keyframes atBadriFadeIn {
-    from { opacity: 0; transform: translateY(-4px); }
-    to { opacity: 1; transform: translateY(0); }
 }

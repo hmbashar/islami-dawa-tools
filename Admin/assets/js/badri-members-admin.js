@@ -15,6 +15,47 @@
         }
     }
 
+    function toggleBuilderOptions($row) {
+        var type = $row.find('[data-badri-builder-type]').val();
+        $row.find('.idt-badri-builder-options').toggle(type === 'select');
+    }
+
+    function refreshAllBuilderRows() {
+        $('[data-badri-field-row]').each(function () {
+            toggleBuilderOptions($(this));
+        });
+    }
+
     $(document).on('change', '[data-badri-admin-amount-select]', toggleAdminCustomAmount);
-    $(toggleAdminCustomAmount);
+
+    $(document).on('change', '[data-badri-builder-type]', function () {
+        toggleBuilderOptions($(this).closest('[data-badri-field-row]'));
+    });
+
+    $(document).on('click', '[data-badri-add-field]', function (event) {
+        event.preventDefault();
+
+        var $builder = $(this).closest('[data-badri-field-builder]');
+        var $list = $builder.find('[data-badri-field-builder-list]');
+        var template = $('#tmpl-idt-badri-field-row').html();
+        var index = Date.now();
+
+        if (!template) {
+            return;
+        }
+
+        template = template.replace(/__INDEX__/g, index);
+        $list.append(template);
+        refreshAllBuilderRows();
+    });
+
+    $(document).on('click', '[data-badri-remove-field]', function (event) {
+        event.preventDefault();
+        $(this).closest('[data-badri-field-row]').remove();
+    });
+
+    $(function () {
+        toggleAdminCustomAmount();
+        refreshAllBuilderRows();
+    });
 })(jQuery);
