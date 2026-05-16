@@ -2,14 +2,14 @@
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Islami Dawa Tools 1.1.3\n"
+"Project-Id-Version: Islami Dawa Tools 1.1.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/islami-dawa-tools\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-16T16:28:43+00:00\n"
+"POT-Creation-Date: 2026-05-16T16:53:45+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: islami-dawa-tools\n"
@@ -438,7 +438,7 @@ msgid "বদরী সদস্য"
 msgstr ""
 
 #: Inc/BadriMembers.php:73
-#: Inc/BadriMembers.php:1829
+#: Inc/BadriMembers.php:1923
 msgid "নতুন সদস্য"
 msgstr ""
 
@@ -473,7 +473,7 @@ msgstr ""
 #: Inc/BadriMembers.php:150
 #: Inc/BadriMembers.php:997
 #: Inc/BadriMembers.php:999
-#: Inc/BadriMembers.php:1971
+#: Inc/BadriMembers.php:2065
 msgid "ছবি"
 msgstr ""
 
@@ -601,33 +601,33 @@ msgstr ""
 
 #: Inc/BadriMembers.php:393
 #: Inc/BadriMembers.php:460
-#: Inc/BadriMembers.php:1830
+#: Inc/BadriMembers.php:1924
 msgid "সেটিংস"
 msgstr ""
 
 #: Inc/BadriMembers.php:400
 #: Inc/BadriMembers.php:546
-#: Inc/BadriMembers.php:1838
+#: Inc/BadriMembers.php:1932
 msgid "মোট সদস্য"
 msgstr ""
 
 #: Inc/BadriMembers.php:401
 #: Inc/BadriMembers.php:547
-#: Inc/BadriMembers.php:1844
-#: Inc/BadriMembers.php:2035
+#: Inc/BadriMembers.php:1938
+#: Inc/BadriMembers.php:2129
 msgid "প্রকাশিত"
 msgstr ""
 
 #: Inc/BadriMembers.php:402
 #: Inc/BadriMembers.php:548
-#: Inc/BadriMembers.php:1850
-#: Inc/BadriMembers.php:2036
+#: Inc/BadriMembers.php:1944
+#: Inc/BadriMembers.php:2130
 msgid "রিভিউ অপেক্ষমাণ"
 msgstr ""
 
 #: Inc/BadriMembers.php:403
 #: Inc/BadriMembers.php:549
-#: Inc/BadriMembers.php:1856
+#: Inc/BadriMembers.php:1950
 msgid "গোপন সদস্য"
 msgstr ""
 
@@ -1035,7 +1035,7 @@ msgid "৳১০,০০০"
 msgstr ""
 
 #: Inc/BadriMembers.php:917
-#: Inc/BadriMembers.php:1741
+#: Inc/BadriMembers.php:1835
 msgid "অন্যান্য"
 msgstr ""
 
@@ -1055,7 +1055,7 @@ msgstr ""
 #: Inc/BadriMembers.php:950
 #: Inc/BadriMembers.php:1230
 #: Inc/BadriMembers.php:1429
-#: Inc/BadriMembers.php:1687
+#: Inc/BadriMembers.php:1708
 msgid "পিতা/স্বামীর নাম"
 msgstr ""
 
@@ -1068,7 +1068,7 @@ msgstr ""
 #: Inc/BadriMembers.php:952
 #: Inc/BadriMembers.php:1232
 #: Inc/BadriMembers.php:1431
-#: Inc/BadriMembers.php:1689
+#: Inc/BadriMembers.php:1718
 msgid "পেশা"
 msgstr ""
 
@@ -1077,8 +1077,8 @@ msgstr ""
 #: Inc/BadriMembers.php:960
 #: Inc/BadriMembers.php:1233
 #: Inc/BadriMembers.php:1440
-#: Inc/BadriMembers.php:1690
-#: Inc/BadriMembers.php:1865
+#: Inc/BadriMembers.php:1723
+#: Inc/BadriMembers.php:1959
 msgid "অনুদান ধরন"
 msgstr ""
 
@@ -1095,17 +1095,17 @@ msgstr ""
 
 #: Inc/BadriMembers.php:959
 #: Inc/BadriMembers.php:1440
-#: Inc/BadriMembers.php:1728
-#: Inc/BadriMembers.php:1869
-#: Inc/BadriMembers.php:2043
+#: Inc/BadriMembers.php:1822
+#: Inc/BadriMembers.php:1963
+#: Inc/BadriMembers.php:2137
 msgid "বার্ষিক"
 msgstr ""
 
 #: Inc/BadriMembers.php:960
 #: Inc/BadriMembers.php:1440
-#: Inc/BadriMembers.php:1732
-#: Inc/BadriMembers.php:1868
-#: Inc/BadriMembers.php:2042
+#: Inc/BadriMembers.php:1826
+#: Inc/BadriMembers.php:1962
+#: Inc/BadriMembers.php:2136
 msgid "মাসিক"
 msgstr ""
 
@@ -1214,7 +1214,7 @@ msgid "আমাকে পাবলিক তালিকায় গোপন 
 msgstr ""
 
 #: Inc/BadriMembers.php:1040
-msgid "গোপন রাখলে তালিকায় শুধু আপনার নাম দেখা যাবে; ছবি ও বাকি তথ্য xxx হিসেবে দেখানো হবে।"
+msgid "গোপন রাখলে তালিকায় আপনার নাম এবং জেলা দেখা যাবে; অন্যান্য ব্যক্তিগত তথ্য “🔒 গোপনীয়” হিসেবে দেখানো হবে।"
 msgstr ""
 
 #. translators: 1: captcha label, 2: first number, 3: math operator, 4: second number.
@@ -1288,121 +1288,133 @@ msgstr ""
 msgid "Badri members pagination"
 msgstr ""
 
-#: Inc/BadriMembers.php:1683
-msgid "xxx"
+#: Inc/BadriMembers.php:1697
+msgid "—"
 msgstr ""
 
-#: Inc/BadriMembers.php:1688
-#: Inc/BadriMembers.php:1972
+#: Inc/BadriMembers.php:1713
+#: Inc/BadriMembers.php:2066
 msgid "মোবাইল"
 msgstr ""
 
-#: Inc/BadriMembers.php:1691
-#: Inc/BadriMembers.php:1974
+#: Inc/BadriMembers.php:1728
+#: Inc/BadriMembers.php:2068
 msgid "অনুদান"
 msgstr ""
 
-#: Inc/BadriMembers.php:1692
+#: Inc/BadriMembers.php:1733
 msgid "স্থায়ী জেলা"
 msgstr ""
 
-#: Inc/BadriMembers.php:1693
+#: Inc/BadriMembers.php:1738
 msgid "বর্তমান জেলা"
 msgstr ""
 
-#: Inc/BadriMembers.php:1741
+#: Inc/BadriMembers.php:1777
+msgid "এই সদস্য ব্যক্তিগত তথ্য গোপন রাখতে চেয়েছেন।"
+msgstr ""
+
+#: Inc/BadriMembers.php:1815
+msgid "সদস্যের অনুরোধে তথ্য গোপন রাখা হয়েছে"
+msgstr ""
+
+#: Inc/BadriMembers.php:1816
+msgid "গোপনীয়"
+msgstr ""
+
+#: Inc/BadriMembers.php:1835
 #, php-format
 msgid "৳%s"
 msgstr ""
 
-#: Inc/BadriMembers.php:1757
+#: Inc/BadriMembers.php:1851
 msgid "Badri Member Form"
 msgstr ""
 
-#: Inc/BadriMembers.php:1758
+#: Inc/BadriMembers.php:1852
 msgid "Badri Members Grid"
 msgstr ""
 
-#: Inc/BadriMembers.php:1824
+#: Inc/BadriMembers.php:1918
 msgid "Badri Member Control Center"
 msgstr ""
 
-#: Inc/BadriMembers.php:1825
+#: Inc/BadriMembers.php:1919
 msgid "বদরী সদস্য ম্যানেজমেন্ট"
 msgstr ""
 
-#: Inc/BadriMembers.php:1826
+#: Inc/BadriMembers.php:1920
 msgid "সদস্য আবেদন, অনুমোদন, অনুদান ধরন, ছবি এবং পাবলিক দৃশ্যমানতা একটি আধুনিক ড্যাশবোর্ড থেকে পরিচালনা করুন।"
 msgstr ""
 
-#: Inc/BadriMembers.php:1839
+#: Inc/BadriMembers.php:1933
 msgid "সব আবেদন"
 msgstr ""
 
-#: Inc/BadriMembers.php:1876
+#: Inc/BadriMembers.php:1970
 msgid "প্রকাশ অনুমতি"
 msgstr ""
 
-#: Inc/BadriMembers.php:1879
-#: Inc/BadriMembers.php:2009
-#: Inc/BadriMembers.php:2048
+#: Inc/BadriMembers.php:1973
+#: Inc/BadriMembers.php:2103
+#: Inc/BadriMembers.php:2142
 msgid "পাবলিক"
 msgstr ""
 
-#: Inc/BadriMembers.php:1882
+#: Inc/BadriMembers.php:1976
 msgid "পাবলিক সদস্য দেখুন"
 msgstr ""
 
-#: Inc/BadriMembers.php:1888
+#: Inc/BadriMembers.php:1982
 msgid "ছবি ও নতুন আবেদন"
 msgstr ""
 
-#: Inc/BadriMembers.php:1891
+#: Inc/BadriMembers.php:1985
 msgid "ছবিসহ"
 msgstr ""
 
-#: Inc/BadriMembers.php:1892
+#: Inc/BadriMembers.php:1986
 msgid "এই মাসে"
 msgstr ""
 
-#: Inc/BadriMembers.php:1973
+#: Inc/BadriMembers.php:2067
 msgid "ধরন"
 msgstr ""
 
-#: Inc/BadriMembers.php:1975
+#: Inc/BadriMembers.php:2069
 msgid "প্রকাশ"
 msgstr ""
 
-#: Inc/BadriMembers.php:1976
+#: Inc/BadriMembers.php:2070
 msgid "স্ট্যাটাস"
 msgstr ""
 
-#: Inc/BadriMembers.php:2009
-#: Inc/BadriMembers.php:2049
+#: Inc/BadriMembers.php:2103
+#: Inc/BadriMembers.php:2143
 msgid "গোপন"
 msgstr ""
 
-#: Inc/BadriMembers.php:2034
+#: Inc/BadriMembers.php:2128
 msgid "সব স্ট্যাটাস"
 msgstr ""
 
-#: Inc/BadriMembers.php:2037
+#: Inc/BadriMembers.php:2131
 msgid "ড্রাফট"
 msgstr ""
 
-#: Inc/BadriMembers.php:2041
+#: Inc/BadriMembers.php:2135
 msgid "সব অনুদান ধরন"
 msgstr ""
 
-#: Inc/BadriMembers.php:2047
+#: Inc/BadriMembers.php:2141
 msgid "সব প্রকাশ অনুমতি"
 msgstr ""
 
-#: Inc/BadriMembers.php:2053
+#: Inc/BadriMembers.php:2147
 msgid "সব বছর"
 msgstr ""
 
-#: Inc/BadriMembers.php:2063
+#: Inc/BadriMembers.php:2157
 msgid "সব মাস"
 msgstr ""
 

@@ -938,3 +938,71 @@
         min-width: auto;
     }
 }
+
+/*---------------------------------
+ * Badri Member Private Field UI
+ * -------------------------------*/
+
+.at-badri-private-value {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 7px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: #eef8f1;
+    border: 1px solid #dfe9e2;
+    color: #0f6b3f;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.at-badri-private-icon {
+    width: 18px;
+    height: 18px;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #0f6b3f;
+    color: #ffffff;
+    font-size: 10px;
+    line-height: 1;
+}
+
+.at-badri-privacy-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 14px 0 18px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: #fff7e6;
+    border: 1px solid #f0ddb0;
+    color: #6d4b0b;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.6;
+}
+
+.at-badri-privacy-notice-icon {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #d9a441;
+    color: #084729;
+    font-size: 12px;
+    line-height: 1;
+}
+
+.at-badri-member-card.is-hidden-member .at-badri-member-info strong {
+    min-width: 110px;
+}
+
+.at-badri-member-card.is-hidden-member .at-badri-member-info strong .at-badri-private-value {
+    margin-left: auto;
+}

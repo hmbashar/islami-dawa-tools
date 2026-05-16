@@ -56,4 +56,4 @@ This plugin is licensed under GPL2. See LICENSE file for details.
 
 ## Version
 
-1.1.3
+1.1.4

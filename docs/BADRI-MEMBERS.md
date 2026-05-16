@@ -375,6 +375,13 @@ Templates/badri-members-grid.php
 
 ## Version history
 
+
+### 1.1.4
+
+- Replaced hidden member demo value `xxx` with a professional `🔒 গোপনীয়` privacy badge.
+- Hidden members now show permanent district and current district publicly.
+- Added a privacy notice inside hidden member cards explaining that the member requested privacy.
+
 ### 1.1.3
 
 - Updated docs with all current Badri member features.

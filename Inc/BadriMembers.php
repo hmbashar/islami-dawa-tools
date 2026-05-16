@@ -1037,7 +1037,7 @@ class BadriMembers {
                     <label><input type="radio" name="public_visibility" value="show" required data-badri-label="<?php echo esc_attr__( 'তথ্য প্রকাশের অনুমতি', 'islami-dawa-tools' ); ?>" /> <?php echo esc_html__( 'আমার তথ্য প্রকাশ করা যাবে', 'islami-dawa-tools' ); ?></label>
                     <label><input type="radio" name="public_visibility" value="hide" required data-badri-label="<?php echo esc_attr__( 'তথ্য প্রকাশের অনুমতি', 'islami-dawa-tools' ); ?>" /> <?php echo esc_html__( 'আমাকে পাবলিক তালিকায় গোপন রাখুন', 'islami-dawa-tools' ); ?></label>
                 </div>
-                <p><?php echo esc_html__( 'গোপন রাখলে তালিকায় শুধু আপনার নাম দেখা যাবে; ছবি ও বাকি তথ্য xxx হিসেবে দেখানো হবে।', 'islami-dawa-tools' ); ?></p>
+                <p><?php echo esc_html__( 'গোপন রাখলে তালিকায় আপনার নাম এবং জেলা দেখা যাবে; অন্যান্য ব্যক্তিগত তথ্য “🔒 গোপনীয়” হিসেবে দেখানো হবে।', 'islami-dawa-tools' ); ?></p>
             </div>
 
             <?php $captcha_data = $this->create_captcha_challenge( $settings ); ?>
@@ -1676,31 +1676,89 @@ class BadriMembers {
         return ob_get_clean();
     }
 
+    /**
+     * Render a single Badri member card for the public grid.
+     *
+     * Privacy behavior:
+     * - If the member selected hidden/public privacy, sensitive fields are masked.
+     * - Current district and permanent district remain visible because these are not
+     *   considered sensitive for this public directory use case.
+     * - Masked fields use a professional lock badge instead of demo-looking text
+     *   such as "xxx".
+     *
+     * @param int $post_id Badri member post ID.
+     *
+     * @return void
+     */
     private function render_member_card( $post_id ) {
         $visibility       = get_post_meta( $post_id, '_badri_public_visibility', true );
         $photo_visibility = get_post_meta( $post_id, '_badri_photo_visibility', true );
         $hidden           = 'hide' === $visibility;
-        $masked           = esc_html__( 'xxx', 'islami-dawa-tools' );
+        $empty_value      = esc_html__( '—', 'islami-dawa-tools' );
         $show_photo       = ! $hidden && 'show' === $photo_visibility && has_post_thumbnail( $post_id );
 
+        /**
+         * Public grid fields.
+         *
+         * The third value controls whether this field can still be displayed when
+         * the member chooses to hide personal information from the public list.
+         */
         $fields = array(
-            esc_html__( 'পিতা/স্বামীর নাম', 'islami-dawa-tools' ) => get_post_meta( $post_id, '_badri_guardian_name', true ),
-            esc_html__( 'মোবাইল', 'islami-dawa-tools' ) => get_post_meta( $post_id, '_badri_mobile', true ),
-            esc_html__( 'পেশা', 'islami-dawa-tools' ) => get_post_meta( $post_id, '_badri_profession', true ),
-            esc_html__( 'অনুদান ধরন', 'islami-dawa-tools' ) => $this->format_frequency( get_post_meta( $post_id, '_badri_donation_frequency', true ) ),
-            esc_html__( 'অনুদান', 'islami-dawa-tools' ) => $this->format_amount( get_post_meta( $post_id, '_badri_donation_amount', true ), $post_id ),
-            esc_html__( 'স্থায়ী জেলা', 'islami-dawa-tools' ) => get_post_meta( $post_id, '_badri_permanent_district', true ),
-            esc_html__( 'বর্তমান জেলা', 'islami-dawa-tools' ) => get_post_meta( $post_id, '_badri_current_district', true ),
+            array(
+                'label'                    => esc_html__( 'পিতা/স্বামীর নাম', 'islami-dawa-tools' ),
+                'value'                    => get_post_meta( $post_id, '_badri_guardian_name', true ),
+                'show_when_member_hidden'  => false,
+            ),
+            array(
+                'label'                    => esc_html__( 'মোবাইল', 'islami-dawa-tools' ),
+                'value'                    => get_post_meta( $post_id, '_badri_mobile', true ),
+                'show_when_member_hidden'  => false,
+            ),
+            array(
+                'label'                    => esc_html__( 'পেশা', 'islami-dawa-tools' ),
+                'value'                    => get_post_meta( $post_id, '_badri_profession', true ),
+                'show_when_member_hidden'  => false,
+            ),
+            array(
+                'label'                    => esc_html__( 'অনুদান ধরন', 'islami-dawa-tools' ),
+                'value'                    => $this->format_frequency( get_post_meta( $post_id, '_badri_donation_frequency', true ) ),
+                'show_when_member_hidden'  => false,
+            ),
+            array(
+                'label'                    => esc_html__( 'অনুদান', 'islami-dawa-tools' ),
+                'value'                    => $this->format_amount( get_post_meta( $post_id, '_badri_donation_amount', true ), $post_id ),
+                'show_when_member_hidden'  => false,
+            ),
+            array(
+                'label'                    => esc_html__( 'স্থায়ী জেলা', 'islami-dawa-tools' ),
+                'value'                    => get_post_meta( $post_id, '_badri_permanent_district', true ),
+                'show_when_member_hidden'  => true,
+            ),
+            array(
+                'label'                    => esc_html__( 'বর্তমান জেলা', 'islami-dawa-tools' ),
+                'value'                    => get_post_meta( $post_id, '_badri_current_district', true ),
+                'show_when_member_hidden'  => true,
+            ),
         );
 
+        /**
+         * Include form-builder fields only when the admin enabled grid display.
+         * Extra fields remain private when the member chooses hidden mode.
+         */
         foreach ( $this->get_additional_fields() as $extra_field ) {
             if ( empty( $extra_field['show_in_grid'] ) || '1' !== $extra_field['show_in_grid'] ) {
                 continue;
             }
+
             $extra_key = isset( $extra_field['key'] ) ? sanitize_key( $extra_field['key'] ) : '';
             $label     = isset( $extra_field['label'] ) ? $extra_field['label'] : $extra_key;
+
             if ( '' !== $extra_key && '' !== $label ) {
-                $fields[ $label ] = get_post_meta( $post_id, '_badri_extra_' . $extra_key, true );
+                $fields[] = array(
+                    'label'                   => $label,
+                    'value'                   => get_post_meta( $post_id, '_badri_extra_' . $extra_key, true ),
+                    'show_when_member_hidden' => false,
+                );
             }
         }
         ?>
@@ -1710,17 +1768,53 @@ class BadriMembers {
             <?php else : ?>
                 <div class="at-badri-member-avatar"><?php echo esc_html( $this->get_initial( get_the_title( $post_id ) ) ); ?></div>
             <?php endif; ?>
+
             <h3 title="<?php echo esc_attr( get_the_title( $post_id ) ); ?>"><?php echo esc_html( get_the_title( $post_id ) ); ?></h3>
+
+            <?php if ( $hidden ) : ?>
+                <div class="at-badri-privacy-notice">
+                    <span class="at-badri-privacy-notice-icon" aria-hidden="true">🔒</span>
+                    <strong><?php echo esc_html__( 'এই সদস্য ব্যক্তিগত তথ্য গোপন রাখতে চেয়েছেন।', 'islami-dawa-tools' ); ?></strong>
+                </div>
+            <?php endif; ?>
+
             <div class="at-badri-member-info">
-                <?php foreach ( $fields as $label => $value ) : ?>
+                <?php foreach ( $fields as $field ) : ?>
+                    <?php
+                    $label             = isset( $field['label'] ) ? $field['label'] : '';
+                    $value             = isset( $field['value'] ) ? $field['value'] : '';
+                    $show_when_hidden  = ! empty( $field['show_when_member_hidden'] );
+                    $should_mask_value = $hidden && ! $show_when_hidden;
+                    ?>
                     <div>
                         <span><?php echo esc_html( $label ); ?></span>
-                        <strong><?php echo esc_html( $hidden ? $masked : ( $value ? $value : $masked ) ); ?></strong>
+                        <strong>
+                            <?php
+                            if ( $should_mask_value ) {
+                                echo wp_kses_post( $this->get_hidden_member_value() );
+                            } else {
+                                echo esc_html( $value ? $value : $empty_value );
+                            }
+                            ?>
+                        </strong>
                     </div>
                 <?php endforeach; ?>
             </div>
         </article>
         <?php
+    }
+
+    /**
+     * Return the public privacy badge for hidden member fields.
+     *
+     * @return string Safe HTML for the hidden/private field badge.
+     */
+    private function get_hidden_member_value() {
+        return sprintf(
+            '<span class="at-badri-private-value" title="%1$s"><span class="at-badri-private-icon" aria-hidden="true">🔒</span><span>%2$s</span></span>',
+            esc_attr__( 'সদস্যের অনুরোধে তথ্য গোপন রাখা হয়েছে', 'islami-dawa-tools' ),
+            esc_html__( 'গোপনীয়', 'islami-dawa-tools' )
+        );
     }
 
     private function format_frequency( $frequency ) {
