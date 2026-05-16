@@ -380,3 +380,25 @@
         text-align: left;
     }
 }
+
+/* Custom donation amount field */
+.at-badri-custom-amount {
+    margin-top: 14px;
+    padding: 16px;
+    border: 1px solid var(--border, #dfe9e2);
+    border-radius: 16px;
+    background: var(--soft-bg, #f8fbf8);
+}
+
+.at-badri-custom-amount[hidden] {
+    display: none !important;
+}
+
+.at-badri-custom-amount.is-visible {
+    animation: atBadriFadeIn 0.2s ease;
+}
+
+@keyframes atBadriFadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
