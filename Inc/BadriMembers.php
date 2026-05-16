@@ -145,9 +145,11 @@ class BadriMembers {
                     'validationTitle'   => $settings['validation_title'],
                     'requiredMessage'   => $settings['required_field_message'],
                     'customAmountError' => $settings['custom_amount_error_message'],
-                    'photoTypeError'    => $settings['photo_type_error_message'],
-                    'photoSizeError'    => $settings['photo_size_error_message'],
-                    'ok'                => esc_html__( 'ঠিক আছে', 'islami-dawa-tools' ),
+                    'photoTypeError'     => $settings['photo_type_error_message'],
+                    'photoSizeError'     => $settings['photo_size_error_message'],
+                    'uploadPreviewLabel' => esc_html__( 'ছবি', 'islami-dawa-tools' ),
+                    'uploadEmptyName'    => esc_html__( 'কোনো ছবি নির্বাচন করা হয়নি', 'islami-dawa-tools' ),
+                    'ok'                 => esc_html__( 'ঠিক আছে', 'islami-dawa-tools' ),
                 ),
             )
         );
@@ -991,8 +993,18 @@ class BadriMembers {
             <div class="at-badri-grid at-badri-grid-2">
                 <div class="at-badri-field at-badri-photo-field">
                     <label for="badri_member_photo"><?php echo esc_html__( 'সদস্যের ছবি', 'islami-dawa-tools' ); ?></label>
-                    <input id="badri_member_photo" type="file" name="member_photo" accept="image/jpeg,image/png,image/webp" data-badri-label="<?php echo esc_attr__( 'ছবি', 'islami-dawa-tools' ); ?>" data-badri-max-size-mb="<?php echo esc_attr( $settings['photo_max_size_mb'] ); ?>" />
-                    <p><?php printf( esc_html__( 'JPG, PNG বা WEBP আপলোড করুন। সর্বোচ্চ %sMB।', 'islami-dawa-tools' ), esc_html( $settings['photo_max_size_mb'] ) ); ?></p>
+                    <div class="at-badri-upload-zone" data-badri-upload-zone>
+                        <input id="badri_member_photo" class="at-badri-upload-input" type="file" name="member_photo" accept="image/jpeg,image/png,image/webp" data-badri-label="<?php echo esc_attr__( 'ছবি', 'islami-dawa-tools' ); ?>" data-badri-max-size-mb="<?php echo esc_attr( $settings['photo_max_size_mb'] ); ?>" />
+                        <div class="at-badri-upload-preview" data-badri-upload-preview>
+                            <span><?php echo esc_html__( 'ছবি', 'islami-dawa-tools' ); ?></span>
+                        </div>
+                        <div class="at-badri-upload-content">
+                            <strong><?php echo esc_html__( 'ছবি এখানে ড্র্যাগ করুন অথবা আপলোড করুন', 'islami-dawa-tools' ); ?></strong>
+                            <span><?php printf( esc_html__( 'JPG, PNG বা WEBP। সর্বোচ্চ %sMB।', 'islami-dawa-tools' ), esc_html( $settings['photo_max_size_mb'] ) ); ?></span>
+                            <button type="button" class="at-badri-upload-btn" data-badri-upload-trigger><?php echo esc_html__( 'ছবি নির্বাচন করুন', 'islami-dawa-tools' ); ?></button>
+                            <em data-badri-upload-name><?php echo esc_html__( 'কোনো ছবি নির্বাচন করা হয়নি', 'islami-dawa-tools' ); ?></em>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="at-badri-field">

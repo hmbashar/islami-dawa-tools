@@ -690,3 +690,164 @@
 @keyframes atBadriSpin {
     to { transform: rotate(360deg); }
 }
+
+
+/* Premium drag/drop photo uploader */
+.at-badri-upload-zone {
+    position: relative;
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
+    gap: 18px;
+    align-items: center;
+    min-height: 156px;
+    padding: 18px;
+    border: 1.5px dashed rgba(15, 107, 63, 0.32);
+    border-radius: 24px;
+    background:
+        radial-gradient(circle at top right, rgba(217, 164, 65, 0.13), transparent 34%),
+        linear-gradient(135deg, #ffffff 0%, #f8fbf8 100%);
+    box-shadow: 0 16px 36px rgba(12, 65, 38, 0.08);
+    transition: border-color 0.22s ease, box-shadow 0.22s ease, transform 0.22s ease, background 0.22s ease;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.at-badri-upload-zone::after {
+    content: '';
+    position: absolute;
+    width: 170px;
+    height: 170px;
+    right: -88px;
+    top: -94px;
+    border-radius: 999px;
+    background: rgba(15, 107, 63, 0.07);
+    pointer-events: none;
+}
+
+.at-badri-upload-zone:hover,
+.at-badri-upload-zone.is-dragover {
+    border-color: var(--primary, #0f6b3f);
+    background:
+        radial-gradient(circle at top right, rgba(217, 164, 65, 0.18), transparent 36%),
+        linear-gradient(135deg, #ffffff 0%, var(--light-green, #eef8f1) 100%);
+    box-shadow: 0 20px 46px rgba(12, 65, 38, 0.13);
+    transform: translateY(-2px);
+}
+
+.at-badri-upload-zone.has-file {
+    border-style: solid;
+    border-color: rgba(15, 107, 63, 0.42);
+}
+
+.at-badri-upload-input {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+.at-badri-upload-preview {
+    position: relative;
+    z-index: 1;
+    width: 112px;
+    height: 112px;
+    border-radius: 28px;
+    display: grid;
+    place-items: center;
+    background:
+        linear-gradient(135deg, rgba(15, 107, 63, 0.96), rgba(8, 71, 41, 0.94));
+    background-size: cover;
+    background-position: center;
+    color: var(--secondary, #d9a441);
+    font-size: 16px;
+    font-weight: 900;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.2), 0 14px 30px rgba(8, 71, 41, 0.22);
+}
+
+.at-badri-upload-preview span {
+    width: 58px;
+    height: 58px;
+    display: grid;
+    place-items: center;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.18);
+}
+
+.at-badri-upload-content {
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+}
+
+.at-badri-upload-content strong {
+    display: block;
+    color: var(--primary-dark, #084729);
+    font-size: 18px;
+    line-height: 1.45;
+    margin-bottom: 4px;
+}
+
+.at-badri-upload-content > span {
+    display: block;
+    color: var(--muted, #637066);
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 14px;
+}
+
+.at-badri-upload-btn {
+    border: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 18px;
+    border-radius: 999px;
+    background: var(--secondary, #d9a441);
+    color: var(--primary-dark, #084729);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 900;
+    box-shadow: 0 10px 22px rgba(217, 164, 65, 0.25);
+    transition: 0.22s ease;
+}
+
+.at-badri-upload-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 28px rgba(217, 164, 65, 0.32);
+}
+
+.at-badri-upload-content em {
+    display: block;
+    margin-top: 10px;
+    color: var(--muted, #637066);
+    font-style: normal;
+    font-size: 13px;
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.at-badri-field.has-error .at-badri-upload-zone {
+    border-color: #d22f21;
+    box-shadow: 0 0 0 4px rgba(210, 47, 33, 0.08), 0 16px 36px rgba(12, 65, 38, 0.08);
+}
+
+@media (max-width: 640px) {
+    .at-badri-upload-zone {
+        grid-template-columns: 1fr;
+        text-align: center;
+        justify-items: center;
+    }
+
+    .at-badri-upload-content em {
+        max-width: 240px;
+    }
+}

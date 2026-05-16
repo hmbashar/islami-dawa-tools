@@ -54,6 +54,43 @@
         $wrap.toggleClass('has-error', !!hasError);
     }
 
+
+    function resetUploadZone(form) {
+        var $context = form ? $(form) : $(document);
+        $context.find('[data-badri-upload-zone]').each(function () {
+            var $zone = $(this);
+            $zone.removeClass('has-file is-dragover');
+            $zone.find('[data-badri-upload-preview]').removeAttr('style').html('<span>' + getMessage('uploadPreviewLabel', 'ছবি') + '</span>');
+            $zone.find('[data-badri-upload-name]').text(getMessage('uploadEmptyName', 'কোনো ছবি নির্বাচন করা হয়নি'));
+        });
+    }
+
+    function updateUploadZone(input) {
+        var $input = $(input);
+        var $zone = $input.closest('[data-badri-upload-zone]');
+        var $name = $zone.find('[data-badri-upload-name]');
+        var $preview = $zone.find('[data-badri-upload-preview]');
+        var file = input.files && input.files.length ? input.files[0] : null;
+
+        if (!file) {
+            $zone.removeClass('has-file');
+            $preview.removeAttr('style').html('<span>' + getMessage('uploadPreviewLabel', 'ছবি') + '</span>');
+            $name.text(getMessage('uploadEmptyName', 'কোনো ছবি নির্বাচন করা হয়নি'));
+            return;
+        }
+
+        $zone.addClass('has-file');
+        $name.text(file.name);
+
+        if (file.type && file.type.indexOf('image/') === 0 && window.FileReader) {
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                $preview.css('background-image', 'url(' + event.target.result + ')').empty();
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
     function validateForm(form) {
         var $form = $(form);
         var invalidMessage = '';
@@ -160,12 +197,57 @@
         markField($(this), false);
     });
 
+    $(document).on('click', '[data-badri-upload-trigger], [data-badri-upload-preview], .at-badri-upload-content strong', function (event) {
+        event.preventDefault();
+        $(this).closest('[data-badri-upload-zone]').find('input[type="file"]').trigger('click');
+    });
+
+    $(document).on('change', '.at-badri-upload-input', function () {
+        updateUploadZone(this);
+    });
+
+    $(document).on('dragenter dragover', '[data-badri-upload-zone]', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        $(this).addClass('is-dragover');
+    });
+
+    $(document).on('dragleave dragend drop', '[data-badri-upload-zone]', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        $(this).removeClass('is-dragover');
+    });
+
+    $(document).on('drop', '[data-badri-upload-zone]', function (event) {
+        var originalEvent = event.originalEvent;
+        var files = originalEvent && originalEvent.dataTransfer ? originalEvent.dataTransfer.files : null;
+        var input = $(this).find('input[type="file"]').get(0);
+
+        if (!files || !files.length || !input) {
+            return;
+        }
+
+        try {
+            input.files = files;
+        } catch (error) {
+            if (window.DataTransfer) {
+                var dataTransfer = new DataTransfer();
+                dataTransfer.items.add(files[0]);
+                input.files = dataTransfer.files;
+            }
+        }
+
+        updateUploadZone(input);
+        markField($(input), false);
+    });
+
     $(document).on('change', '[data-badri-amount-select]', function () {
         toggleCustomAmount($(this).closest('form'));
     });
 
     $(function () {
         toggleCustomAmount(document);
+        resetUploadZone(document);
     });
 
     $(document).on('submit', '.at-badri-form[data-badri-ajax="1"]', function (event) {
@@ -197,6 +279,7 @@
                 if (response && response.success) {
                     form.reset();
                     toggleCustomAmount(form);
+                    resetUploadZone(form);
                     showAlert(
                         'success',
                         getMessage('successTitle', 'Success'),
