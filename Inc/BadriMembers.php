@@ -54,6 +54,7 @@ class BadriMembers {
         add_action( 'restrict_manage_posts', array( $this, 'render_admin_list_filters' ) );
         add_filter( 'parse_query', array( $this, 'filter_admin_member_query' ) );
         add_filter( 'views_edit-' . self::POST_TYPE, array( $this, 'style_admin_member_views' ) );
+        add_action( 'all_admin_notices', array( $this, 'render_admin_member_list_header' ) );
 
         add_filter( 'theme_page_templates', array( $this, 'register_page_templates' ) );
         add_filter( 'template_include', array( $this, 'load_page_template' ) );
@@ -931,6 +932,10 @@ class BadriMembers {
         <form class="at-badri-form" method="post" enctype="multipart/form-data" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" data-badri-ajax="1" novalidate>
             <input type="hidden" name="action" value="islami_dawa_badri_member_submit" />
             <?php wp_nonce_field( self::NONCE_ACTION, self::NONCE_NAME ); ?>
+            <div class="at-badri-hp-field" aria-hidden="true">
+                <label for="badri_company_website"><?php echo esc_html__( 'Leave this field empty', 'islami-dawa-tools' ); ?></label>
+                <input id="badri_company_website" type="text" name="badri_company_website" value="" tabindex="-1" autocomplete="off" />
+            </div>
 
             <div class="at-badri-form-header">
                 <span><?php echo esc_html__( 'Badri Membership', 'islami-dawa-tools' ); ?></span>
@@ -1197,6 +1202,10 @@ class BadriMembers {
 
         if ( ! isset( $_POST[ self::NONCE_NAME ] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST[ self::NONCE_NAME ] ) ), self::NONCE_ACTION ) ) {
             return new \WP_Error( 'bad_nonce', $settings['error_message'] );
+        }
+
+        if ( ! empty( $_POST['badri_company_website'] ) ) {
+            return new \WP_Error( 'spam_detected', $settings['error_message'] );
         }
 
         if ( '1' === $settings['captcha_enabled'] && ! $this->validate_captcha_answer( $settings ) ) {
@@ -1528,6 +1537,10 @@ class BadriMembers {
             return;
         }
 
+        if ( wp_is_post_revision( $post_id ) || wp_is_post_autosave( $post_id ) ) {
+            return;
+        }
+
         if ( ! current_user_can( 'edit_post', $post_id ) ) {
             return;
         }
@@ -1683,6 +1696,43 @@ class BadriMembers {
         }
 
         return $template;
+    }
+
+    public function render_admin_member_list_header() {
+        $screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+
+        if ( ! $screen || 'edit-' . self::POST_TYPE !== $screen->id ) {
+            return;
+        }
+
+        if ( ! current_user_can( 'edit_posts' ) ) {
+            return;
+        }
+
+        $counts    = wp_count_posts( self::POST_TYPE );
+        $published = isset( $counts->publish ) ? absint( $counts->publish ) : 0;
+        $pending   = isset( $counts->pending ) ? absint( $counts->pending ) : 0;
+        $draft     = isset( $counts->draft ) ? absint( $counts->draft ) : 0;
+        $total     = $published + $pending + $draft;
+        ?>
+        <div class="idt-badri-list-hero">
+            <div class="idt-badri-list-hero-icon"><span class="dashicons dashicons-groups"></span></div>
+            <div class="idt-badri-list-hero-content">
+                <span><?php echo esc_html__( 'Badri Members', 'islami-dawa-tools' ); ?></span>
+                <h1><?php echo esc_html__( 'বদরী সদস্য ম্যানেজমেন্ট', 'islami-dawa-tools' ); ?></h1>
+                <p><?php echo esc_html__( 'সদস্য আবেদন, প্রকাশ অবস্থা, অনুদান ধরন এবং পাবলিক দৃশ্যমানতা এক জায়গা থেকে পর্যবেক্ষণ করুন।', 'islami-dawa-tools' ); ?></p>
+            </div>
+            <div class="idt-badri-list-hero-stats">
+                <div><strong><?php echo esc_html( number_format_i18n( $total ) ); ?></strong><span><?php echo esc_html__( 'মোট', 'islami-dawa-tools' ); ?></span></div>
+                <div><strong><?php echo esc_html( number_format_i18n( $published ) ); ?></strong><span><?php echo esc_html__( 'প্রকাশিত', 'islami-dawa-tools' ); ?></span></div>
+                <div><strong><?php echo esc_html( number_format_i18n( $pending ) ); ?></strong><span><?php echo esc_html__( 'Pending', 'islami-dawa-tools' ); ?></span></div>
+            </div>
+            <div class="idt-badri-list-hero-actions">
+                <a class="button button-primary" href="<?php echo esc_url( admin_url( 'post-new.php?post_type=' . self::POST_TYPE ) ); ?>"><?php echo esc_html__( 'নতুন সদস্য যোগ করুন', 'islami-dawa-tools' ); ?></a>
+                <a class="button" href="<?php echo esc_url( admin_url( 'admin.php?page=' . self::SETTINGS_SLUG ) ); ?>"><?php echo esc_html__( 'সেটিংস', 'islami-dawa-tools' ); ?></a>
+            </div>
+        </div>
+        <?php
     }
 
     public function add_admin_columns( $columns ) {

@@ -844,3 +844,291 @@
     color: #94a3b8;
     font-weight: 700;
 }
+
+
+/* v1.0.9 - refined form builder controls and Badri member list UI */
+.idt-badri-builder-checks {
+    align-items: stretch;
+    gap: 12px;
+    padding-top: 18px;
+}
+
+.idt-badri-builder-checks label {
+    position: relative;
+    display: inline-flex !important;
+    align-items: center;
+    gap: 10px;
+    min-height: 42px;
+    padding: 10px 14px;
+    border: 1px solid #dfe9e2;
+    border-radius: 999px;
+    background: #f8fbf8;
+    color: #084729 !important;
+    font-weight: 800 !important;
+    box-shadow: 0 6px 16px rgba(12,65,38,.04);
+}
+
+.idt-badri-builder-checks input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px !important;
+    height: 18px !important;
+    min-width: 18px;
+    margin: 0 !important;
+    border: 2px solid #9cb5a6 !important;
+    border-radius: 6px !important;
+    background: #fff !important;
+    display: inline-grid;
+    place-items: center;
+    box-shadow: none !important;
+}
+
+.idt-badri-builder-checks input[type="checkbox"]::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    transform: scale(0);
+    transition: transform .16s ease;
+    background: #0f6b3f;
+    border-radius: 3px;
+}
+
+.idt-badri-builder-checks input[type="checkbox"]:checked {
+    border-color: #0f6b3f !important;
+    background: #eef8f1 !important;
+}
+
+.idt-badri-builder-checks input[type="checkbox"]:checked::before {
+    transform: scale(1);
+}
+
+.idt-badri-builder-checks input[type="checkbox"]:focus {
+    border-color: #0f6b3f !important;
+    box-shadow: 0 0 0 3px rgba(15,107,63,.12) !important;
+}
+
+.idt-badri-remove-field,
+button.idt-badri-remove-field,
+.button.idt-badri-remove-field {
+    border: 1px solid #fecaca !important;
+    background: #fff1f2 !important;
+    color: #b91c1c !important;
+    border-radius: 999px !important;
+    font-weight: 800 !important;
+    box-shadow: none !important;
+}
+
+.idt-badri-remove-field:hover,
+button.idt-badri-remove-field:hover,
+.button.idt-badri-remove-field:hover {
+    background: #fee2e2 !important;
+    border-color: #fca5a5 !important;
+    color: #991b1b !important;
+}
+
+.post-type-badri_member #wpbody-content > .wrap {
+    max-width: 1320px;
+}
+
+.idt-badri-list-hero {
+    display: grid;
+    grid-template-columns: 72px minmax(0, 1fr) auto auto;
+    gap: 18px;
+    align-items: center;
+    margin: 18px 20px 18px 0;
+    padding: 24px;
+    border-radius: 22px;
+    color: #fff;
+    background: radial-gradient(circle at 88% 20%, rgba(255,255,255,.18), transparent 26%), linear-gradient(135deg, #0f6b3f, #084729);
+    box-shadow: 0 18px 42px rgba(8,71,41,.18);
+}
+
+.idt-badri-list-hero-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 20px;
+    display: grid;
+    place-items: center;
+    background: rgba(255,255,255,.14);
+    border: 1px solid rgba(255,255,255,.18);
+}
+
+.idt-badri-list-hero-icon .dashicons {
+    width: 34px;
+    height: 34px;
+    font-size: 34px;
+    color: #f7e7bd;
+}
+
+.idt-badri-list-hero-content span {
+    display: inline-flex;
+    margin-bottom: 6px;
+    color: #f7e7bd;
+    font-weight: 900;
+    letter-spacing: .02em;
+}
+
+.idt-badri-list-hero-content h1 {
+    margin: 0 0 4px !important;
+    padding: 0 !important;
+    color: #fff;
+    font-size: 28px;
+    font-weight: 900;
+}
+
+.idt-badri-list-hero-content p {
+    margin: 0;
+    color: rgba(255,255,255,.82);
+    max-width: 640px;
+}
+
+.idt-badri-list-hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(86px, 1fr));
+    gap: 10px;
+}
+
+.idt-badri-list-hero-stats div {
+    padding: 12px 14px;
+    border-radius: 16px;
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.14);
+    text-align: center;
+}
+
+.idt-badri-list-hero-stats strong {
+    display: block;
+    color: #fff;
+    font-size: 24px;
+    line-height: 1;
+}
+
+.idt-badri-list-hero-stats span {
+    display: block;
+    margin-top: 5px;
+    color: rgba(255,255,255,.78);
+    font-weight: 800;
+    font-size: 12px;
+}
+
+.idt-badri-list-hero-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.idt-badri-list-hero-actions .button {
+    min-height: 40px;
+    border-radius: 999px !important;
+    font-weight: 900 !important;
+    display: inline-flex !important;
+    align-items: center;
+}
+
+.post-type-badri_member .subsubsub {
+    margin: 0 0 12px;
+    padding: 8px;
+    border: 1px solid #dfe9e2;
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: 0 8px 20px rgba(12,65,38,.04);
+}
+
+.post-type-badri_member .subsubsub li {
+    color: transparent;
+}
+
+.post-type-badri_member .subsubsub a {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 999px;
+    color: #637066;
+    text-decoration: none;
+    font-weight: 800;
+}
+
+.post-type-badri_member .subsubsub a.current,
+.post-type-badri_member .subsubsub a:hover {
+    background: #eef8f1;
+    color: #084729;
+}
+
+.post-type-badri_member .tablenav.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 58px;
+}
+
+.post-type-badri_member .search-box input[name="s"] {
+    border: 1px solid #dfe9e2;
+    border-radius: 999px;
+    min-height: 38px;
+    padding: 0 14px;
+}
+
+.post-type-badri_member .search-box .button,
+.post-type-badri_member #post-query-submit {
+    min-height: 38px;
+    border-radius: 999px !important;
+    font-weight: 800 !important;
+}
+
+.post-type-badri_member .wp-list-table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.post-type-badri_member .wp-list-table th,
+.post-type-badri_member .wp-list-table td {
+    vertical-align: middle;
+}
+
+.post-type-badri_member .wp-list-table tbody td {
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+
+.post-type-badri_member .wp-list-table .column-title strong a {
+    color: #084729;
+    font-weight: 900;
+    font-size: 15px;
+}
+
+.post-type-badri_member .row-actions a {
+    color: #0f6b3f;
+    font-weight: 700;
+}
+
+.post-type-badri_member .column-badri_photo {
+    width: 74px;
+}
+
+@media (max-width: 1180px) {
+    .idt-badri-list-hero {
+        grid-template-columns: 64px 1fr;
+    }
+    .idt-badri-list-hero-stats,
+    .idt-badri-list-hero-actions {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 782px) {
+    .idt-badri-list-hero {
+        margin-right: 10px;
+        grid-template-columns: 1fr;
+    }
+    .idt-badri-list-hero-icon {
+        width: 58px;
+        height: 58px;
+    }
+    .idt-badri-list-hero-stats {
+        grid-template-columns: 1fr;
+    }
+    .post-type-badri_member .tablenav.top {
+        display: block;
+    }
+}

@@ -161,3 +161,12 @@ Templates/badri-members-grid.php
 - Improved frontend form input/select/textarea styling with a more modern card-based field UI.
 - Added styled delete button for the form builder rows.
 - Reorganized Badri settings into tabbed panels: Form, Messages, Grid, Email, and Form Builder.
+
+
+## Version 1.0.9 notes
+
+- Polished the frontend submit button `.at-badri-submit` so it no longer appears as a basic browser button.
+- Fixed the form builder checkbox UI for `.idt-badri-builder-checks`.
+- Added a styled Badri member list header on `edit.php?post_type=badri_member`.
+- Added a honeypot field and extra autosave/revision checks to strengthen submission/admin-save security.
+- Existing nonce checks remain in place for frontend submission, AJAX submission, settings save, and member meta save.

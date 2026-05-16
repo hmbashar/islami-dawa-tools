@@ -590,3 +590,103 @@
         padding: 18px;
     }
 }
+
+
+/* v1.0.9 - polished submit button and security honeypot */
+.at-badri-hp-field {
+    position: absolute !important;
+    left: -9999px !important;
+    top: auto !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+.at-badri-form button.at-badri-submit,
+.at-badri-form .at-badri-submit {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    border: 0 !important;
+    position: relative;
+    min-width: 210px;
+    min-height: 58px;
+    padding: 17px 38px !important;
+    border-radius: 999px !important;
+    background: linear-gradient(135deg, var(--primary, #0f6b3f), var(--primary-dark, #084729)) !important;
+    color: #fff !important;
+    font-size: 18px !important;
+    font-weight: 900 !important;
+    letter-spacing: .01em;
+    line-height: 1.2 !important;
+    box-shadow: 0 16px 34px rgba(8, 71, 41, 0.24), inset 0 1px 0 rgba(255,255,255,.18) !important;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.at-badri-form button.at-badri-submit::before,
+.at-badri-form .at-badri-submit::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(217,164,65,.95), rgba(231,184,91,.92));
+    opacity: 0;
+    transition: opacity .24s ease;
+    z-index: -1;
+}
+
+.at-badri-form button.at-badri-submit span,
+.at-badri-form .at-badri-submit span {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.at-badri-form button.at-badri-submit span::after,
+.at-badri-form .at-badri-submit span::after {
+    content: '→';
+    font-size: 20px;
+    line-height: 1;
+    transform: translateX(0);
+    transition: transform .24s ease;
+}
+
+.at-badri-form button.at-badri-submit:hover,
+.at-badri-form .at-badri-submit:hover {
+    color: var(--primary-dark, #084729) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 22px 42px rgba(217,164,65,.28), inset 0 1px 0 rgba(255,255,255,.22) !important;
+}
+
+.at-badri-form button.at-badri-submit:hover::before,
+.at-badri-form .at-badri-submit:hover::before {
+    opacity: 1;
+}
+
+.at-badri-form button.at-badri-submit:hover span::after,
+.at-badri-form .at-badri-submit:hover span::after {
+    transform: translateX(4px);
+}
+
+.at-badri-form button.at-badri-submit:focus-visible,
+.at-badri-form .at-badri-submit:focus-visible {
+    outline: 3px solid rgba(217,164,65,.45) !important;
+    outline-offset: 4px;
+}
+
+.at-badri-form button.at-badri-submit.is-loading span::after,
+.at-badri-form .at-badri-submit.is-loading span::after {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: atBadriSpin .8s linear infinite;
+}
+
+@keyframes atBadriSpin {
+    to { transform: rotate(360deg); }
+}
