@@ -56,23 +56,41 @@
 
 
 
-    $(document).on('click', '[data-badri-tab]', function (event) {
-        event.preventDefault();
-
-        var target = $(this).data('badri-tab');
-        var $shell = $(this).closest('[data-badri-tabs]');
+    function activateBadriTab($button) {
+        var target = $button.data('badri-tab');
+        var $shell = $button.closest('[data-badri-tabs]');
 
         $shell.find('[data-badri-tab]').removeClass('is-active');
-        $(this).addClass('is-active');
+        $button.addClass('is-active');
+        $shell.toggleClass('is-dashboard-active', target === 'dashboard');
 
         $shell.find('[data-badri-panel]').each(function () {
             var isActive = $(this).data('badri-panel') === target;
             $(this).prop('hidden', !isActive).toggleClass('is-active', isActive);
         });
+    }
+
+    $(document).on('click', '[data-badri-tab]', function (event) {
+        event.preventDefault();
+        activateBadriTab($(this));
+    });
+
+    $(document).on('click', '[data-badri-go-tab]', function (event) {
+        event.preventDefault();
+        var target = $(this).data('badri-go-tab');
+        var $shell = $(this).closest('[data-badri-tabs]');
+        var $button = $shell.find('[data-badri-tab="' + target + '"]');
+        if ($button.length) {
+            activateBadriTab($button);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     });
 
     $(function () {
         toggleAdminCustomAmount();
         refreshAllBuilderRows();
+        $('[data-badri-tabs]').each(function () {
+            $(this).toggleClass('is-dashboard-active', $(this).find('[data-badri-tab].is-active').data('badri-tab') === 'dashboard');
+        });
     });
 })(jQuery);

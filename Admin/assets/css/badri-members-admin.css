@@ -693,3 +693,154 @@
 .idt-badri-admin-field select { width: 100%; max-width: 100%; min-height: 44px; border: 1.5px solid #d7e4dc; border-radius: 14px; background: linear-gradient(180deg,#fff,#fbfdfb); box-shadow: 0 6px 16px rgba(12,65,38,.035); }
 @media (max-width: 1200px) { .idt-badri-dashboard-stats { grid-template-columns: repeat(2,minmax(0,1fr)); } .idt-badri-dashboard-grid { grid-template-columns: 1fr; } }
 @media (max-width: 782px) { .idt-badri-dashboard-hero { align-items: flex-start; flex-direction: column; } .idt-badri-dashboard-stats, .idt-badri-quick-actions { grid-template-columns: 1fr; } .idt-badri-recent-member { grid-template-columns: 52px minmax(0,1fr); } .idt-badri-status, .idt-badri-recent-member .button { justify-self: start; grid-column: 2; } }
+
+
+/* v1.0.8: Badri dashboard merged into settings + polished members list */
+.idt-badri-settings-shell.is-dashboard-active + .idt-badri-sticky-save {
+    display: none;
+}
+
+.idt-badri-dashboard-heading {
+    margin-bottom: 18px;
+}
+
+.idt-badri-dashboard-stats.is-inside-settings {
+    margin-bottom: 24px;
+}
+
+.idt-badri-dashboard-stats.is-inside-settings .idt-badri-stat-card {
+    text-decoration: none;
+}
+
+.idt-badri-dashboard-grid.is-inside-settings {
+    margin-top: 0;
+}
+
+.post-type-badri_member .wp-list-table {
+    border: 1px solid #dfe9e2;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 28px rgba(12,65,38,.06);
+}
+
+.post-type-badri_member .wp-list-table thead th,
+.post-type-badri_member .wp-list-table tfoot th {
+    background: #f8fbf8;
+    color: #084729;
+    font-weight: 800;
+}
+
+.post-type-badri_member .wp-list-table tbody tr:hover {
+    background: #f8fbf8;
+}
+
+.post-type-badri_member .tablenav.top {
+    padding: 14px 16px;
+    margin: 14px 0;
+    background: #fff;
+    border: 1px solid #dfe9e2;
+    border-radius: 16px;
+    box-shadow: 0 8px 22px rgba(12,65,38,.05);
+}
+
+.post-type-badri_member .tablenav .actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.post-type-badri_member .tablenav select.idt-badri-list-filter {
+    min-width: 135px;
+    height: 36px;
+    border-color: #dfe9e2;
+    border-radius: 999px;
+    color: #084729;
+    font-weight: 700;
+    background-color: #fff;
+}
+
+.post-type-badri_member .tablenav .button {
+    border-radius: 999px;
+    font-weight: 700;
+}
+
+.idt-badri-view-pill a,
+.idt-badri-view-pill.current,
+.idt-badri-view-pill .current {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: #eef8f1;
+    color: #084729 !important;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.idt-badri-list-photo,
+.idt-badri-list-initial {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    background: #eef8f1;
+    color: #084729;
+    font-weight: 900;
+    box-shadow: inset 0 0 0 2px rgba(15,107,63,.08);
+}
+
+.idt-badri-list-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.idt-badri-list-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.idt-badri-list-badge.is-publish,
+.idt-badri-list-badge.is-show,
+.idt-badri-list-badge.is-yearly {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.idt-badri-list-badge.is-pending,
+.idt-badri-list-badge.is-monthly {
+    background: #fff7ed;
+    color: #c2410c;
+}
+
+.idt-badri-list-badge.is-draft,
+.idt-badri-list-badge.is-hide {
+    background: #f1f5f9;
+    color: #334155;
+}
+
+.idt-badri-list-amount {
+    color: #084729;
+    font-weight: 900;
+}
+
+.idt-badri-list-mobile {
+    direction: ltr;
+    unicode-bidi: plaintext;
+    color: #1f2a24;
+    font-weight: 700;
+}
+.idt-badri-muted {
+    color: #94a3b8;
+    font-weight: 700;
+}

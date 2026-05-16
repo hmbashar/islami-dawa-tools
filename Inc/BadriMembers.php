@@ -51,6 +51,9 @@ class BadriMembers {
 
         add_filter( 'manage_' . self::POST_TYPE . '_posts_columns', array( $this, 'add_admin_columns' ) );
         add_action( 'manage_' . self::POST_TYPE . '_posts_custom_column', array( $this, 'render_admin_columns' ), 10, 2 );
+        add_action( 'restrict_manage_posts', array( $this, 'render_admin_list_filters' ) );
+        add_filter( 'parse_query', array( $this, 'filter_admin_member_query' ) );
+        add_filter( 'views_edit-' . self::POST_TYPE, array( $this, 'style_admin_member_views' ) );
 
         add_filter( 'theme_page_templates', array( $this, 'register_page_templates' ) );
         add_filter( 'template_include', array( $this, 'load_page_template' ) );
@@ -177,15 +180,6 @@ class BadriMembers {
     }
 
     public function register_admin_menu() {
-        add_submenu_page(
-            'islami-dawa-tools',
-            esc_html__( 'বদরী সদস্য ড্যাশবোর্ড', 'islami-dawa-tools' ),
-            esc_html__( 'বদরী সদস্য ড্যাশবোর্ড', 'islami-dawa-tools' ),
-            'edit_posts',
-            self::DASHBOARD_SLUG,
-            array( $this, 'render_dashboard_page' )
-        );
-
         add_submenu_page(
             'islami-dawa-tools',
             esc_html__( 'বদরী সদস্য সেটিংস', 'islami-dawa-tools' ),
@@ -490,6 +484,152 @@ class BadriMembers {
         <?php
     }
 
+    private function get_dashboard_counts() {
+        $counts    = wp_count_posts( self::POST_TYPE );
+        $published = isset( $counts->publish ) ? absint( $counts->publish ) : 0;
+        $pending   = isset( $counts->pending ) ? absint( $counts->pending ) : 0;
+        $draft     = isset( $counts->draft ) ? absint( $counts->draft ) : 0;
+        $total     = $published + $pending + $draft;
+
+        $hidden_query = new \WP_Query(
+            array(
+                'post_type'      => self::POST_TYPE,
+                'post_status'    => array( 'publish', 'pending', 'draft' ),
+                'posts_per_page' => 1,
+                'meta_key'       => '_badri_public_visibility',
+                'meta_value'     => 'hide',
+                'fields'         => 'ids',
+                'no_found_rows'  => false,
+            )
+        );
+        $hidden_count = absint( $hidden_query->found_posts );
+        wp_reset_postdata();
+
+        return array(
+            'total'     => $total,
+            'published' => $published,
+            'pending'   => $pending,
+            'draft'     => $draft,
+            'hidden'    => $hidden_count,
+        );
+    }
+
+    private function render_dashboard_panel_content() {
+        if ( ! current_user_can( 'edit_posts' ) ) {
+            return;
+        }
+
+        $counts   = $this->get_dashboard_counts();
+        $settings = $this->get_settings();
+        $recent   = new \WP_Query(
+            array(
+                'post_type'      => self::POST_TYPE,
+                'post_status'    => array( 'publish', 'pending', 'draft' ),
+                'posts_per_page' => 6,
+                'orderby'        => 'date',
+                'order'          => 'DESC',
+            )
+        );
+        ?>
+        <div class="idt-badri-panel-heading idt-badri-dashboard-heading">
+            <span><?php echo esc_html__( 'Overview', 'islami-dawa-tools' ); ?></span>
+            <h2><?php echo esc_html__( 'বদরী সদস্য ড্যাশবোর্ড', 'islami-dawa-tools' ); ?></h2>
+            <p><?php echo esc_html__( 'সদস্য আবেদন, অনুমোদন, শর্টকোড এবং সক্রিয় সেটিংস এক জায়গা থেকে দেখুন।', 'islami-dawa-tools' ); ?></p>
+        </div>
+
+        <div class="idt-badri-dashboard-stats is-inside-settings">
+            <?php
+            $stats = array(
+                array( 'label' => esc_html__( 'মোট সদস্য', 'islami-dawa-tools' ), 'value' => $counts['total'], 'icon' => 'dashicons-groups', 'accent' => 'green', 'url' => admin_url( 'edit.php?post_type=' . self::POST_TYPE ) ),
+                array( 'label' => esc_html__( 'প্রকাশিত', 'islami-dawa-tools' ), 'value' => $counts['published'], 'icon' => 'dashicons-yes-alt', 'accent' => 'blue', 'url' => admin_url( 'edit.php?post_status=publish&post_type=' . self::POST_TYPE ) ),
+                array( 'label' => esc_html__( 'রিভিউ অপেক্ষমাণ', 'islami-dawa-tools' ), 'value' => $counts['pending'], 'icon' => 'dashicons-clock', 'accent' => 'orange', 'url' => admin_url( 'edit.php?post_status=pending&post_type=' . self::POST_TYPE ) ),
+                array( 'label' => esc_html__( 'গোপন সদস্য', 'islami-dawa-tools' ), 'value' => $counts['hidden'], 'icon' => 'dashicons-hidden', 'accent' => 'gold', 'url' => admin_url( 'edit.php?post_type=' . self::POST_TYPE . '&badri_filter_visibility=hide' ) ),
+            );
+            foreach ( $stats as $stat ) :
+                ?>
+                <a class="idt-badri-stat-card is-<?php echo esc_attr( $stat['accent'] ); ?>" href="<?php echo esc_url( $stat['url'] ); ?>">
+                    <span class="dashicons <?php echo esc_attr( $stat['icon'] ); ?>"></span>
+                    <strong><?php echo esc_html( number_format_i18n( $stat['value'] ) ); ?></strong>
+                    <p><?php echo esc_html( $stat['label'] ); ?></p>
+                </a>
+            <?php endforeach; ?>
+        </div>
+
+        <div class="idt-badri-dashboard-grid is-inside-settings">
+            <div class="idt-badri-dashboard-panel idt-badri-dashboard-panel-large">
+                <div class="idt-badri-dashboard-panel-head">
+                    <h2><span class="dashicons dashicons-list-view"></span><?php echo esc_html__( 'সাম্প্রতিক আবেদন', 'islami-dawa-tools' ); ?></h2>
+                    <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=' . self::POST_TYPE ) ); ?>"><?php echo esc_html__( 'সব দেখুন', 'islami-dawa-tools' ); ?></a>
+                </div>
+                <?php if ( $recent->have_posts() ) : ?>
+                    <div class="idt-badri-recent-members">
+                        <?php while ( $recent->have_posts() ) : $recent->the_post(); ?>
+                            <?php
+                            $status = get_post_status();
+                            $mobile = get_post_meta( get_the_ID(), '_badri_mobile', true );
+                            $status_obj = get_post_status_object( $status );
+                            ?>
+                            <div class="idt-badri-recent-member">
+                                <div class="idt-badri-recent-avatar">
+                                    <?php if ( has_post_thumbnail() ) : ?>
+                                        <?php the_post_thumbnail( array( 52, 52 ) ); ?>
+                                    <?php else : ?>
+                                        <span><?php echo esc_html( $this->get_initial( get_the_title() ) ); ?></span>
+                                    <?php endif; ?>
+                                </div>
+                                <div>
+                                    <strong><?php the_title(); ?></strong>
+                                    <p><?php echo esc_html( $mobile ? $mobile : esc_html__( 'মোবাইল নম্বর নেই', 'islami-dawa-tools' ) ); ?></p>
+                                </div>
+                                <span class="idt-badri-status is-<?php echo esc_attr( $status ); ?>"><?php echo esc_html( $status_obj ? $status_obj->label : $status ); ?></span>
+                                <a class="button button-small" href="<?php echo esc_url( get_edit_post_link( get_the_ID() ) ); ?>"><?php echo esc_html__( 'Edit', 'islami-dawa-tools' ); ?></a>
+                            </div>
+                        <?php endwhile; ?>
+                    </div>
+                    <?php wp_reset_postdata(); ?>
+                <?php else : ?>
+                    <p class="idt-badri-empty-admin"><?php echo esc_html__( 'এখনো কোনো আবেদন জমা হয়নি।', 'islami-dawa-tools' ); ?></p>
+                <?php endif; ?>
+            </div>
+
+            <div class="idt-badri-dashboard-side">
+                <div class="idt-badri-dashboard-panel">
+                    <div class="idt-badri-dashboard-panel-head">
+                        <h2><span class="dashicons dashicons-controls-forward"></span><?php echo esc_html__( 'Quick Actions', 'islami-dawa-tools' ); ?></h2>
+                    </div>
+                    <div class="idt-badri-quick-actions">
+                        <a href="<?php echo esc_url( admin_url( 'post-new.php?post_type=' . self::POST_TYPE ) ); ?>"><span class="dashicons dashicons-plus"></span><?php echo esc_html__( 'সদস্য যোগ করুন', 'islami-dawa-tools' ); ?></a>
+                        <a href="<?php echo esc_url( admin_url( 'edit.php?post_status=pending&post_type=' . self::POST_TYPE ) ); ?>"><span class="dashicons dashicons-clock"></span><?php echo esc_html__( 'Pending Review', 'islami-dawa-tools' ); ?><em><?php echo esc_html( number_format_i18n( $counts['pending'] ) ); ?></em></a>
+                        <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=' . self::POST_TYPE ) ); ?>"><span class="dashicons dashicons-admin-users"></span><?php echo esc_html__( 'সব সদস্য', 'islami-dawa-tools' ); ?></a>
+                        <a href="#" data-badri-go-tab="builder"><span class="dashicons dashicons-admin-customizer"></span><?php echo esc_html__( 'ফরম বিল্ডার', 'islami-dawa-tools' ); ?></a>
+                    </div>
+                </div>
+
+                <div class="idt-badri-dashboard-panel">
+                    <div class="idt-badri-dashboard-panel-head">
+                        <h2><span class="dashicons dashicons-shortcode"></span><?php echo esc_html__( 'Shortcodes', 'islami-dawa-tools' ); ?></h2>
+                    </div>
+                    <div class="idt-badri-shortcode-list">
+                        <code>[badri_member_form]</code><span><?php echo esc_html__( 'সদস্য ফরম', 'islami-dawa-tools' ); ?></span>
+                        <code>[badri_members_grid]</code><span><?php echo esc_html__( 'সদস্য তালিকা', 'islami-dawa-tools' ); ?></span>
+                    </div>
+                </div>
+
+                <div class="idt-badri-dashboard-panel">
+                    <div class="idt-badri-dashboard-panel-head">
+                        <h2><span class="dashicons dashicons-admin-generic"></span><?php echo esc_html__( 'Active Settings', 'islami-dawa-tools' ); ?></h2>
+                    </div>
+                    <div class="idt-badri-active-settings">
+                        <div><span><?php echo esc_html__( 'CAPTCHA', 'islami-dawa-tools' ); ?></span><strong><?php echo '1' === $settings['captcha_enabled'] ? esc_html__( 'Enabled', 'islami-dawa-tools' ) : esc_html__( 'Disabled', 'islami-dawa-tools' ); ?></strong></div>
+                        <div><span><?php echo esc_html__( 'Extra Fields', 'islami-dawa-tools' ); ?></span><strong><?php echo esc_html( number_format_i18n( count( $this->get_additional_fields() ) ) ); ?></strong></div>
+                        <div><span><?php echo esc_html__( 'Photo Max Size', 'islami-dawa-tools' ); ?></span><strong><?php echo esc_html( $settings['photo_max_size_mb'] ); ?>MB</strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+    }
+
     public function render_settings_page() {
         if ( ! current_user_can( 'manage_options' ) ) {
             return;
@@ -502,7 +642,7 @@ class BadriMembers {
                 <div class="idt-badri-hero-icon"><span class="dashicons dashicons-groups"></span></div>
                 <div>
                     <h1><?php echo esc_html__( 'বদরী সদস্য সেটিংস', 'islami-dawa-tools' ); ?></h1>
-                    <p><?php echo esc_html__( 'ফরম, মেসেজ, গ্রিড, নোটিফিকেশন এবং অতিরিক্ত ফিল্ডগুলো এক জায়গা থেকে ম্যানেজ করুন।', 'islami-dawa-tools' ); ?></p>
+                    <p><?php echo esc_html__( 'ড্যাশবোর্ড, ফরম, মেসেজ, গ্রিড, CAPTCHA, ইমেইল এবং অতিরিক্ত ফিল্ডগুলো এক জায়গা থেকে ম্যানেজ করুন।', 'islami-dawa-tools' ); ?></p>
                 </div>
             </div>
 
@@ -511,7 +651,8 @@ class BadriMembers {
 
                 <div class="idt-badri-settings-shell" data-badri-tabs>
                     <nav class="idt-badri-settings-tabs" aria-label="<?php echo esc_attr__( 'Badri settings tabs', 'islami-dawa-tools' ); ?>">
-                        <button type="button" class="is-active" data-badri-tab="form"><span class="dashicons dashicons-feedback"></span><?php echo esc_html__( 'ফরম', 'islami-dawa-tools' ); ?></button>
+                        <button type="button" class="is-active" data-badri-tab="dashboard"><span class="dashicons dashicons-dashboard"></span><?php echo esc_html__( 'ড্যাশবোর্ড', 'islami-dawa-tools' ); ?></button>
+                        <button type="button" data-badri-tab="form"><span class="dashicons dashicons-feedback"></span><?php echo esc_html__( 'ফরম', 'islami-dawa-tools' ); ?></button>
                         <button type="button" data-badri-tab="messages"><span class="dashicons dashicons-format-chat"></span><?php echo esc_html__( 'মেসেজ', 'islami-dawa-tools' ); ?></button>
                         <button type="button" data-badri-tab="grid"><span class="dashicons dashicons-screenoptions"></span><?php echo esc_html__( 'গ্রিড', 'islami-dawa-tools' ); ?></button>
                         <button type="button" data-badri-tab="email"><span class="dashicons dashicons-email-alt"></span><?php echo esc_html__( 'ইমেইল', 'islami-dawa-tools' ); ?></button>
@@ -520,7 +661,11 @@ class BadriMembers {
                     </nav>
 
                     <div class="idt-badri-settings-panels">
-                        <section class="idt-badri-settings-panel is-active" data-badri-panel="form">
+                        <section class="idt-badri-settings-panel is-active" data-badri-panel="dashboard">
+                            <?php $this->render_dashboard_panel_content(); ?>
+                        </section>
+
+                        <section class="idt-badri-settings-panel" data-badri-panel="form" hidden>
                             <div class="idt-badri-panel-heading">
                                 <span><?php echo esc_html__( 'General Form', 'islami-dawa-tools' ); ?></span>
                                 <h2><?php echo esc_html__( 'ফরম সেটিংস', 'islami-dawa-tools' ); ?></h2>
@@ -1547,8 +1692,10 @@ class BadriMembers {
             if ( 'title' === $key ) {
                 $new_columns['badri_photo']      = esc_html__( 'ছবি', 'islami-dawa-tools' );
                 $new_columns['badri_mobile']     = esc_html__( 'মোবাইল', 'islami-dawa-tools' );
+                $new_columns['badri_frequency']  = esc_html__( 'ধরন', 'islami-dawa-tools' );
                 $new_columns['badri_donation']   = esc_html__( 'অনুদান', 'islami-dawa-tools' );
                 $new_columns['badri_visibility'] = esc_html__( 'প্রকাশ', 'islami-dawa-tools' );
+                $new_columns['badri_status']     = esc_html__( 'স্ট্যাটাস', 'islami-dawa-tools' );
             }
         }
         return $new_columns;
@@ -1557,23 +1704,154 @@ class BadriMembers {
     public function render_admin_columns( $column, $post_id ) {
         if ( 'badri_photo' === $column ) {
             if ( has_post_thumbnail( $post_id ) ) {
-                echo get_the_post_thumbnail( $post_id, array( 44, 44 ), array( 'style' => 'width:44px;height:44px;border-radius:50%;object-fit:cover;' ) );
+                echo '<span class="idt-badri-list-photo">' . get_the_post_thumbnail( $post_id, array( 46, 46 ) ) . '</span>';
             } else {
-                echo '<span style="width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:#eef8f1;color:#084729;font-weight:800;">' . esc_html( $this->get_initial( get_the_title( $post_id ) ) ) . '</span>';
+                echo '<span class="idt-badri-list-initial">' . esc_html( $this->get_initial( get_the_title( $post_id ) ) ) . '</span>';
             }
         }
 
         if ( 'badri_mobile' === $column ) {
-            echo esc_html( get_post_meta( $post_id, '_badri_mobile', true ) );
+            $mobile = get_post_meta( $post_id, '_badri_mobile', true );
+            echo $mobile ? '<span class="idt-badri-list-mobile">' . esc_html( $mobile ) . '</span>' : '<span class="idt-badri-muted">—</span>';
+        }
+
+        if ( 'badri_frequency' === $column ) {
+            $frequency = get_post_meta( $post_id, '_badri_donation_frequency', true );
+            $label     = $this->format_frequency( $frequency );
+            echo $label ? '<span class="idt-badri-list-badge is-' . esc_attr( $frequency ) . '">' . esc_html( $label ) . '</span>' : '<span class="idt-badri-muted">—</span>';
         }
 
         if ( 'badri_donation' === $column ) {
-            echo esc_html( $this->format_amount( get_post_meta( $post_id, '_badri_donation_amount', true ), $post_id ) );
+            echo '<span class="idt-badri-list-amount">' . esc_html( $this->format_amount( get_post_meta( $post_id, '_badri_donation_amount', true ), $post_id ) ) . '</span>';
         }
 
         if ( 'badri_visibility' === $column ) {
             $visibility = get_post_meta( $post_id, '_badri_public_visibility', true );
-            echo 'hide' === $visibility ? esc_html__( 'গোপন', 'islami-dawa-tools' ) : esc_html__( 'প্রকাশিত', 'islami-dawa-tools' );
+            $visibility = $visibility ? $visibility : 'show';
+            $label      = 'hide' === $visibility ? esc_html__( 'গোপন', 'islami-dawa-tools' ) : esc_html__( 'পাবলিক', 'islami-dawa-tools' );
+            echo '<span class="idt-badri-list-badge is-' . esc_attr( $visibility ) . '">' . esc_html( $label ) . '</span>';
+        }
+
+        if ( 'badri_status' === $column ) {
+            $status     = get_post_status( $post_id );
+            $status_obj = get_post_status_object( $status );
+            $label      = $status_obj ? $status_obj->label : $status;
+            echo '<span class="idt-badri-list-badge is-' . esc_attr( $status ) . '">' . esc_html( $label ) . '</span>';
         }
     }
+
+    public function render_admin_list_filters( $post_type ) {
+        if ( self::POST_TYPE !== $post_type ) {
+            return;
+        }
+
+        $selected_status     = isset( $_GET['badri_filter_status'] ) ? sanitize_key( wp_unslash( $_GET['badri_filter_status'] ) ) : '';
+        $selected_frequency  = isset( $_GET['badri_filter_frequency'] ) ? sanitize_key( wp_unslash( $_GET['badri_filter_frequency'] ) ) : '';
+        $selected_visibility = isset( $_GET['badri_filter_visibility'] ) ? sanitize_key( wp_unslash( $_GET['badri_filter_visibility'] ) ) : '';
+        $selected_year       = isset( $_GET['badri_filter_year'] ) ? absint( $_GET['badri_filter_year'] ) : 0;
+        $selected_month      = isset( $_GET['badri_filter_month'] ) ? absint( $_GET['badri_filter_month'] ) : 0;
+
+        ?>
+        <select name="badri_filter_status" class="idt-badri-list-filter">
+            <option value=""><?php echo esc_html__( 'সব স্ট্যাটাস', 'islami-dawa-tools' ); ?></option>
+            <option value="publish" <?php selected( $selected_status, 'publish' ); ?>><?php echo esc_html__( 'প্রকাশিত', 'islami-dawa-tools' ); ?></option>
+            <option value="pending" <?php selected( $selected_status, 'pending' ); ?>><?php echo esc_html__( 'রিভিউ অপেক্ষমাণ', 'islami-dawa-tools' ); ?></option>
+            <option value="draft" <?php selected( $selected_status, 'draft' ); ?>><?php echo esc_html__( 'ড্রাফট', 'islami-dawa-tools' ); ?></option>
+        </select>
+
+        <select name="badri_filter_frequency" class="idt-badri-list-filter">
+            <option value=""><?php echo esc_html__( 'সব অনুদান ধরন', 'islami-dawa-tools' ); ?></option>
+            <option value="monthly" <?php selected( $selected_frequency, 'monthly' ); ?>><?php echo esc_html__( 'মাসিক', 'islami-dawa-tools' ); ?></option>
+            <option value="yearly" <?php selected( $selected_frequency, 'yearly' ); ?>><?php echo esc_html__( 'বার্ষিক', 'islami-dawa-tools' ); ?></option>
+        </select>
+
+        <select name="badri_filter_visibility" class="idt-badri-list-filter">
+            <option value=""><?php echo esc_html__( 'সব প্রকাশ অনুমতি', 'islami-dawa-tools' ); ?></option>
+            <option value="show" <?php selected( $selected_visibility, 'show' ); ?>><?php echo esc_html__( 'পাবলিক', 'islami-dawa-tools' ); ?></option>
+            <option value="hide" <?php selected( $selected_visibility, 'hide' ); ?>><?php echo esc_html__( 'গোপন', 'islami-dawa-tools' ); ?></option>
+        </select>
+
+        <select name="badri_filter_year" class="idt-badri-list-filter">
+            <option value="0"><?php echo esc_html__( 'সব বছর', 'islami-dawa-tools' ); ?></option>
+            <?php
+            $current_year = absint( current_time( 'Y' ) );
+            for ( $year = $current_year; $year >= $current_year - 5; $year-- ) :
+                ?>
+                <option value="<?php echo esc_attr( $year ); ?>" <?php selected( $selected_year, $year ); ?>><?php echo esc_html( number_format_i18n( $year, 0 ) ); ?></option>
+            <?php endfor; ?>
+        </select>
+
+        <select name="badri_filter_month" class="idt-badri-list-filter">
+            <option value="0"><?php echo esc_html__( 'সব মাস', 'islami-dawa-tools' ); ?></option>
+            <?php for ( $month = 1; $month <= 12; $month++ ) : ?>
+                <option value="<?php echo esc_attr( $month ); ?>" <?php selected( $selected_month, $month ); ?>><?php echo esc_html( date_i18n( 'F', mktime( 0, 0, 0, $month, 1 ) ) ); ?></option>
+            <?php endfor; ?>
+        </select>
+        <?php
+    }
+
+    public function filter_admin_member_query( $query ) {
+        global $pagenow;
+
+        if ( ! is_admin() || 'edit.php' !== $pagenow || ! $query->is_main_query() ) {
+            return;
+        }
+
+        $post_type = $query->get( 'post_type' );
+        if ( self::POST_TYPE !== $post_type ) {
+            return;
+        }
+
+        $status = isset( $_GET['badri_filter_status'] ) ? sanitize_key( wp_unslash( $_GET['badri_filter_status'] ) ) : '';
+        if ( in_array( $status, array( 'publish', 'pending', 'draft' ), true ) ) {
+            $query->set( 'post_status', $status );
+        }
+
+        $meta_query = array();
+
+        $frequency = isset( $_GET['badri_filter_frequency'] ) ? sanitize_key( wp_unslash( $_GET['badri_filter_frequency'] ) ) : '';
+        if ( in_array( $frequency, array( 'monthly', 'yearly' ), true ) ) {
+            $meta_query[] = array(
+                'key'   => '_badri_donation_frequency',
+                'value' => $frequency,
+            );
+        }
+
+        $visibility = isset( $_GET['badri_filter_visibility'] ) ? sanitize_key( wp_unslash( $_GET['badri_filter_visibility'] ) ) : '';
+        if ( in_array( $visibility, array( 'show', 'hide' ), true ) ) {
+            $meta_query[] = array(
+                'key'   => '_badri_public_visibility',
+                'value' => $visibility,
+            );
+        }
+
+        if ( ! empty( $meta_query ) ) {
+            $query->set( 'meta_query', $meta_query );
+        }
+
+        $year  = isset( $_GET['badri_filter_year'] ) ? absint( $_GET['badri_filter_year'] ) : 0;
+        $month = isset( $_GET['badri_filter_month'] ) ? absint( $_GET['badri_filter_month'] ) : 0;
+        $date_query = array();
+
+        if ( $year ) {
+            $date_query['year'] = $year;
+        }
+
+        if ( $month >= 1 && $month <= 12 ) {
+            $date_query['month'] = $month;
+        }
+
+        if ( ! empty( $date_query ) ) {
+            $query->set( 'date_query', array( $date_query ) );
+        }
+    }
+
+    public function style_admin_member_views( $views ) {
+        foreach ( $views as $key => $view ) {
+            $views[ $key ] = '<span class="idt-badri-view-pill">' . $view . '</span>';
+        }
+
+        return $views;
+    }
+
 }
