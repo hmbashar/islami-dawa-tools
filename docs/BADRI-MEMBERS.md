@@ -1,130 +1,145 @@
-# Badri Member Feature
+# Badri Members Module
 
-This plugin includes a custom post type and frontend shortcodes for the **আজীবন বদরী সদস্য/সদস্যা** system.
+This module adds the “আজীবন বদরী সদস্য/সদস্যা” member submission and public listing system.
 
-## Custom Post Type
+## Admin menu
 
-Post type slug:
+All Badri member management is now under the existing plugin menu:
 
-```txt
-badri_member
+```text
+Dashboard → Islami Dawa Tools
 ```
 
-Admin menu:
+Submenus:
 
-```txt
+```text
 বদরী সদস্য
+বদরী সদস্য সেটিংস
 ```
 
-Frontend submissions are saved as **Pending Review**. Admin must review and publish before the member appears in the public grid.
+The settings URL is similar to:
+
+```text
+/wp-admin/admin.php?page=islami-dawa-tools-badri-settings
+```
 
 ## Shortcodes
 
-### Member submission form
+### Submission form
 
-Add this shortcode to the member application page:
-
-```txt
+```text
 [badri_member_form]
 ```
 
 ### Public member grid
 
-Add this shortcode to the public members list page:
-
-```txt
+```text
 [badri_members_grid]
 ```
 
-Optional attributes:
+Optional:
 
-```txt
+```text
 [badri_members_grid per_page="12" columns="3"]
 ```
 
+## Form behavior
+
+When a user submits the form:
+
+1. The member is created as a `badri_member` post.
+2. Post status is `pending`.
+3. Admin reviews the application.
+4. Admin publishes the post.
+5. The member appears in the public grid.
+
+## Photo behavior
+
+The form includes a member photo upload field.
+
+Uploaded image is stored as the post Featured Image.
+
+If the user allows photo display and public info display, the grid shows the photo.
+
+If the user hides public information, the grid shows only the member name and a first-letter avatar.
+
 ## Privacy behavior
 
-The form includes a public visibility option:
+If user selects:
 
-- `আমার তথ্য প্রকাশ করা যাবে`
-- `আমাকে পাবলিক তালিকায় গোপন রাখুন`
-
-If the member chooses to hide information, the public grid shows only the member name. Other fields are displayed as:
-
-```txt
-xxx
+```text
+আমাকে পাবলিক তালিকায় গোপন রাখুন
 ```
 
-## Fields stored as post meta
+Then the public grid shows:
 
-```txt
-_badri_guardian_name
-_badri_mobile
-_badri_profession
-_badri_donation_frequency
-_badri_donation_amount
-_badri_donation_amount_text
-_badri_permanent_address
-_badri_permanent_district
-_badri_current_address
-_badri_current_district
-_badri_public_visibility
+- Name
+- First letter avatar
+- Other fields as `xxx`
+
+If user selects:
+
+```text
+আমার তথ্য প্রকাশ করা যাবে
 ```
 
-## Donation amount options
+Then the public grid shows submitted information after admin publishes it.
 
-Default options:
+## AJAX and SweetAlert2
 
-```txt
-500
-1000
-2000
-5000
-10000
-other
+The form submits with AJAX and shows SweetAlert2 messages.
+
+If JavaScript fails, the normal WordPress admin-post fallback still works.
+
+## Settings
+
+Go to:
+
+```text
+Dashboard → Islami Dawa Tools → বদরী সদস্য সেটিংস
 ```
 
-Developers can customize the options with this filter:
+Admin can manage:
 
-```php
-add_filter( 'islami_dawa_badri_member_amount_options', function( $options ) {
-    return array(
-        '1000' => '৳১,০০০',
-        '2000' => '৳২,০০০',
-        '5000' => '৳৫,০০০',
-    );
-} );
+- Form title
+- Form description
+- Submit button text
+- Success message
+- Error message
+- CAPTCHA error message
+- Processing message
+- Grid title
+- Grid description
+- Empty grid message
+- Photo max upload size
+- Admin notification email
+- Admin email subject
+- Admin email body
+
+## Files
+
+Main class:
+
+```text
+Inc/BadriMembers.php
 ```
 
-## Styling
+Frontend assets:
 
-CSS file:
-
-```txt
+```text
 Frontend/Elementor/Assets/badri-members.css
+Frontend/Elementor/Assets/badri-members.js
 ```
 
-Class prefix:
+Admin assets:
 
-```txt
-.at-badri-
+```text
+Admin/assets/css/badri-members-admin.css
 ```
 
-## Optional page templates
+Templates:
 
-The plugin also registers two page templates:
-
-```txt
-Badri Member Form
-Badri Members Grid
+```text
+Templates/badri-member-form.php
+Templates/badri-members-grid.php
 ```
-
-To use them:
-
-1. Go to WordPress Admin > Pages.
-2. Create a page for the form, for example: `Badri Member Application`.
-3. In Page Attributes > Template, select `Badri Member Form`.
-4. Create another page for the public list, for example: `Badri Members`.
-5. In Page Attributes > Template, select `Badri Members Grid`.
-
-You can also use shortcodes instead of page templates.

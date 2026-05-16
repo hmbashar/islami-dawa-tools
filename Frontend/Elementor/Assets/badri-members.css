@@ -1,4 +1,4 @@
-/* Badri Member Form and Grid */
+/* Badri Member Form and Grid - Islami Dawa Center style */
 .at-badri-form,
 .at-badri-grid-wrap {
     font-family: 'Hind Siliguri', sans-serif;
@@ -7,31 +7,55 @@
 
 .at-badri-form {
     width: min(1180px, 92%);
-    margin: 40px auto;
-    padding: 34px;
+    margin: 70px auto;
+    padding: 44px;
     background: var(--white, #fff);
     border: 1px solid var(--border, #dfe9e2);
     border-radius: var(--radius, 22px);
     box-shadow: var(--shadow, 0 14px 40px rgba(12, 65, 38, 0.1));
+    position: relative;
+    overflow: hidden;
+}
+
+.at-badri-form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 7px;
+    background: linear-gradient(90deg, var(--primary, #0f6b3f), var(--secondary, #d9a441));
 }
 
 .at-badri-form-header {
-    margin-bottom: 28px;
+    margin-bottom: 34px;
     text-align: center;
+}
+
+.at-badri-form-header > span,
+.at-badri-list-header > span {
+    display: inline-flex;
+    padding: 8px 18px;
+    border-radius: 999px;
+    background: rgba(217, 164, 65, 0.16);
+    color: var(--primary-dark, #084729);
+    font-weight: 800;
+    margin-bottom: 12px;
 }
 
 .at-badri-form-header h2,
 .at-badri-list-header h2 {
     font-family: 'Noto Serif Bengali', serif;
     color: var(--primary-dark, #084729);
-    font-size: clamp(30px, 4vw, 44px);
+    font-size: clamp(30px, 4vw, 46px);
     line-height: 1.35;
     margin: 0 0 10px;
 }
 
 .at-badri-form-header p,
 .at-badri-list-header p,
-.at-badri-privacy-field p {
+.at-badri-privacy-field p,
+.at-badri-photo-field p {
     color: var(--muted, #637066);
     font-size: 17px;
     margin: 0;
@@ -40,7 +64,7 @@
 .at-badri-grid {
     display: grid;
     gap: 22px;
-    margin-bottom: 26px;
+    margin-bottom: 28px;
 }
 
 .at-badri-grid-2 {
@@ -67,18 +91,25 @@
 .at-badri-field select,
 .at-badri-field textarea {
     width: 100%;
-    border: 1px solid #7c8794;
-    border-radius: 10px;
+    min-height: 54px;
+    border: 1px solid var(--border, #dfe9e2);
+    border-radius: 15px;
     padding: 13px 16px;
     font-family: inherit;
     font-size: 16px;
     color: var(--text, #1f2a24);
     outline: none;
     background: var(--white, #fff);
+    transition: 0.2s ease;
+}
+
+.at-badri-field input[type="file"] {
+    padding: 12px;
+    background: var(--soft-bg, #f8fbf8);
 }
 
 .at-badri-field textarea {
-    min-height: 56px;
+    min-height: 88px;
     resize: vertical;
 }
 
@@ -98,24 +129,32 @@
     gap: 10px;
 }
 
+.at-badri-option-list {
+    padding: 16px;
+    border-radius: 18px;
+    background: var(--soft-bg, #f8fbf8);
+    border: 1px solid var(--border, #dfe9e2);
+}
+
 .at-badri-radio-list label {
     display: flex;
     align-items: center;
     gap: 10px;
     margin: 0;
     color: var(--text, #1f2a24);
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .at-badri-radio-list input {
     width: 20px;
+    min-height: 20px;
     height: 20px;
     accent-color: var(--primary, #0f6b3f);
 }
 
 .at-badri-privacy-field,
 .at-badri-captcha-field {
-    margin-bottom: 26px;
+    margin-bottom: 28px;
 }
 
 .at-badri-submit {
@@ -124,19 +163,25 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 14px 28px;
-    border-radius: 8px;
-    background: #244ce9;
-    color: #fff;
+    padding: 15px 30px;
+    border-radius: 999px;
+    background: var(--secondary, #d9a441);
+    color: var(--primary-dark, #084729);
     font-family: inherit;
     font-size: 17px;
-    font-weight: 800;
+    font-weight: 900;
     transition: 0.25s ease;
+    box-shadow: 0 12px 24px rgba(217, 164, 65, 0.24);
 }
 
 .at-badri-submit:hover {
     transform: translateY(-2px);
-    background: #1939bf;
+    box-shadow: 0 18px 30px rgba(217, 164, 65, 0.32);
+}
+
+.at-badri-submit.is-loading {
+    opacity: 0.75;
+    cursor: wait;
 }
 
 .at-badri-alert {
@@ -161,12 +206,12 @@
 
 .at-badri-grid-wrap {
     width: min(1180px, 92%);
-    margin: 60px auto;
+    margin: 70px auto;
 }
 
 .at-badri-list-header {
     text-align: center;
-    margin-bottom: 34px;
+    margin-bottom: 42px;
 }
 
 .at-badri-members-grid {
@@ -182,23 +227,52 @@
     box-shadow: var(--shadow, 0 14px 40px rgba(12, 65, 38, 0.1));
     padding: 28px;
     transition: 0.25s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.at-badri-member-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--primary, #0f6b3f), var(--secondary, #d9a441));
 }
 
 .at-badri-member-card:hover {
     transform: translateY(-5px);
 }
 
-.at-badri-member-avatar {
-    width: 64px;
-    height: 64px;
+.at-badri-member-avatar,
+.at-badri-member-photo {
+    width: 82px;
+    height: 82px;
     border-radius: 50%;
+    margin-bottom: 18px;
+}
+
+.at-badri-member-avatar {
     display: grid;
     place-items: center;
     background: linear-gradient(135deg, var(--primary, #0f6b3f), var(--primary-dark, #084729));
     color: var(--secondary, #d9a441);
-    font-size: 30px;
-    font-weight: 800;
-    margin-bottom: 16px;
+    font-size: 36px;
+    font-weight: 900;
+}
+
+.at-badri-member-photo {
+    overflow: hidden;
+    border: 4px solid var(--light-green, #eef8f1);
+    box-shadow: 0 10px 22px rgba(12, 65, 38, 0.12);
+}
+
+.at-badri-member-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .at-badri-member-card h3 {
@@ -245,38 +319,8 @@
     font-weight: 800;
 }
 
-@media (max-width: 980px) {
-    .at-badri-grid-2,
-    .at-badri-grid-3 {
-        grid-template-columns: 1fr;
-    }
-
-    .at-badri-members-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-}
-
-@media (max-width: 640px) {
-    .at-badri-form {
-        padding: 24px;
-    }
-
-    .at-badri-members-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .at-badri-member-info div {
-        display: grid;
-        gap: 4px;
-    }
-
-    .at-badri-member-info strong {
-        text-align: left;
-    }
-}
-
 .at-badri-template-hero {
-    padding: 90px 0 60px;
+    padding: 100px 0 70px;
     background: linear-gradient(135deg, var(--primary, #0f6b3f), var(--primary-dark, #084729));
     color: #fff;
     text-align: center;
@@ -302,39 +346,37 @@
     font-size: 19px;
 }
 
-/* Badri member photo + AJAX enhancements */
-.at-badri-photo-field .at-badri-file-label {
-    margin-top: 14px;
+.at-badri-swal-popup {
+    border-radius: 22px !important;
+    font-family: 'Hind Siliguri', sans-serif !important;
 }
 
-.at-badri-photo-field input[type="file"] {
-    padding: 11px;
-    background: var(--soft-bg, #f8fbf8);
+@media (max-width: 980px) {
+    .at-badri-grid-2,
+    .at-badri-grid-3 {
+        grid-template-columns: 1fr;
+    }
+
+    .at-badri-members-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
 
-.at-badri-submit:disabled,
-.at-badri-submit-loading {
-    opacity: 0.75;
-    cursor: wait;
-    transform: none;
-}
+@media (max-width: 640px) {
+    .at-badri-form {
+        padding: 28px 22px;
+    }
 
-.at-badri-member-avatar-image {
-    overflow: hidden;
-    background: var(--light-green, #eef8f1);
-    color: transparent;
-}
+    .at-badri-members-grid {
+        grid-template-columns: 1fr;
+    }
 
-.at-badri-member-avatar-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-}
+    .at-badri-member-info div {
+        display: grid;
+        gap: 4px;
+    }
 
-.column-badri_photo img {
-    width: 48px;
-    height: 48px;
-    object-fit: cover;
-    border-radius: 50%;
+    .at-badri-member-info strong {
+        text-align: left;
+    }
 }

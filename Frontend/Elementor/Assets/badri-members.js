@@ -1,83 +1,66 @@
-(function () {
+(function ($) {
     'use strict';
 
-    function getMessage(type, fallback) {
-        if (window.IslamiDawaBadriMembers && window.IslamiDawaBadriMembers.messages && window.IslamiDawaBadriMembers.messages[type]) {
-            return window.IslamiDawaBadriMembers.messages[type];
+    function getMessage(key, fallback) {
+        if (window.islamiDawaBadriMembers && window.islamiDawaBadriMembers.i18n && window.islamiDawaBadriMembers.i18n[key]) {
+            return window.islamiDawaBadriMembers.i18n[key];
         }
-
         return fallback;
     }
 
-    function showAlert(icon, title, text) {
-        if (window.Swal && typeof window.Swal.fire === 'function') {
-            window.Swal.fire({
-                icon: icon,
+    function showAlert(type, title, text) {
+        if (typeof Swal !== 'undefined') {
+            Swal.fire({
+                icon: type,
                 title: title,
                 text: text,
-                confirmButtonText: 'ঠিক আছে'
+                confirmButtonText: getMessage('ok', 'OK'),
+                confirmButtonColor: '#0f6b3f',
+                customClass: {
+                    popup: 'at-badri-swal-popup'
+                }
             });
             return;
         }
-
-        window.alert(text || title);
+        window.alert(text);
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
-        var forms = document.querySelectorAll('[data-badri-ajax-form="1"]');
+    $(document).on('submit', '.at-badri-form[data-badri-ajax="1"]', function (event) {
+        event.preventDefault();
 
-        forms.forEach(function (form) {
-            form.addEventListener('submit', function (event) {
-                event.preventDefault();
+        var form = this;
+        var $form = $(form);
+        var $button = $form.find('.at-badri-submit');
+        var originalButtonText = $button.text();
+        var formData = new FormData(form);
 
-                var submitButton = form.querySelector('.at-badri-submit');
-                var originalText = submitButton ? submitButton.textContent : '';
-                var formData = new FormData(form);
+        formData.set('action', 'islami_dawa_badri_member_submit_ajax');
 
-                formData.set('action', 'islami_dawa_badri_member_submit_ajax');
+        $button.prop('disabled', true).addClass('is-loading');
+        $button.find('span').text(getMessage('processing', 'Processing...'));
 
-                if (submitButton) {
-                    submitButton.disabled = true;
-                    submitButton.classList.add('at-badri-submit-loading');
-                    submitButton.textContent = getMessage('processing', 'তথ্য জমা হচ্ছে...');
+        $.ajax({
+            url: window.islamiDawaBadriMembers ? window.islamiDawaBadriMembers.ajaxUrl : '',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response && response.success) {
+                    form.reset();
+                    showAlert('success', getMessage('success', 'Success'), response.data && response.data.message ? response.data.message : getMessage('success', 'Submitted successfully.'));
+                    return;
                 }
 
-                fetch(window.IslamiDawaBadriMembers.ajaxUrl, {
-                    method: 'POST',
-                    credentials: 'same-origin',
-                    body: formData
-                })
-                    .then(function (response) {
-                        return response.json();
-                    })
-                    .then(function (data) {
-                        if (data && data.success) {
-                            form.reset();
-                            showAlert(
-                                'success',
-                                'সফল',
-                                data.data && data.data.message ? data.data.message : getMessage('success', 'আপনার তথ্য সফলভাবে জমা হয়েছে।')
-                            );
-                            return;
-                        }
-
-                        showAlert(
-                            'error',
-                            'দুঃখিত',
-                            data && data.data && data.data.message ? data.data.message : getMessage('error', 'দুঃখিত, তথ্য জমা দেওয়া যায়নি।')
-                        );
-                    })
-                    .catch(function () {
-                        showAlert('error', 'দুঃখিত', getMessage('error', 'দুঃখিত, তথ্য জমা দেওয়া যায়নি।'));
-                    })
-                    .finally(function () {
-                        if (submitButton) {
-                            submitButton.disabled = false;
-                            submitButton.classList.remove('at-badri-submit-loading');
-                            submitButton.textContent = originalText;
-                        }
-                    });
-            });
+                showAlert('error', getMessage('error', 'Error'), response && response.data && response.data.message ? response.data.message : getMessage('error', 'Something went wrong.'));
+            },
+            error: function () {
+                showAlert('error', getMessage('error', 'Error'), getMessage('error', 'Something went wrong.'));
+            },
+            complete: function () {
+                $button.prop('disabled', false).removeClass('is-loading');
+                $button.find('span').text(originalButtonText);
+            }
         });
     });
-}());
+})(jQuery);
