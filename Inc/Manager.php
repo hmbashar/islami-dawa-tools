@@ -20,7 +20,7 @@ use IslamiDawaTools\Admin\AdminManager;
 use IslamiDawaTools\Frontend\Frontend;
 use IslamiDawaTools\Api\YouTube\YouTubeSyncManager;
 use IslamiDawaTools\Cron\CronManager;
-use IslamiDawaTools\Inc\BadriMembers;
+use IslamiDawaTools\BadriMembers;
 
 /**
  * The manager class for Islami Dawa Tools.

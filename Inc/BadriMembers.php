@@ -1,5 +1,5 @@
 <?php
-namespace IslamiDawaTools\Inc;
+namespace IslamiDawaTools;
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
